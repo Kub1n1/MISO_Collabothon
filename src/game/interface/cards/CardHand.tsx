@@ -8,30 +8,30 @@ import './cards.css';
 const MOCK_ROUND_CARDS: CardData[] = [
   {
     id: 'mand-1',
-    tag: 'Wydarzenie',
+    tag: 'Life event',
     tagColor: 'is-danger',
-    title: 'Awaria starego Rubina!',
+    title: 'The old Rubin TV has broken down!',
     fullDesc:
-      'Kineskop odmówił posłuszeństwa tuż przed niedzielnym filmem. Nie ma wyjścia – trzeba zorganizować nowy odbiornik.',
+      "The picture tube gave out just before Sunday movie night. There's no choice - you need to get a new TV.",
     targetProp: 'tv',
     isMandatory: true,
   },
   {
     id: 'opt-1',
-    tag: 'Remont',
+    tag: 'Renovation',
     tagColor: 'is-warning',
-    title: 'Boazeria precz!',
+    title: 'Goodbye, wood paneling!',
     fullDesc:
-      'Koniec z ciemną boazerią z lat 90. Wjeżdża gładź gipsowa i modny kolor farby z katalogu.',
+      "Enough of the dark 90s wood paneling. It's time for smooth plaster and a trendy paint color from the catalog.",
     targetProp: 'wall',
   },
   {
     id: 'opt-2',
-    tag: 'Wygoda',
+    tag: 'Comfort',
     tagColor: 'is-success',
-    title: 'Nowy wypoczynek',
+    title: 'A comfier sofa',
     fullDesc:
-      'Stara wersalka pamiętająca jeszcze stan wojenny ustępuje miejsca wygodnemu narożnikowi.',
+      'The old pull-out sofa, a relic from the 1980s, is making way for a comfortable new sectional.',
     targetProp: 'couch',
   },
 ];

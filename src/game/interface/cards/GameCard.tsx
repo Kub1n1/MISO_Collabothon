@@ -29,7 +29,7 @@ export function GameCard({
           >
             <div className="card-symbol">{isMandatory ? '!' : '?'}</div>
             <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
-              {isMandatory ? 'Obowiązkowa' : 'Szansa'}
+              {isMandatory ? 'Mandatory' : 'Chance'}
             </span>
           </div>
         )}
@@ -77,7 +77,7 @@ export function GameCard({
                   className={`button ${isMandatory ? 'is-danger' : 'is-primary'} is-fullwidth`}
                   onClick={() => onPlay(card)}
                 >
-                  {isMandatory ? 'Przyjmij na klatę' : 'Zagraj kartę'}
+                  {isMandatory ? 'Accept this event' : 'Play card'}
                 </button>
 
                 {!isMandatory && (
@@ -85,7 +85,7 @@ export function GameCard({
                     className="button is-dark is-small is-fullwidth"
                     onClick={onClose}
                   >
-                    Odłóż z powrotem
+                    Put back
                   </button>
                 )}
               </div>
