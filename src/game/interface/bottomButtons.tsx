@@ -1,26 +1,20 @@
 import React from 'react';
-import { GameState, useGameStore } from '../../store';
-import { Room } from '../scenes/Room';
-import { IRefPhaserGame } from '../../PhaserGame';
+import { useGameStore } from '../../store';
+import type { IRefPhaserGame } from '../../PhaserGame';
 import styles from './bottomButtons.module.css';
 import { CardHand } from './cards/CardHand';
 
-const BottomButtons: React.FC<Props> = ({ phaserRef }) => {    
-    const gameStore:GameState = useGameStore.getState()
-    
-    const rebuildRoom = () => {
-        if(phaserRef.current)
-        {     
-            const scene = phaserRef.current.scene as Room;
-            if (scene){
-                gameStore.incrementProp('wall');
-            }
-        }
+interface Props {
+    phaserRef: React.RefObject<IRefPhaserGame | null>;
+}
 
-    }
-
+const BottomButtons: React.FC<Props> = ({ phaserRef: _phaserRef }) => {
+    const advanceTurn = useGameStore((state) => state.advanceTurn);
+    const canAdvance = useGameStore(
+        (state) => state.age < state.retirementAge && state.isMandatoryEventResolved
+    );
     const nextStep = () => {
-        gameStore.advanceTurn();
+        advanceTurn();
     }
 
     return(
@@ -34,17 +28,13 @@ const BottomButtons: React.FC<Props> = ({ phaserRef }) => {
                         <button 
                             className="button is-primary"
                             onClick={nextStep}
-                            disabled={gameStore.isNextStepAvailable === false}
+                            disabled={!canAdvance}
                             >Next move</button>
                     </div>
                 </div>
             </div>
         </div>
     )
-}
-
-interface Props {
-    phaserRef: React.RefObject<IRefPhaserGame | null>;
 }
 
 export default BottomButtons;

@@ -25,21 +25,21 @@ export interface SavingsStrategy {
   stocks: number;  // np. 5 (%)
 }
 
-export interface Event{
+export interface GameEvent {
   id: number;
   isMandatory: boolean;
   age: number;
   title: string;
   description: string;
   effect: {
-    roomPropsChange: RoomProps;
-    savingChange: SavingsBuckets;
+    roomPropsChange: Partial<RoomProps>;
+    savingChange: Partial<SavingsBuckets>;
   };
 }
 
 export interface TurnEvents {
-  mandatory: Event; 
-  optional: Event[];
+  mandatory: GameEvent | null;
+  optional: GameEvent[];
 }
 
 export interface GameState {
@@ -53,10 +53,12 @@ export interface GameState {
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
   roomProps: RoomProps;
-  eventsMandatory: Event[];
-  eventsOptional: Event[];
+  eventsMandatory: GameEvent[];
+  eventsOptional: GameEvent[];
   turnEvents: TurnEvents;
+  isMandatoryEventResolved: boolean;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
+  resolveMandatoryEvent: (eventId: number) => boolean;
   updatePsyche: (value: number) => void;
   updateMonthlyInvestment: (amount: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
@@ -79,22 +81,28 @@ const STEP = 5;
 const START_AGE = 20;
 const INITIAL_MONTHLY_INCOME = 3000;
 const INITIAL_SPOUSE_MONTHLY_INCOME = 3000;
+const SAVING_EVENT_AMOUNT = 1000;
 
 function randomMonthlyFixedExpenses(householdIncome: number) {
   const percentage = 20 + Math.floor(Math.random() * 26);
   return Math.round(householdIncome * (percentage / 100));
 }
 
+function getRandomMandatoryEvent(events: GameEvent[], age: number) {
+  const eligibleEvents = events.filter((event) => event.age === age);
+  const randomIndex = Math.floor(Math.random() * eligibleEvents.length);
+  return eligibleEvents[randomIndex] ?? null;
+}
+
 
 export const useGameStore = create<GameState>()(
   subscribeWithSelector(
     immer((set) => {
-      const eventsMandatory:Event[] = eventLive
-        .filter((e) => e.isMandatory)
-        .map((e:any, i:number)  => ({ ...e, id: i }));
-      const eventsOptional:Event[] = eventLive
-        .filter((e) => !e.isMandatory)
-        .map((e:any, i:number)  => ({ ...e, id: i }));
+      const allEvents: GameEvent[] = eventLive.map((event, id) => ({ ...event, id }));
+      const eventsMandatory = allEvents.filter((event) => event.isMandatory);
+      const eventsOptional = allEvents.filter((event) => !event.isMandatory);
+      const initialMandatoryEvent = getRandomMandatoryEvent(eventsMandatory, START_AGE);
+
       return{
       age: 20,
       retirementAge: 65,
@@ -126,14 +134,42 @@ export const useGameStore = create<GameState>()(
       },
       eventsMandatory: eventsMandatory,
       eventsOptional: eventsOptional,
+      isMandatoryEventResolved: initialMandatoryEvent === null,
       turnEvents: {
-        mandatory: eventsMandatory.find((e) => e.age === START_AGE)!,
-        optional: eventsOptional.filter((e) => e.age === START_AGE)!,
+        mandatory: initialMandatoryEvent,
+        optional: eventsOptional.filter((event) => event.age === START_AGE),
       },
       incrementProp: (propName, amount = 1) =>
         set((state) => {
           state.roomProps[propName] += amount;
         }),
+      resolveMandatoryEvent: (eventId) => {
+        let resolved = false;
+
+        set((state) => {
+          const event = state.turnEvents.mandatory;
+          if (!event || event.id !== eventId || state.isMandatoryEventResolved) return;
+
+          for (const prop of Object.keys(event.effect.roomPropsChange) as (keyof RoomProps)[]) {
+            state.roomProps[prop] = Math.max(
+              0,
+              state.roomProps[prop] + (event.effect.roomPropsChange[prop] ?? 0)
+            );
+          }
+
+          for (const bucket of Object.keys(event.effect.savingChange) as (keyof SavingsBuckets)[]) {
+            const change = Math.round(
+              (event.effect.savingChange[bucket] ?? 0) * SAVING_EVENT_AMOUNT
+            );
+            state.savings[bucket] += change;
+          }
+
+          state.isMandatoryEventResolved = true;
+          resolved = true;
+        });
+
+        return resolved;
+      },
       updatePsyche: (value) =>
         set((state) => {
           state.psyche = Math.max(0, Math.min(100, value));
@@ -153,10 +189,12 @@ export const useGameStore = create<GameState>()(
         })),
       isNextTurnAvailable: () => {
         const state = useGameStore.getState() as GameState;
-        return state.age < state.retirementAge;
+        return state.age < state.retirementAge && state.isMandatoryEventResolved;
       },
       advanceTurn: () =>
         set((state) => {
+          if (state.age >= state.retirementAge || !state.isMandatoryEventResolved) return;
+
           // Przykład naliczenia za 1 rok (12 miesięcy)
           const yearlyIncome = state.monthlyInvestment * 12 * STEP;
           const addedSock = yearlyIncome * (state.strategy.sock / 100);
@@ -166,6 +204,7 @@ export const useGameStore = create<GameState>()(
           const monthlyFixedExpenses = randomMonthlyFixedExpenses(householdIncome);
           const availableAfterFixedExpenses = householdIncome - monthlyFixedExpenses;
           const age = Math.min(state.retirementAge, state.age + STEP)
+          const mandatoryEvent = getRandomMandatoryEvent(state.eventsMandatory, age);
 
           return {
             age,
@@ -176,9 +215,10 @@ export const useGameStore = create<GameState>()(
               account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek
               stocks: Math.round((state.savings.stocks + addedStocks) * 1.08),   // +8% zwrotu
             },
+            isMandatoryEventResolved: mandatoryEvent === null,
             turnEvents: {
-              mandatory: state.eventsMandatory.find((e) => e.age === age)!,
-              optional: state.eventsOptional.filter((e) => e.age === age)!,
+              mandatory: mandatoryEvent,
+              optional: state.eventsOptional.filter((event) => event.age === age),
             },
           };
         }),

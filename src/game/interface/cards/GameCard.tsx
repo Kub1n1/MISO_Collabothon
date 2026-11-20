@@ -1,18 +1,20 @@
 import { createPortal } from 'react-dom';
-import { CardData } from '../../../types';
+import type { GameEvent } from '../../../store';
 
 interface GameCardProps {
-  card: Event;
+  card: GameEvent;
   isMandatory: boolean;
+  isResolved?: boolean;
   isExpanded: boolean;
-  onSelect: (id: string) => void;
+  onSelect: (id: number) => void;
   onClose: () => void;
-  onPlay: (card: CardData) => void;
+  onPlay: (card: GameEvent) => void;
 }
 
 export function GameCard({
   card,
   isMandatory,
+  isResolved = false,
   isExpanded,
   onSelect,
   onClose,
@@ -25,12 +27,17 @@ export function GameCard({
       <div className="card-slot">
         {!isExpanded && (
           <div
-            className={`game-card is-facedown ${isMandatory ? 'is-mandatory' : ''}`}
-            onClick={() => onSelect(card.id)}
+            className={`game-card is-facedown ${isMandatory ? 'is-mandatory' : ''} ${isResolved ? 'is-resolved' : ''}`}
+            aria-disabled={isResolved}
+            onClick={() => {
+              if (!isResolved) onSelect(card.id);
+            }}
           >
-            <div className="card-symbol">{isMandatory ? '!' : '?'}</div>
+            <div className="card-symbol">
+              {isResolved ? '✓' : isMandatory ? '!' : '?'}
+            </div>
             <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
-              {isMandatory ? 'Mandatory' : 'Chance'}
+              {isResolved ? 'Completed' : isMandatory ? 'Mandatory' : 'Chance'}
             </span>
           </div>
         )}
@@ -55,8 +62,8 @@ export function GameCard({
             >
               <div>
                 <div className="is-flex is-justify-content-space-between is-align-items-center mb-3">
-                  <span className={`tag ${card.tagColor} is-light`}>
-                    {card.tag}
+                  <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
+                    {isMandatory ? 'Mandatory event' : 'Optional event'}
                   </span>
 
                   {/* Krzyżyk tylko dla kart nieobowiązkowych */}
@@ -70,7 +77,7 @@ export function GameCard({
                 </div>
 
                 <h3 className="title is-4 has-text-white mb-3">{card.title}</h3>
-                <p className="is-size-6 has-text-grey-lighter">{card.fullDesc}</p>
+                <p className="is-size-6 has-text-grey-lighter">{card.description}</p>
               </div>
 
               <div className="buttons is-centered mt-4">
