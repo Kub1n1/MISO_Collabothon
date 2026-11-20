@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import EventManager from './game/events/eventManager';
+import EventManager, { type TurnEvents } from './game/events/eventManager';
 
 export interface RoomProps {
     wall: number;
@@ -25,21 +25,6 @@ export interface SavingsStrategy {
   stocks: number;  // np. 5 (%)
 }
 
-export interface Event{
-  age: number;
-  title: string;
-  description: string;
-  effect: {
-    roomPropsChange: RoomProps;
-    savingChange: SavingsBuckets;
-  };
-}
-
-export interface TurnEvents {
-  mandatory: Event; 
-  optional: Event[];
-}
-
 export interface GameState {
   age: number;
   retirementAge: number;
@@ -54,7 +39,7 @@ export interface GameState {
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
   advanceTurn: () => void; 
   isNextTurnAvailable: () => boolean;
-  getEventForTurn: (age: number) => TurnEvents;
+  getEventForTurn: (age: number) => TurnEvents | undefined;
   transferSavings: (
     from: keyof SavingsBuckets,
     to: keyof SavingsBuckets,
@@ -135,14 +120,7 @@ export const useGameStore = create<GameState>()(
             },
           };
         }),
-      getEventForTurn: (age: number) => {
-        return { 
-          mandatory: EventManager.getEventForTurn(age), 
-          optional: [] 
-        } as TurnEvents;
-      }
-    })),
-    
+      getEventForTurn: (age: number) => EventManager.getEventForTurn(age),
       transferSavings: (from, to, amount): SavingsTransferResult => {
         if (from === to) return 'same-bucket';
         if (!Number.isInteger(amount) || amount <= 0) return 'invalid-amount';
