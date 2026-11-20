@@ -68,6 +68,7 @@ export interface GameState {
     to: keyof SavingsBuckets,
     amount: number
   ) => SavingsTransferResult;
+  canAdvanceTurn: () => boolean;
 }
 
 export type SavingsTransferResult =
@@ -238,6 +239,10 @@ export const useGameStore = create<GameState>()(
 
         return result;
       },
+      canAdvanceTurn: () => {
+        const state = useGameStore.getState() as GameState;
+        return state.age < state.retirementAge && state.isMandatoryEventResolved;
+      }
     }})
   )
 );
