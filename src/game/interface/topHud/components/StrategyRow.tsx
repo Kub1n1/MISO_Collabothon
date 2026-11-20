@@ -42,7 +42,7 @@ export function StrategyRow({
             ?
           </button>
         </div>
-        <span className="has-text-weight-bold is-size-7 has-text-success">
+        <span className={`has-text-weight-bold is-size-7 ${currentBalance < 0 ? 'has-text-danger' : 'has-text-success'}`}>
           {formatPLN(currentBalance)}
         </span>
       </div>

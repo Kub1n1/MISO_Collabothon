@@ -43,7 +43,9 @@ export function SavingsDropdown({ isOpen, onToggle, onClose }: SavingsDropdownPr
             }}
           >
             <span className="has-text-grey-light mr-2">Savings:</span>
-            <span className="has-text-success has-text-weight-bold mr-2">
+            <span className={`${
+              totalSavings < 0 ? 'has-text-danger' : 'has-text-success'
+            } has-text-weight-bold mr-2`}>
               {formatPLN(totalSavings)}
             </span>
             <span className="tag is-success is-light is-rounded mr-1">
