@@ -19,12 +19,23 @@ const BottomButtons: React.FC<Props> = ({ phaserRef }) => {
 
     }
 
+    const nextStep = () => {
+        gameStore.advanceTurn();
+    }
+
     return(
         <div className={styles.BottomButtons}>
             <div className='box glass-box'>
                 <div className='columns is-centered'>
                     <div className='column is-flex is-justify-content-center'>
                         <CardHand />
+                    </div>
+                    <div className='column is-narrow'>
+                        <button 
+                            className="button is-primary"
+                            onClick={nextStep}
+                            disabled={gameStore.isNextStepAvailable === false}
+                            >Next move</button>
                     </div>
                 </div>
             </div>
