@@ -1,0 +1,116 @@
+/* Slot na dole ekranu - trzyma miejsce nawet gdy karta wyfrunie */
+.card-slot {
+  position: relative;
+  width: 220px;
+  height: 150px;
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5); /* Efekt wgłębienia czekającego na kartę */
+  transition: border-color 0.2s ease;
+}
+
+.card-slot:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Karta w stanie spoczynku (leży w swoim slocie) */
+.game-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  /* Styl półprzezroczystego szkła (kompatybilny z Bulmą) */
+  background: rgba(25, 28, 36, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  color: #fff;
+
+  /* Płynna animacja wylotu i powrotu */
+  transition: 
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+  z-index: 20;
+}
+
+/* Lekkie uniesienie po najechaniu myszką, gdy karta jest jeszcze w dłoni */
+.game-card:not(.is-expanded):hover {
+  transform: translateY(-14px) scale(1.03);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Karta po kliknięciu - wyfruwa na środek ekranu i rośnie */
+.game-card.is-expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  height: 440px;
+  transform: translate(-50%, -50%);
+  cursor: default;
+  z-index: 100;
+  padding: 1.75rem;
+  background: rgba(20, 22, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+}
+
+/* Przyciemnienie tła (Phasera), gdy karta jest otwarta na środku */
+.card-backdrop {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(2px);
+  z-index: 90;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Rewers zakrytej karty (styl Eurobiznes / Szansa) */
+.game-card.is-facedown {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at center, rgba(45, 52, 70, 0.9) 0%, rgba(20, 23, 32, 0.95) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.game-card.is-facedown .card-symbol {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  margin-bottom: 0.4rem;
+}
+
+/* Wyróżnienie karty obowiązkowej po lewej stronie */
+.game-card.is-facedown.is-mandatory {
+  background: radial-gradient(circle at center, rgba(110, 35, 45, 0.9) 0%, rgba(45, 15, 20, 0.95) 100%);
+  border: 2px solid #ff3860;
+  box-shadow: 0 0 20px rgba(255, 56, 96, 0.35);
+}
+
+.game-card.is-facedown.is-mandatory .card-symbol {
+  color: #ffdd57;
+}
+
+/* Separator między kartą obowiązkową a resztą ręki */
+.mandatory-divider {
+  width: 2px;
+  height: 110px;
+  background: rgba(255, 255, 255, 0.15);
+  align-self: center;
+  margin: 0 0.5rem;
+}
