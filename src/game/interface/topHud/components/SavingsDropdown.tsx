@@ -1,11 +1,15 @@
-import { useState } from 'react';
 import { useGameStore } from '../../../../store';
 import { formatPLN } from '../formatPLN';
 import { strategyOptions } from '../strategyOptions';
 import { StrategyRow } from './StrategyRow';
 
-export function SavingsDropdown() {
-  const [isWalletOpen, setIsWalletOpen] = useState(false);
+interface SavingsDropdownProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}
+
+export function SavingsDropdown({ isOpen, onToggle, onClose }: SavingsDropdownProps) {
 
   const monthlyIncome = useGameStore((s) => s.monthlyIncome);
   const spouseMonthlyIncome = useGameStore((s) => s.spouseMonthlyIncome);
@@ -24,13 +28,14 @@ export function SavingsDropdown() {
 
   return (
     <div className="level-item">
-      <div className={`dropdown is-right ${isWalletOpen ? 'is-active' : ''}`}>
+      <div className={`dropdown is-right ${isOpen ? 'is-active' : ''}`}>
         <div className="dropdown-trigger">
           <button
             className="button is-dark is-small"
             aria-haspopup="true"
             aria-controls="savings-menu"
-            onClick={() => setIsWalletOpen((prev) => !prev)}
+            aria-expanded={isOpen}
+            onClick={onToggle}
             style={{
               border: '1px solid rgba(255, 255, 255, 0.2)',
               height: '2rem',
@@ -43,7 +48,7 @@ export function SavingsDropdown() {
             <span className="tag is-success is-light is-rounded mr-1">
               {totalSavedPercent}% of investment budget
             </span>
-            <span>{isWalletOpen ? '▴' : '▾'}</span>
+            <span>{isOpen ? '▴' : '▾'}</span>
           </button>
         </div>
 
@@ -51,7 +56,11 @@ export function SavingsDropdown() {
           className="dropdown-menu"
           id="savings-menu"
           role="menu"
-          style={{ width: '360px' }}
+          style={{
+            width: 'min(360px, calc(100vw - 24px))',
+            maxHeight: 'calc(100vh - 130px)',
+            overflowY: 'auto',
+          }}
         >
           <div
             className="dropdown-content p-4 has-background-dark has-text-light"
@@ -66,7 +75,8 @@ export function SavingsDropdown() {
               </span>
               <button
                 className="delete is-small"
-                onClick={() => setIsWalletOpen(false)}
+                aria-label="Close"
+                onClick={onClose}
               />
             </div>
 

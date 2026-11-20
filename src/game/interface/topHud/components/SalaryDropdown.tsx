@@ -1,10 +1,14 @@
-import { useState } from 'react';
 import { useGameStore } from '../../../../store';
 import { formatPLN } from '../formatPLN';
 import styles from './salaryDropdown.module.css';
 
-export function SalaryDropdown() {
-  const [isOpen, setIsOpen] = useState(false);
+interface SalaryDropdownProps {
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}
+
+export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProps) {
   const monthlyIncome = useGameStore((s) => s.monthlyIncome);
   const spouseMonthlyIncome = useGameStore((s) => s.spouseMonthlyIncome);
   const monthlyFixedExpenses = useGameStore((s) => s.monthlyFixedExpenses);
@@ -27,7 +31,7 @@ export function SalaryDropdown() {
             aria-haspopup="true"
             aria-controls="salary-menu"
             aria-expanded={isOpen}
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={onToggle}
             style={{ height: '2rem' }}
           >
             <span className="has-text-weight-semibold mr-2">Income</span>
@@ -40,7 +44,11 @@ export function SalaryDropdown() {
           className="dropdown-menu"
           id="salary-menu"
           role="menu"
-          style={{ width: '320px' }}
+          style={{
+            width: 'min(320px, calc(100vw - 24px))',
+            maxHeight: 'calc(100vh - 130px)',
+            overflowY: 'auto',
+          }}
         >
           <div
             className="dropdown-content p-4 has-background-dark has-text-light"
@@ -56,7 +64,7 @@ export function SalaryDropdown() {
               <button
                 className="delete is-small"
                 aria-label="Close"
-                onClick={() => setIsOpen(false)}
+                onClick={onClose}
               />
             </div>
 
