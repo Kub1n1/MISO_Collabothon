@@ -1,0 +1,42 @@
+import { formatPLN } from '../formatPLN';
+import { SavingsDropdown } from './SavingsDropdown';
+
+interface HudStatsProps {
+  age: number;
+  retirementAge: number;
+  monthlyIncome: number;
+}
+
+export function HudStats({
+  age,
+  retirementAge,
+  monthlyIncome,
+}: HudStatsProps) {
+  return (
+    <div className="level is-mobile">
+      <div className="level-left">
+        <div className="level-item">
+          <div className="tags has-addons are-medium">
+            <span className="tag is-dark">Wiek</span>
+            <span className="tag is-primary has-text-weight-bold">
+              {age} / {retirementAge} lat
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="level-right" style={{ gap: '0.75rem' }}>
+        <div className="level-item">
+          <div className="tags has-addons are-medium">
+            <span className="tag is-dark">Wypłata</span>
+            <span className="tag is-light has-text-weight-semibold">
+              {formatPLN(monthlyIncome)} / mies.
+            </span>
+          </div>
+        </div>
+
+        <SavingsDropdown />
+      </div>
+    </div>
+  );
+}
