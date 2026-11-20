@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import { useGameStore } from '../../../../store';
 import { formatPLN } from '../formatPLN';
+import styles from './salaryDropdown.module.css';
 
 export function SalaryDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const monthlyIncome = useGameStore((s) => s.monthlyIncome);
   const spouseMonthlyIncome = useGameStore((s) => s.spouseMonthlyIncome);
+  const monthlyFixedExpenses = useGameStore((s) => s.monthlyFixedExpenses);
   const monthlyInvestment = useGameStore((s) => s.monthlyInvestment);
   const updateMonthlyInvestment = useGameStore((s) => s.updateMonthlyInvestment);
   const totalHouseholdIncome = monthlyIncome + spouseMonthlyIncome;
+  const availableAfterFixedExpenses = totalHouseholdIncome - monthlyFixedExpenses;
+  const personalAndHobbyExpenses = availableAfterFixedExpenses - monthlyInvestment;
+  const investmentPercentage =
+    availableAfterFixedExpenses > 0
+      ? (monthlyInvestment / availableAfterFixedExpenses) * 100
+      : 0;
 
   return (
     <div className="level-item">
@@ -61,22 +69,42 @@ export function SalaryDropdown() {
                 <span className="has-text-grey-light">Wife's monthly income</span>
                 <span>{formatPLN(spouseMonthlyIncome)} / month</span>
               </div>
+              <div className="is-flex is-justify-content-space-between mt-2">
+                <span className="has-text-grey-light">Fixed monthly expenses</span>
+                <span>{formatPLN(monthlyFixedExpenses)} / month</span>
+              </div>
             </div>
             <p className="is-size-7 has-text-grey-light mb-2">
-              Monthly investment amount (max. {formatPLN(totalHouseholdIncome)})
+              Monthly investment amount (max. {formatPLN(availableAfterFixedExpenses)})
             </p>
             <input
               type="range"
               min={0}
-              max={totalHouseholdIncome}
-              step={50}
+              max={availableAfterFixedExpenses}
+              step={1}
               value={monthlyInvestment}
               aria-label="Monthly investment amount"
               onChange={(event) => updateMonthlyInvestment(Number(event.target.value))}
-              style={{ width: '100%', cursor: 'pointer' }}
+              className={styles.investmentBudgetSlider}
+              style={{
+                width: '100%',
+                cursor: 'pointer',
+                background: `linear-gradient(to right, #3273dc ${investmentPercentage}%, #48c78e ${investmentPercentage}%)`,
+              }}
             />
-            <div className="has-text-right has-text-weight-bold has-text-primary">
-              {formatPLN(monthlyInvestment)} / month
+            <div className="is-flex is-justify-content-space-between is-size-7 mt-2">
+              <div>
+                <span className="has-text-info">Monthly investment amount</span>
+                <div className="has-text-weight-bold has-text-info">
+                  {formatPLN(monthlyInvestment)} / month
+                </div>
+              </div>
+              <div className="has-text-right">
+                <span className="has-text-success">Monthly personal and hobby expenses</span>
+                <div className="has-text-weight-bold has-text-success">
+                  {formatPLN(personalAndHobbyExpenses)} / month
+                </div>
+              </div>
             </div>
           </div>
         </div>

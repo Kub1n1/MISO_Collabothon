@@ -1,0 +1,35 @@
+.investmentBudgetSlider {
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.investmentBudgetSlider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.investmentBudgetSlider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.investmentBudgetSlider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -4px;
+  border: 2px solid #00d1b2;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.investmentBudgetSlider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #00d1b2;
+  border-radius: 50%;
+  background: #fff;
+}

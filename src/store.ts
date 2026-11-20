@@ -29,6 +29,7 @@ export interface GameState {
   retirementAge: number;
   monthlyIncome: number;
   spouseMonthlyIncome: number;
+  monthlyFixedExpenses: number;
   monthlyInvestment: number;
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
@@ -41,6 +42,13 @@ export interface GameState {
 }
 
 const STEP = 5;
+const INITIAL_MONTHLY_INCOME = 3000;
+const INITIAL_SPOUSE_MONTHLY_INCOME = 3000;
+
+function randomMonthlyFixedExpenses(householdIncome: number) {
+  const percentage = 20 + Math.floor(Math.random() * 26);
+  return Math.round(householdIncome * (percentage / 100));
+}
 
 
 export const useGameStore = create<GameState>()(
@@ -48,8 +56,11 @@ export const useGameStore = create<GameState>()(
     immer((set) => ({
       age: 25,
       retirementAge: 65,
-      monthlyIncome: 3000,
-      spouseMonthlyIncome: 3000,
+      monthlyIncome: INITIAL_MONTHLY_INCOME,
+      spouseMonthlyIncome: INITIAL_SPOUSE_MONTHLY_INCOME,
+      monthlyFixedExpenses: randomMonthlyFixedExpenses(
+        INITIAL_MONTHLY_INCOME + INITIAL_SPOUSE_MONTHLY_INCOME
+      ),
       monthlyInvestment: 3000,
       savings: {
         sock: 0,
@@ -76,8 +87,9 @@ export const useGameStore = create<GameState>()(
         }),
       updateMonthlyInvestment: (amount) =>
         set((state) => {
-          const householdIncome = state.monthlyIncome + state.spouseMonthlyIncome;
-          state.monthlyInvestment = Math.max(0, Math.min(householdIncome, amount));
+          const availableAfterFixedExpenses =
+            state.monthlyIncome + state.spouseMonthlyIncome - state.monthlyFixedExpenses;
+          state.monthlyInvestment = Math.max(0, Math.min(availableAfterFixedExpenses, amount));
         }),
       updateStrategy: (bucket, percent) =>
         set((state) => ({
@@ -97,9 +109,14 @@ export const useGameStore = create<GameState>()(
           const addedSock = yearlyIncome * (state.strategy.sock / 100);
           const addedAccount = yearlyIncome * (state.strategy.account / 100);
           const addedStocks = yearlyIncome * (state.strategy.stocks / 100);
+          const householdIncome = state.monthlyIncome + state.spouseMonthlyIncome;
+          const monthlyFixedExpenses = randomMonthlyFixedExpenses(householdIncome);
+          const availableAfterFixedExpenses = householdIncome - monthlyFixedExpenses;
 
           return {
             age: Math.min(state.retirementAge, state.age + STEP),
+            monthlyFixedExpenses,
+            monthlyInvestment: Math.min(state.monthlyInvestment, availableAfterFixedExpenses),
             savings: {
               sock: Math.round(state.savings.sock + addedSock),
               account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek
