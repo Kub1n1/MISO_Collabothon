@@ -9,7 +9,6 @@ const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     window: -1,
     car: -1,
     couch: 1,
-    player: 0,
 };
 
 const PLAYER_AGE_START = 25;
