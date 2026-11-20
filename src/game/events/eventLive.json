@@ -1,8 +1,8 @@
 [
     {
         "age": 20,
-        "title": "Kaucja za akademik",
-        "description": "Pani z administracji uśmiecha się szeroko i prosi o kaucję. W cenie: pokój 3×4 m z widokiem na śmietnik i współlokator, który ćwiczy na perkusji o 2 w nocy.",
+        "title": "Dorm Sweet Dorm",
+        "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
         "effect": {
             "roomPropsChange": {
                 "wall": -1,
@@ -22,8 +22,8 @@
     },
     {
         "age": 20,
-        "title": "Stypendium naukowe!",
-        "description": "Nocki nad statystyką jednak się opłaciły. Dziekanat przelewa stypendium. Pytanie tylko, czy przeżyje pierwszy weekend.",
+        "title": "Scholarship!",
+        "description": "The university pays YOU. Enjoy it, this never happens again.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -43,8 +43,8 @@
     },
     {
         "age": 20,
-        "title": "Mem roku",
-        "description": "Twój mem o procencie składanym wygrywa konkurs Koła Naukowego Finansów. Nagroda: pół pensji i sława na całym wydziale (3 osoby, w tym prowadzący).",
+        "title": "Viral Finance Meme",
+        "description": "Your compound-interest meme went viral. 3 likes, one from your mum. Small prize, big ego.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -64,8 +64,8 @@
     },
     {
         "age": 25,
-        "title": "Pierwsza wypłata, ostatnie tchnienie Rubina",
-        "description": "Dostajesz pierwszą prawdziwą pracę: umowa, ZUS i kawa z ekspresu o smaku płynu do chłodnicy. W tym samym tygodniu Rubin, który pamiętał Mundial '82, robi ostatnie „pyk” i gaśnie na zawsze.",
+        "title": "RIP Old TV",
+        "description": "First real job! Celebrated by your 1982 TV exploding mid-movie.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -85,8 +85,8 @@
     },
     {
         "age": 25,
-        "title": "Cinquecento od wujka Zdziśka",
-        "description": "„Nie bite, nie malowane, Niemiec płakał, jak sprzedawał” – zapewnia wujek. Płacisz gotówką, bez kredytu. Kolor: rdza metalik.",
+        "title": "Uncle's Rust Bucket",
+        "description": "\"Only driven to church on Sundays.\" By a rally driver. Paid in cash, no loan.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -106,8 +106,8 @@
     },
     {
         "age": 25,
-        "title": "Nowiutkie auto na raty",
-        "description": "Salon, zapach nowej tapicerki i sprzedawca, który mówi „to tylko 999 zł miesięcznie”. Przez najbliższe lata „tylko” będzie Ci towarzyszyć przy każdej wypłacie.",
+        "title": "Shiny New Car on Credit",
+        "description": "\"Only 999 a month!\" Only. For. Five. Years.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -127,8 +127,8 @@
     },
     {
         "age": 30,
-        "title": "Ślub!",
-        "description": "Wesele kosztuje tyle co mały samochód, wujek Zdzisiek tańczy „Ona tańczy dla mnie” po raz siódmy, a koperty pokrywają prawie wszystko. Prawie.",
+        "title": "Just Married!",
+        "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
         "effect": {
             "roomPropsChange": {
                 "wall": 1,
@@ -148,8 +148,8 @@
     },
     {
         "age": 30,
-        "title": "Fajerwerki i fontanna czekolady",
-        "description": "Skoro raz się żyje, to z pokazem sztucznych ogni i fontanną czekolady. Goście zachwyceni, konto mniej.",
+        "title": "Chocolate Fountain Wedding",
+        "description": "Fireworks, chocolate fountain, ice swans. The guests loved it. Your savings didn't.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -169,8 +169,8 @@
     },
     {
         "age": 30,
-        "title": "Grill w ogródku zamiast sali",
-        "description": "Kiełbaski, sałatka babci i lampki z Pepco. Najlepsza impreza w rodzinie, a z kopert zostaje jeszcze nadwyżka na przyszłe mieszkanie.",
+        "title": "Backyard BBQ Wedding",
+        "description": "Sausages, fairy lights, zero debt. Best party ever, and money left over.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -190,8 +190,8 @@
     },
     {
         "age": 35,
-        "title": "Bocian przyleciał",
-        "description": "Na świecie pojawia się mały człowiek o zaskakująco dużych potrzebach: pieluchy, wózek i sen jako dobro luksusowe. Okazuje się też, że pokój dziecięcy to dawny składzik na rowery – czas na remont.",
+        "title": "Surprise, It's a Baby!",
+        "description": "A tiny human with a huge budget. Sleep is now a luxury product.",
         "effect": {
             "roomPropsChange": {
                 "wall": 1,
@@ -211,8 +211,8 @@
     },
     {
         "age": 35,
-        "title": "Premia roczna",
-        "description": "Szef twierdzi, że Twój raport był „przełomowy”. Nikt go nie przeczytał, ale premia przyszła naprawdę.",
+        "title": "Annual Bonus",
+        "description": "Nobody read your report. They called it \"ground-breaking\" anyway. Cha-ching!",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -232,8 +232,8 @@
     },
     {
         "age": 35,
-        "title": "Remont z tutoriali na YouTube",
-        "description": "Kafelki kładziesz sam, z filmikiem na 1,5× prędkości. Oszczędzasz na ekipie, ale fuga ma swoje zdanie, a Twoje plecy jeszcze bardziej.",
+        "title": "DIY Renovation",
+        "description": "You watched one YouTube tutorial. The tiles are now modern art.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -253,8 +253,8 @@
     },
     {
         "age": 40,
-        "title": "Awans! Praca II",
-        "description": "Nowe stanowisko, nowa wizytówka i fotel, który się odchyla. Pensja rośnie o 30%, a pokusa, żeby od razu zmienić styl życia, rośnie o 300%.",
+        "title": "Promotion!",
+        "description": "+30% salary. Your lifestyle immediately asks for +31%.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -274,8 +274,8 @@
     },
     {
         "age": 40,
-        "title": "Własne M na kredyt",
-        "description": "Wkład własny znika z konta szybciej niż pączki w tłusty czwartek. W zamian: klucze, własne ściany i rata, która będzie z Tobą dłużej niż niejedna przyjaźń.",
+        "title": "Mortgage Acquired",
+        "description": "Congratulations, you own a flat! Well, the bank does. You own the keys.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -295,8 +295,8 @@
     },
     {
         "age": 40,
-        "title": "Właściciel podnosi czynsz",
-        "description": "Pan Mirek z dumą ogłasza „drobną waloryzację” czynszu. Drobna jest tylko czcionka w aneksie do umowy.",
+        "title": "Rent Goes Up. Again.",
+        "description": "Your landlord calls it a \"tiny adjustment\". Tiny like a meteor.",
         "effect": {
             "roomPropsChange": {
                 "wall": -1,
@@ -316,8 +316,8 @@
     },
     {
         "age": 45,
-        "title": "Auto odchodzi na emeryturę",
-        "description": "Mechanik ogląda samochód, cmoka trzy razy i mówi „szkoda tu ładować”. Rodzina urosła, auto nie – czas na kombi.",
+        "title": "The Car Has Died",
+        "description": "Mechanic: \"I can fix it.\" Also mechanic: \"But I wouldn't.\"",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -337,8 +337,8 @@
     },
     {
         "age": 45,
-        "title": "Spadek po cioci Halince",
-        "description": "Ciocia Halinka zostawia Ci kolekcję porcelanowych słoników i całkiem pokaźną lokatę. Słoniki zostają w rodzinie, a co z pieniędzmi?",
+        "title": "Aunt's Inheritance",
+        "description": "Aunt Halina left you porcelain elephants and real money. Choose wisely.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -358,8 +358,8 @@
     },
     {
         "age": 45,
-        "title": "Kryzys wieku średniego",
-        "description": "Kabriolet. Czerwony. W kraju, gdzie lato trwa trzy tygodnie. Sąsiedzi patrzą z zazdrością, konto z przerażeniem.",
+        "title": "Midlife Crisis Convertible",
+        "description": "Red convertible in a country with 3 weeks of summer. Worth it? Your wallet says no.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -379,8 +379,8 @@
     },
     {
         "age": 50,
-        "title": "Krach i wypowiedzenie",
-        "description": "Giełda spada o 30%, a eksperci w TV mówią, że „tego nikt nie przewidział” (przewidzieli wszystko, tylko co roku). Tydzień później firma dziękuje Ci za współpracę. Przez pół roku żyjesz bez pensji.",
+        "title": "Crash + You're Fired",
+        "description": "Stocks −30%, job −100%. The TV experts: \"Nobody saw this coming.\" (They said it every year.)",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -400,8 +400,8 @@
     },
     {
         "age": 50,
-        "title": "Korepetycje z matmy",
-        "description": "Okazuje się, że licealiści płacą za kogoś, kto potrafi wytłumaczyć logarytmy bez płaczu. Twój, nie ich.",
+        "title": "Side Hustle: Maths Tutor",
+        "description": "Teenagers pay to hear about logarithms. Easy money, mostly.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -421,8 +421,8 @@
     },
     {
         "age": 50,
-        "title": "Kurs „Zostań milionerem w 7 dni”",
-        "description": "Pan w białych zębach i wynajętym lamborghini obiecuje, że po kursie będziesz pracować 2 godziny tygodniowo z plaży. Kurs kosztuje dużo, plaża się nie pojawia.",
+        "title": "Become a Millionaire in 7 Days!",
+        "description": "The guru had a rented Lamborghini. You have a receipt.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -442,8 +442,8 @@
     },
     {
         "age": 55,
-        "title": "Puste gniazdo",
-        "description": "Dziecko wyprowadza się na swoje, zabiera połowę garnków i ładowarkę do telefonu. Koszty spadają, ale „mamo/tato, możesz pożyczyć?” dzwoni już po tygodniu. Na szczęście giełda wraca do formy.",
+        "title": "Empty Nest",
+        "description": "The kid moved out with half your pots. Costs down! Calls for money: up.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -463,8 +463,8 @@
     },
     {
         "age": 55,
-        "title": "Podróż dookoła świata",
-        "description": "Tajlandia, Peru, Islandia i 4000 zdjęć zachodów słońca, które musi obejrzeć cała rodzina. Drogo, ale wspomnienia nie tracą na wartości w krachu.",
+        "title": "Trip Around the World",
+        "description": "4,000 sunset photos and zero regrets. Your savings have a few.",
         "effect": {
             "roomPropsChange": {
                 "wall": 1,
@@ -484,8 +484,8 @@
     },
     {
         "age": 55,
-        "title": "Kurs tańca towarzyskiego",
-        "description": "Cha-cha we wtorki, rumba w czwartki. Po trzech miesiącach depczesz partnera tylko co drugi takt. Postęp!",
+        "title": "Dance Classes",
+        "description": "Cha-cha twice a week. You now step on toes rhythmically.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -505,8 +505,8 @@
     },
     {
         "age": 60,
-        "title": "Ostatnia prosta",
-        "description": "Ostatnia podwyżka przed emeryturą. Doradca w banku sugeruje, żeby powoli zamieniać akcje na coś spokojniejszego – w końcu za 5 lat nie będzie już czasu, żeby odrobić krach.",
+        "title": "The Final Stretch",
+        "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -526,8 +526,8 @@
     },
     {
         "age": 60,
-        "title": "Pan Krzysztof z LinkedIna",
-        "description": "„Pewna inwestycja, 20% miesięcznie, zero ryzyka, tylko dla wybranych”. Pan Krzysztof znika szybciej niż Twoje oszczędności. Jeśli coś brzmi za dobrze, żeby było prawdą – to jest piramida.",
+        "title": "Mr Krzysztof from LinkedIn",
+        "description": "\"20% a month, zero risk!\" Mr Krzysztof is now on a beach. With your money.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -547,8 +547,8 @@
     },
     {
         "age": 60,
-        "title": "Akcje na emeryturze w obligacjach",
-        "description": "Przenosisz część akcji do obligacji. Mniej emocji, mniej zysku, za to śpisz spokojnie – nawet gdy w TV znowu mówią o krachu.",
+        "title": "Boring Bonds",
+        "description": "Less thrill, less return, more sleep. Boring is the new sexy.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -568,8 +568,8 @@
     },
     {
         "age": 65,
-        "title": "Emerytura!",
-        "description": "Ostatni dzień w pracy, tort od zespołu i list z ZUS-u. Otwierasz go z nadzieją… emerytura to 20% Twojej ostatniej pensji. Teraz okaże się, ile warte były decyzje ostatnich 45 lat.",
+        "title": "Retirement!",
+        "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -589,8 +589,8 @@
     },
     {
         "age": 65,
-        "title": "Wnuki na wakacjach",
-        "description": "Wnuki przyjeżdżają „tylko na weekend”, zostają dwa tygodnie. Lody, zabawki i tablet, bo „u kolegi każdy ma”. Bezcenne – no, prawie.",
+        "title": "Grandkids Invasion",
+        "description": "\"Just for the weekend.\" Two weeks, three tablets and a lot of ice cream later…",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
@@ -610,8 +610,8 @@
     },
     {
         "age": 65,
-        "title": "Działka z pomidorami",
-        "description": "Kupujesz małą działkę i zostajesz lokalnym potentatem pomidorowym. Plony: 40 kg pomidorów, nikt w rodzinie już ich nie chce.",
+        "title": "Tomato Tycoon",
+        "description": "You bought a garden. 40 kg of tomatoes. Nobody wants them. Ever.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
