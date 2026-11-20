@@ -1,16 +1,14 @@
-import { formatPLN } from '../formatPLN';
+import { SalaryDropdown } from './SalaryDropdown';
 import { SavingsDropdown } from './SavingsDropdown';
 
 interface HudStatsProps {
   age: number;
   retirementAge: number;
-  monthlyIncome: number;
 }
 
 export function HudStats({
   age,
   retirementAge,
-  monthlyIncome,
 }: HudStatsProps) {
   return (
     <div className="level is-mobile">
@@ -26,15 +24,7 @@ export function HudStats({
       </div>
 
       <div className="level-right" style={{ gap: '0.75rem' }}>
-        <div className="level-item">
-          <div className="tags has-addons are-medium">
-            <span className="tag is-dark">Monthly income</span>
-            <span className="tag is-light has-text-weight-semibold">
-              {formatPLN(monthlyIncome)} / month
-            </span>
-          </div>
-        </div>
-
+        <SalaryDropdown />
         <SavingsDropdown />
       </div>
     </div>

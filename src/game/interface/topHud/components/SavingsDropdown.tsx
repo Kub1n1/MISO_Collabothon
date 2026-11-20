@@ -9,13 +9,17 @@ export function SavingsDropdown() {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
 
   const monthlyIncome = useGameStore((s) => s.monthlyIncome);
+  const spouseMonthlyIncome = useGameStore((s) => s.spouseMonthlyIncome);
+  const monthlyInvestment = useGameStore((s) => s.monthlyInvestment);
   const savings = useGameStore((s) => s.savings);
   const strategy = useGameStore((s) => s.strategy);
   const updateStrategy = useGameStore((s) => s.updateStrategy);
 
   const totalSavings = savings.sock + savings.account + savings.stocks;
+  const totalHouseholdIncome = monthlyIncome + spouseMonthlyIncome;
   const totalSavedPercent = strategy.sock + strategy.account + strategy.stocks;
-  const isOverBudget = totalSavedPercent > 100;
+  const totalMonthlyContribution = monthlyInvestment * (totalSavedPercent / 100);
+  const isOverBudget = totalMonthlyContribution > totalHouseholdIncome;
 
   return (
     <div className="level-item">
@@ -36,7 +40,7 @@ export function SavingsDropdown() {
               {formatPLN(totalSavings)}
             </span>
             <span className="tag is-success is-light is-rounded mr-1">
-              {totalSavedPercent}% of income
+              {totalSavedPercent}% of investment budget
             </span>
             <span>{isWalletOpen ? '▴' : '▾'}</span>
           </button>
@@ -73,7 +77,7 @@ export function SavingsDropdown() {
                 colorClass={row.colorClass}
                 currentBalance={savings[row.key]}
                 percent={strategy[row.key]}
-                monthlyIncome={monthlyIncome}
+                monthlyInvestment={monthlyInvestment}
                 onPercentChange={(percent) => updateStrategy(row.key, percent)}
               />
             ))}
@@ -81,13 +85,13 @@ export function SavingsDropdown() {
 
             {isOverBudget ? (
               <div className="notification is-danger is-light is-size-7 p-2 mb-0">
-                Over 100% of income allocated ({totalSavedPercent}%)! Reduce a savings goal to leave money for living expenses.
+                Monthly investments ({formatPLN(totalMonthlyContribution)}) exceed total household income. Reduce a savings goal.
               </div>
             ) : (
               <div className="is-flex is-justify-content-space-between is-size-7 pt-1">
                 <span className="has-text-grey-light">Left for living expenses:</span>
                 <span className="has-text-white has-text-weight-bold">
-                  {100 - totalSavedPercent}% ({formatPLN(monthlyIncome * ((100 - totalSavedPercent) / 100))})
+                  {formatPLN(totalHouseholdIncome - totalMonthlyContribution)} / month
                 </span>
               </div>
             )}
