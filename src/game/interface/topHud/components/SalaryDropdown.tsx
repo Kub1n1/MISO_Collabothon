@@ -22,8 +22,8 @@ export function SalaryDropdown() {
             onClick={() => setIsOpen((prev) => !prev)}
             style={{ height: '2rem' }}
           >
-            <span className="has-text-weight-semibold mr-2">Wypłata</span>
-            <span>{formatPLN(monthlyIncome)} / mies.</span>
+            <span className="has-text-weight-semibold mr-2">Income</span>
+            <span>{formatPLN(monthlyIncome)} / month</span>
             <span className="ml-2">{isOpen ? '▴' : '▾'}</span>
           </button>
         </div>
@@ -43,27 +43,27 @@ export function SalaryDropdown() {
           >
             <div className="is-flex is-justify-content-space-between is-align-items-center mb-3">
               <span className="has-text-weight-bold is-size-6 has-text-white">
-                Ile inwestujesz?
+                How much do you want to invest?
               </span>
               <button
                 className="delete is-small"
-                aria-label="Zamknij"
+                aria-label="Close"
                 onClick={() => setIsOpen(false)}
               />
             </div>
 
             <div className="is-size-7 mb-3">
               <div className="is-flex is-justify-content-space-between">
-                <span className="has-text-grey-light">Twoja wypłata</span>
-                <span>{formatPLN(monthlyIncome)} / mies.</span>
+                <span className="has-text-grey-light">Your monthly income</span>
+                <span>{formatPLN(monthlyIncome)} / month</span>
               </div>
               <div className="is-flex is-justify-content-space-between">
-                <span className="has-text-grey-light">Wypłata żony</span>
-                <span>{formatPLN(spouseMonthlyIncome)} / mies.</span>
+                <span className="has-text-grey-light">Wife's monthly income</span>
+                <span>{formatPLN(spouseMonthlyIncome)} / month</span>
               </div>
             </div>
             <p className="is-size-7 has-text-grey-light mb-2">
-              Miesięczna kwota inwestycji (maks. {formatPLN(totalHouseholdIncome)})
+              Monthly investment amount (max. {formatPLN(totalHouseholdIncome)})
             </p>
             <input
               type="range"
@@ -71,12 +71,12 @@ export function SalaryDropdown() {
               max={totalHouseholdIncome}
               step={50}
               value={monthlyInvestment}
-              aria-label="Miesięczna kwota inwestycji"
+              aria-label="Monthly investment amount"
               onChange={(event) => updateMonthlyInvestment(Number(event.target.value))}
               style={{ width: '100%', cursor: 'pointer' }}
             />
             <div className="has-text-right has-text-weight-bold has-text-primary">
-              {formatPLN(monthlyInvestment)} / mies.
+              {formatPLN(monthlyInvestment)} / month
             </div>
           </div>
         </div>
