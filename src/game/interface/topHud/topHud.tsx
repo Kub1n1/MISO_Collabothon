@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { SavingsStrategy, useGameStore } from '../../../store';
+import { formatPLN } from './formatPLN';
 
-const formatPLN = (amount: number) =>
-  new Intl.NumberFormat('pl-PL', {
-    style: 'currency',
-    currency: 'PLN',
-    maximumFractionDigits: 0,
-  }).format(amount);
 
 export function TopHud() {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
