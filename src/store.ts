@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
+import EventManager, { type TurnEvent } from './game/events/eventManager';
 
 export interface RoomProps {
     wall: number;
@@ -39,7 +40,19 @@ export interface GameState {
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
   advanceTurn: () => void; 
   isNextTurnAvailable: () => boolean;
+  getEventForTurn: (age: number) => TurnEvent | undefined;
+  transferSavings: (
+    from: keyof SavingsBuckets,
+    to: keyof SavingsBuckets,
+    amount: number
+  ) => SavingsTransferResult;
 }
+
+export type SavingsTransferResult =
+  | 'success'
+  | 'same-bucket'
+  | 'invalid-amount'
+  | 'insufficient-funds';
 
 const STEP = 5;
 const INITIAL_MONTHLY_INCOME = 3000;
@@ -124,6 +137,25 @@ export const useGameStore = create<GameState>()(
             },
           };
         }),
+      getEventForTurn: (age: number) => EventManager.getEventForTurn(age),
+      transferSavings: (from, to, amount): SavingsTransferResult => {
+        if (from === to) return 'same-bucket';
+        if (!Number.isInteger(amount) || amount <= 0) return 'invalid-amount';
+
+        let result: SavingsTransferResult = 'success';
+
+        set((state) => {
+          if (state.savings[from] < amount) {
+            result = 'insufficient-funds';
+            return;
+          }
+
+          state.savings[from] -= amount;
+          state.savings[to] += amount;
+        });
+
+        return result;
+      },
     }))
   )
 );

@@ -1,0 +1,632 @@
+[
+    {
+        "age": 20,
+        "title": "Kaucja za akademik",
+        "description": "Pani z administracji uśmiecha się szeroko i prosi o kaucję. W cenie: pokój 3×4 m z widokiem na śmietnik i współlokator, który ćwiczy na perkusji o 2 w nocy.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": -1,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 20,
+        "title": "Stypendium naukowe!",
+        "description": "Nocki nad statystyką jednak się opłaciły. Dziekanat przelewa stypendium. Pytanie tylko, czy przeżyje pierwszy weekend.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 3,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 20,
+        "title": "Mem roku",
+        "description": "Twój mem o procencie składanym wygrywa konkurs Koła Naukowego Finansów. Nagroda: pół pensji i sława na całym wydziale (3 osoby, w tym prowadzący).",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0.5,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 25,
+        "title": "Pierwsza wypłata, ostatnie tchnienie Rubina",
+        "description": "Dostajesz pierwszą prawdziwą pracę: umowa, ZUS i kawa z ekspresu o smaku płynu do chłodnicy. W tym samym tygodniu Rubin, który pamiętał Mundial '82, robi ostatnie „pyk” i gaśnie na zawsze.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 1,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 1
+            },
+            "savingChange": {
+                "sock": -2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 25,
+        "title": "Cinquecento od wujka Zdziśka",
+        "description": "„Nie bite, nie malowane, Niemiec płakał, jak sprzedawał” – zapewnia wujek. Płacisz gotówką, bez kredytu. Kolor: rdza metalik.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 1,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -4,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 25,
+        "title": "Nowiutkie auto na raty",
+        "description": "Salon, zapach nowej tapicerki i sprzedawca, który mówi „to tylko 999 zł miesięcznie”. Przez najbliższe lata „tylko” będzie Ci towarzyszyć przy każdej wypłacie.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 2,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 30,
+        "title": "Ślub!",
+        "description": "Wesele kosztuje tyle co mały samochód, wujek Zdzisiek tańczy „Ona tańczy dla mnie” po raz siódmy, a koperty pokrywają prawie wszystko. Prawie.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 1,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 30,
+        "title": "Fajerwerki i fontanna czekolady",
+        "description": "Skoro raz się żyje, to z pokazem sztucznych ogni i fontanną czekolady. Goście zachwyceni, konto mniej.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -4,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 30,
+        "title": "Grill w ogródku zamiast sali",
+        "description": "Kiełbaski, sałatka babci i lampki z Pepco. Najlepsza impreza w rodzinie, a z kopert zostaje jeszcze nadwyżka na przyszłe mieszkanie.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 1,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 4,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 35,
+        "title": "Bocian przyleciał",
+        "description": "Na świecie pojawia się mały człowiek o zaskakująco dużych potrzebach: pieluchy, wózek i sen jako dobro luksusowe. Okazuje się też, że pokój dziecięcy to dawny składzik na rowery – czas na remont.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 1,
+                "floor": 1,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -5,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 35,
+        "title": "Premia roczna",
+        "description": "Szef twierdzi, że Twój raport był „przełomowy”. Nikt go nie przeczytał, ale premia przyszła naprawdę.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 2,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 35,
+        "title": "Remont z tutoriali na YouTube",
+        "description": "Kafelki kładziesz sam, z filmikiem na 1,5× prędkości. Oszczędzasz na ekipie, ale fuga ma swoje zdanie, a Twoje plecy jeszcze bardziej.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": -1,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 40,
+        "title": "Awans! Praca II",
+        "description": "Nowe stanowisko, nowa wizytówka i fotel, który się odchyla. Pensja rośnie o 30%, a pokusa, żeby od razu zmienić styl życia, rośnie o 300%.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 1
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 40,
+        "title": "Własne M na kredyt",
+        "description": "Wkład własny znika z konta szybciej niż pączki w tłusty czwartek. W zamian: klucze, własne ściany i rata, która będzie z Tobą dłużej niż niejedna przyjaźń.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 1,
+                "car": 0,
+                "couch": 1,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": -20,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 40,
+        "title": "Właściciel podnosi czynsz",
+        "description": "Pan Mirek z dumą ogłasza „drobną waloryzację” czynszu. Drobna jest tylko czcionka w aneksie do umowy.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": -1,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 45,
+        "title": "Auto odchodzi na emeryturę",
+        "description": "Mechanik ogląda samochód, cmoka trzy razy i mówi „szkoda tu ładować”. Rodzina urosła, auto nie – czas na kombi.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 1,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -6,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 45,
+        "title": "Spadek po cioci Halince",
+        "description": "Ciocia Halinka zostawia Ci kolekcję porcelanowych słoników i całkiem pokaźną lokatę. Słoniki zostają w rodzinie, a co z pieniędzmi?",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 10,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 45,
+        "title": "Kryzys wieku średniego",
+        "description": "Kabriolet. Czerwony. W kraju, gdzie lato trwa trzy tygodnie. Sąsiedzi patrzą z zazdrością, konto z przerażeniem.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 2,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -8,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 50,
+        "title": "Krach i wypowiedzenie",
+        "description": "Giełda spada o 30%, a eksperci w TV mówią, że „tego nikt nie przewidział” (przewidzieli wszystko, tylko co roku). Tydzień później firma dziękuje Ci za współpracę. Przez pół roku żyjesz bez pensji.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": -1
+            },
+            "savingChange": {
+                "sock": -6,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 50,
+        "title": "Korepetycje z matmy",
+        "description": "Okazuje się, że licealiści płacą za kogoś, kto potrafi wytłumaczyć logarytmy bez płaczu. Twój, nie ich.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 50,
+        "title": "Kurs „Zostań milionerem w 7 dni”",
+        "description": "Pan w białych zębach i wynajętym lamborghini obiecuje, że po kursie będziesz pracować 2 godziny tygodniowo z plaży. Kurs kosztuje dużo, plaża się nie pojawia.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 55,
+        "title": "Puste gniazdo",
+        "description": "Dziecko wyprowadza się na swoje, zabiera połowę garnków i ładowarkę do telefonu. Koszty spadają, ale „mamo/tato, możesz pożyczyć?” dzwoni już po tygodniu. Na szczęście giełda wraca do formy.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -4,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 55,
+        "title": "Podróż dookoła świata",
+        "description": "Tajlandia, Peru, Islandia i 4000 zdjęć zachodów słońca, które musi obejrzeć cała rodzina. Drogo, ale wspomnienia nie tracą na wartości w krachu.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 1,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -10,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 55,
+        "title": "Kurs tańca towarzyskiego",
+        "description": "Cha-cha we wtorki, rumba w czwartki. Po trzech miesiącach depczesz partnera tylko co drugi takt. Postęp!",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 1
+            },
+            "savingChange": {
+                "sock": -1,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 60,
+        "title": "Ostatnia prosta",
+        "description": "Ostatnia podwyżka przed emeryturą. Doradca w banku sugeruje, żeby powoli zamieniać akcje na coś spokojniejszego – w końcu za 5 lat nie będzie już czasu, żeby odrobić krach.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 60,
+        "title": "Pan Krzysztof z LinkedIna",
+        "description": "„Pewna inwestycja, 20% miesięcznie, zero ryzyka, tylko dla wybranych”. Pan Krzysztof znika szybciej niż Twoje oszczędności. Jeśli coś brzmi za dobrze, żeby było prawdą – to jest piramida.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": -1
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 0,
+                "stocks": -10
+            }
+        }
+    },
+    {
+        "age": 60,
+        "title": "Akcje na emeryturze w obligacjach",
+        "description": "Przenosisz część akcji do obligacji. Mniej emocji, mniej zysku, za to śpisz spokojnie – nawet gdy w TV znowu mówią o krachu.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 5,
+                "stocks": -5
+            }
+        }
+    },
+    {
+        "age": 65,
+        "title": "Emerytura!",
+        "description": "Ostatni dzień w pracy, tort od zespołu i list z ZUS-u. Otwierasz go z nadzieją… emerytura to 20% Twojej ostatniej pensji. Teraz okaże się, ile warte były decyzje ostatnich 45 lat.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 1,
+                "player": 1
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 65,
+        "title": "Wnuki na wakacjach",
+        "description": "Wnuki przyjeżdżają „tylko na weekend”, zostają dwa tygodnie. Lody, zabawki i tablet, bo „u kolegi każdy ma”. Bezcenne – no, prawie.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 1,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 65,
+        "title": "Działka z pomidorami",
+        "description": "Kupujesz małą działkę i zostajesz lokalnym potentatem pomidorowym. Plony: 40 kg pomidorów, nikt w rodzinie już ich nie chce.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 1,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -1,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    }
+]
