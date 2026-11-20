@@ -1,15 +1,16 @@
 [
     {
+        "eventId": "m20",
         "age": 20,
         "income": 3000,
-        "psyche": 10,
         "isMandatory": true,
         "title": "Dorm Sweet Dorm",
         "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
+        "psyche": 10,
         "effect": {
             "roomPropsChange": {
                 "wall": 1,
-                "tv": 0, 
+                "tv": 0,
                 "car": 0,
                 "couch": 0,
                 "wife": 0,
@@ -20,187 +21,200 @@
         }
     },
     {
+        "eventId": "m25",
         "age": 25,
         "income": 3000,
-        "psyche": 10,
         "isMandatory": true,
         "title": "Till Debt Do Us Part",
         "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
+        "psyche": 10,
         "effect": {
             "roomPropsChange": {
-                "wall": 1,
-                "tv": 1, 
-                "car": 0,
-                "couch": 0,
-                "wife": 1,
-                "kid": 0,
-                "spy": 0
+                "tv": 1,
+                "wife": 1
             },
             "eventAmount": -15000
         }
     },
     {
+        "eventId": "m30",
         "age": 30,
         "income": 3500,
-        "psyche": 10,
         "isMandatory": true,
         "title": "Home Sweet Loan",
         "description": "You found the one. Three bedrooms, a garden, and a 30-year commitment. Now pick how you'd like to suffer:",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 2,
-                "tv": 1, 
-                "car": 0,
-                "couch": 1,
-                "wife": 1,
-                "kid": 0,
-                "spy": 0
+        "options": [
+            {
+                "name": "Fixed Rate",
+                "description": "Same instalment for years. Boring, predictable, and you sleep at night.",
+                "psyche": 15,
+                "effect": {
+                    "roomPropsChange": {
+                        "wall": 2,
+                        "couch": 1
+                    },
+                    "eventAmount": -32000
+                }
             },
-            "eventAmount": -30000
-            
-        }
+            {
+                "name": "Variable Rate",
+                "description": "Cheaper today, a mystery tomorrow. Your instalment now follows the central bank's mood swings.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {
+                        "wall": 2,
+                        "couch": 1
+                    },
+                    "eventAmount": -26000
+                }
+            },
+            {
+                "name": "Fixed for 5 Years",
+                "description": "Stability now, a surprise later. Future-you will deal with it.",
+                "psyche": 5,
+                "effect": {
+                    "roomPropsChange": {
+                        "wall": 2,
+                        "couch": 1
+                    },
+                    "eventAmount": -29000
+                }
+            }
+        ]
     },
     {
+        "eventId": "m35",
         "age": 35,
         "income": 4000,
-        "psyche": 10,
         "isMandatory": true,
         "title": "Surprise, It's a Baby!",
         "description": "A tiny human with a huge budget. Sleep is now a luxury product.",
+        "psyche": 10,
         "effect": {
             "roomPropsChange": {
-                "wall": 2,
-                "tv": 1, 
-                "car": 0,
-                "couch": 1,
-                "wife": 1,
-                "kid": 1,
-                "spy": 0
+                "kid": 1
             },
             "eventAmount": -5000
         }
     },
     {
+        "eventId": "m40",
         "age": 40,
         "income": 6000,
-        "psyche": 15,
         "isMandatory": true,
         "title": "Promotion!",
         "description": "+30% salary. Your lifestyle immediately asks for +31%.",
+        "psyche": 15,
         "effect": {
-            "roomPropsChange": {
-                "wall": 2,
-                "tv": 1, 
-                "car": 0,
-                "couch": 1,
-                "wife": 1,
-                "kid": 1,
-                "spy": 0
-            },
+            "roomPropsChange": {},
             "eventAmount": 0
-            
         }
     },
     {
+        "eventId": "m45",
         "age": 45,
         "income": 6000,
-        "psyche": -20,
         "isMandatory": true,
         "title": "Midlife Crisis, Fully Financed",
-        "description": "You turned 45. Red convertible seems like a good investment. Your wife disagrees.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 2,
-                "tv": 1, 
-                "car": 1,
-                "couch": 1,
-                "wife": 1,
-                "kid": 1,
-                "spy": 0
+        "description": "You turned 45. A red convertible seems like a good investment. Your wife disagrees.",
+        "options": [
+            {
+                "name": "Buy the Convertible",
+                "description": "Wind in your (remaining) hair. Your savings are now shaped like a car.",
+                "psyche": 15,
+                "effect": {
+                    "roomPropsChange": {
+                        "car": 1
+                    },
+                    "eventAmount": -80000
+                }
             },
-            "eventAmount": -80000
-            
-        }
+            {
+                "name": "Listen to Your Wife",
+                "description": "You buy a bicycle instead. It's red, at least.",
+                "psyche": -20,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -2000
+                }
+            }
+        ]
     },
     {
+        "eventId": "m50",
         "age": 50,
         "income": 6000,
-        "psyche": -15,
         "isMandatory": true,
         "title": "Buy High, Cry Low",
         "description": "The market just crashed. Your portfolio is down 30% and your banking app now opens with a trigger warning. What do you do?",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 2,
-                "tv": 1, 
-                "car": 0,
-                "couch": 1,
-                "wife": 1,
-                "kid": 1,
-                "spy": 0
+        "options": [
+            {
+                "name": "Panic Sell",
+                "description": "You lock in the loss. Stress gone, money gone.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -30000
+                }
             },
-            "eventAmount": 0
-        }
+            {
+                "name": "Hold",
+                "description": "Delete the app, touch grass, wait it out.",
+                "psyche": -15,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            },
+            {
+                "name": "Buy the Dip",
+                "description": "Everything is on sale. Very brave, or very early.",
+                "psyche": -10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -10000
+                }
+            }
+        ]
     },
     {
+        "eventId": "m55",
         "age": 55,
         "income": 6000,
-        "psyche": -5,
         "isMandatory": true,
         "title": "Empty Nest",
         "description": "The kid moved out with half your pots. Costs down! Calls for money: up.",
+        "psyche": -5,
         "effect": {
             "roomPropsChange": {
-                "wall": 1,
-                "tv": 1,
-                "car": 0,
-                "couch": 0,
-                "wife": 0,
-                "kid": 0,
-                "spy": 0
+                "kid": 0
             },
             "eventAmount": 0
         }
     },
     {
+        "eventId": "m60",
         "age": 60,
         "income": 6000,
-        "psyche": 0,
         "isMandatory": true,
         "title": "The Final Stretch",
         "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",
+        "psyche": 0,
         "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "wife": 0,
-                "kid": 0,
-                "spy": 0
-            },
+            "roomPropsChange": {},
             "eventAmount": 0
         }
     },
     {
+        "eventId": "m65",
         "age": 65,
         "income": 6500,
-        "psyche": 70,
         "isMandatory": true,
         "title": "Retirement!",
         "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",
+        "psyche": 70,
         "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "tv": 0,
-                "car": 0,
-                "couch": 0,
-                "wife": 0,
-                "kid": 0,
-                "spy": 0
-            },
+            "roomPropsChange": {},
             "eventAmount": 20000
         }
     }
