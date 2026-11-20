@@ -8,6 +8,8 @@ interface StrategyRowProps {
   percent: number;
   monthlyInvestment: number;
   onPercentChange: (percent: number) => void;
+  description: string;
+  maxPercent: number;
 }
 
 export function StrategyRow({
@@ -18,16 +20,29 @@ export function StrategyRow({
   percent,
   monthlyInvestment,
   onPercentChange,
+  description,
+  maxPercent,
 }: StrategyRowProps) {
   const monthlyContribution = Math.round(monthlyInvestment * (percent / 100));
 
   return (
     <div className="mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
       <div className="is-flex is-justify-content-space-between is-align-items-baseline">
-        <span className="has-text-weight-semibold is-size-7 has-text-white">
-          {label}
-        </span>
-        <span className="has-text-weight-bold is-size-7 has-text-success">
+        <div className="is-flex is-align-items-center" style={{ gap: '0.35rem' }}>
+          <span className="has-text-weight-semibold is-size-7 has-text-white">
+            {label}
+          </span>
+          <button
+            type="button"
+            className="button is-small is-rounded"
+            title={description}
+            aria-label={`${label}: ${description}`}
+            style={{ width: '1.25rem', height: '1.25rem', padding: 0 }}
+          >
+            ?
+          </button>
+        </div>
+        <span className={`has-text-weight-bold is-size-7 ${currentBalance < 0 ? 'has-text-danger' : 'has-text-success'}`}>
           {formatPLN(currentBalance)}
         </span>
       </div>
@@ -38,7 +53,7 @@ export function StrategyRow({
         <input
           type="range"
           min={0}
-          max={100}
+          max={maxPercent}
           step={5}
           value={percent}
           onChange={(e) => onPercentChange(Number(e.target.value))}
