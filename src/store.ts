@@ -27,6 +27,7 @@ export interface SavingsStrategy {
 
 export interface Event{
   id: number;
+  isMandatory: boolean;
   age: number;
   title: string;
   description: string;
@@ -73,6 +74,7 @@ export type SavingsTransferResult =
   | 'insufficient-funds';
 
 const STEP = 5;
+const START_AGE = 20;
 const INITIAL_MONTHLY_INCOME = 3000;
 const INITIAL_SPOUSE_MONTHLY_INCOME = 3000;
 
@@ -84,8 +86,15 @@ function randomMonthlyFixedExpenses(householdIncome: number) {
 
 export const useGameStore = create<GameState>()(
   subscribeWithSelector(
-    immer((set) => ({
-      age: 25,
+    immer((set) => {
+      const eventsMandatory:Event[] = eventLive
+        .filter((e) => e.isMandatory)
+        .map((e:any, i:number)  => ({ ...e, id: i }));
+      const eventsOptional:Event[] = eventLive
+        .filter((e) => !e.isMandatory)
+        .map((e:any, i:number)  => ({ ...e, id: i }));
+      return{
+      age: 20,
       retirementAge: 65,
       monthlyIncome: INITIAL_MONTHLY_INCOME,
       spouseMonthlyIncome: INITIAL_SPOUSE_MONTHLY_INCOME,
@@ -112,11 +121,11 @@ export const useGameStore = create<GameState>()(
         couch: 0,
         player: 0,
       },
-      eventsMandatory: eventLive.map((e:any, i:number)  => ({ ...e, id: i })) as Event[],
-      eventsOptional: eventLive.map((e:any, i:number)  => ({ ...e, id: i })) as Event[],
+      eventsMandatory: eventsMandatory,
+      eventsOptional: eventsOptional,
       turnEvents: {
-        mandatory: eventLive.map((e:any, i:number)  => ({ ...e, id: i }))[0] as Event,
-        optional: [] as Event[], 
+        mandatory: eventsMandatory.find((e) => e.age === START_AGE)!,
+        optional: eventsOptional.filter((e) => e.age === START_AGE)!,
       },
       incrementProp: (propName, amount = 1) =>
         set((state) => {
@@ -149,15 +158,20 @@ export const useGameStore = create<GameState>()(
           const householdIncome = state.monthlyIncome + state.spouseMonthlyIncome;
           const monthlyFixedExpenses = randomMonthlyFixedExpenses(householdIncome);
           const availableAfterFixedExpenses = householdIncome - monthlyFixedExpenses;
+          const age = Math.min(state.retirementAge, state.age + STEP)
 
           return {
-            age: Math.min(state.retirementAge, state.age + STEP),
+            age,
             monthlyFixedExpenses,
             monthlyInvestment: Math.min(state.monthlyInvestment, availableAfterFixedExpenses),
             savings: {
               sock: Math.round(state.savings.sock + addedSock),
               account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek
               stocks: Math.round((state.savings.stocks + addedStocks) * 1.08),   // +8% zwrotu
+            },
+            turnEvents: {
+              mandatory: state.eventsMandatory.find((e) => e.age === age)!,
+              optional: state.eventsOptional.filter((e) => e.age === age)!,
             },
           };
         }),
@@ -179,7 +193,7 @@ export const useGameStore = create<GameState>()(
 
         return result;
       },
-    }))
+    }})
   )
 );
 

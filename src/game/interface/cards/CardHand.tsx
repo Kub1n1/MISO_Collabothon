@@ -47,6 +47,8 @@ export function CardHand({ cards = MOCK_ROUND_CARDS }: CardHandProps) {
   const mandatoryCard = useGameStore((c) => c.turnEvents.mandatory);
   const optionalCards = useGameStore((c) => c.turnEvents.optional);
 
+  console.log('Mandatory card:', mandatoryCard, 'Optional cards:', optionalCards);
+
   const handlePlayCard = (card: CardData) => {
     incrementProp(card.targetProp);
     setSelectedCardId(null);
