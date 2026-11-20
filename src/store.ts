@@ -35,7 +35,18 @@ export interface GameState {
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
   advanceTurn: () => void; 
   isNextTurnAvailable: () => boolean;
+  transferSavings: (
+    from: keyof SavingsBuckets,
+    to: keyof SavingsBuckets,
+    amount: number
+  ) => SavingsTransferResult;
 }
+
+export type SavingsTransferResult =
+  | 'success'
+  | 'same-bucket'
+  | 'invalid-amount'
+  | 'insufficient-funds';
 
 const STEP = 5;
 
@@ -97,6 +108,24 @@ export const useGameStore = create<GameState>()(
             },
           };
         }),
+      transferSavings: (from, to, amount): SavingsTransferResult => {
+        if (from === to) return 'same-bucket';
+        if (!Number.isInteger(amount) || amount <= 0) return 'invalid-amount';
+
+        let result: SavingsTransferResult = 'success';
+
+        set((state) => {
+          if (state.savings[from] < amount) {
+            result = 'insufficient-funds';
+            return;
+          }
+
+          state.savings[from] -= amount;
+          state.savings[to] += amount;
+        });
+
+        return result;
+      },
     }))
   )
 );
