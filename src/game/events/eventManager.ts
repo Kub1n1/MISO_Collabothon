@@ -1,9 +1,9 @@
 import eventLive from './eventLive.json';
 
-export type TurnEvents = (typeof eventLive)[number];
+export type TurnEvent = (typeof eventLive)[number];
 
-const getEventForTurn = (age: number): TurnEvents | undefined => {
-  return eventLive.find((event) => event.mandatory.age === age);
+const getEventForTurn = (age: number): TurnEvent | undefined => {
+  return eventLive.find((event) => event.age === age);
 };
 
 export default { getEventForTurn };

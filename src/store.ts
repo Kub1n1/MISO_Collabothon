@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import EventManager, { type TurnEvents } from './game/events/eventManager';
+import EventManager, { type TurnEvent } from './game/events/eventManager';
 
 export interface RoomProps {
     wall: number;
@@ -39,7 +39,7 @@ export interface GameState {
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
   advanceTurn: () => void; 
   isNextTurnAvailable: () => boolean;
-  getEventForTurn: (age: number) => TurnEvents | undefined;
+  getEventForTurn: (age: number) => TurnEvent | undefined;
   transferSavings: (
     from: keyof SavingsBuckets,
     to: keyof SavingsBuckets,
