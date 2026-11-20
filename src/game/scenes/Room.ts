@@ -1,7 +1,6 @@
 import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
-import { useGameStore } from '../../store';
-import { RoomProps } from '../../types';
+import { RoomProps, useGameStore } from '../../store';
 
 const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     wall: 2,
