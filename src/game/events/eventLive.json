@@ -1,20 +1,20 @@
 [
     {
         "age": 20,
+        "income": 3000,
+        "psyche": 70,
         "isMandatory": true,
         "title": "Dorm Sweet Dorm",
         "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
         "effect": {
             "roomPropsChange": {
                 "wall": 1,
-                "floor": 0,
                 "tv": 0, 
-                "window": 0,
                 "car": 0,
                 "couch": 0,
-                "psyche": 70,
                 "wife": 0,
-                "kid": 0
+                "kid": 0,
+                "spy": 0
             },
             "savingChange": {
                 "sock": 0,
@@ -24,309 +24,93 @@
         }
     },
     {
-        "age": 20,
-        "isMandatory": false,
-        "title": "Scholarship!",
-        "description": "The university pays YOU. Enjoy it, this never happens again.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 1,
-                "floor": 0,
-                "tv": 0, 
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "psyche": 90,
-                "wife": 0,
-                "kid": 0
-            },
-            "savingChange": {
-                "sock": 0,
-                "account": -2,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 20,
-        "isMandatory": false,
-        "title": "Viral Finance Meme",
-        "description": "Your compound-interest meme went viral. 3 likes, one from your mum. Small prize, big ego.",
-          "effect": {
-            "roomPropsChange": {
-                "wall": 1,
-                "floor": 0,
-                "tv": 0, 
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "psyche": 1,
-                "wife": 0,
-                "kid": 0
-            },
-            "savingChange": {
-                "sock": 0,
-                "account": -2,
-                "stocks": 0
-            }
-        }
-    },
-    {
         "age": 25,
+        "income": 3000,
+        "psyche": 80,
         "isMandatory": true,
-        "title": "RIP Old TV",
-        "description": "First real job! Celebrated by your 1982 TV exploding mid-movie.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 1,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 1
-            },
-            "savingChange": {
-                "sock": -2,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 25,
-        "isMandatory": false,
-        "title": "Uncle's Rust Bucket",
-        "description": "\"Only driven to church on Sundays.\" By a rally driver. Paid in cash, no loan.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 1,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -4,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 25,
-        "isMandatory": false,
-        "title": "Shiny New Car on Credit",
-        "description": "\"Only 999 a month!\" Only. For. Five. Years.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 2,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 30,
-        "isMandatory": true,
-        "title": "Just Married!",
+        "title": "Till Debt Do Us Part",
         "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
         "effect": {
             "roomPropsChange": {
                 "wall": 1,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
+                "tv": 1, 
                 "car": 0,
                 "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -2,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 30,
-        "isMandatory": false,
-        "title": "Chocolate Fountain Wedding",
-        "description": "Fireworks, chocolate fountain, ice swans. The guests loved it. Your savings didn't.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -4,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 30,
-        "isMandatory": false,
-        "title": "Backyard BBQ Wedding",
-        "description": "Sausages, fairy lights, zero debt. Best party ever, and money left over.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 1,
-                "car": 0,
-                "couch": 0,
-                "player": 0
+                "wife": 1,
+                "kid": 0,
+                "spy": 0
             },
             "savingChange": {
                 "sock": 0,
-                "account": 4,
+                "account": -2,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 30,
+        "income": 3500,
+        "psyche": 70,
+        "isMandatory": true,
+        "title": "Home Sweet Loan",
+        "description": "You found the one. Three bedrooms, a garden, and a 30-year commitment. Now pick how you'd like to suffer:",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 2,
+                "tv": 1, 
+                "car": 0,
+                "couch": 1,
+                "wife": 1,
+                "kid": 0,
+                "spy": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": -30,
                 "stocks": 0
             }
         }
     },
     {
         "age": 35,
+        "income": 4000,
+        "psyche": 80,
         "isMandatory": true,
         "title": "Surprise, It's a Baby!",
         "description": "A tiny human with a huge budget. Sleep is now a luxury product.",
         "effect": {
             "roomPropsChange": {
-                "wall": 1,
-                "floor": 1,
-                "tv": 0,
-                "window": 0,
+                "wall": 2,
+                "tv": 1, 
                 "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -5,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 35,
-        "isMandatory": false,
-        "title": "Annual Bonus",
-        "description": "Nobody read your report. They called it \"ground-breaking\" anyway. Cha-ching!",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
+                "couch": 1,
+                "wife": 1,
+                "kid": 1,
+                "spy": 0
             },
             "savingChange": {
                 "sock": 0,
-                "account": 2,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 35,
-        "isMandatory": false,
-        "title": "DIY Renovation",
-        "description": "You watched one YouTube tutorial. The tiles are now modern art.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": -1,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": 2,
-                "account": 0,
+                "account": -5,
                 "stocks": 0
             }
         }
     },
     {
         "age": 40,
+        "income": 6000,
+        "psyche": 90,
         "isMandatory": true,
         "title": "Promotion!",
         "description": "+30% salary. Your lifestyle immediately asks for +31%.",
         "effect": {
             "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 1
-            },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 40,
-        "isMandatory": false,
-        "title": "Mortgage Acquired",
-        "description": "Congratulations, you own a flat! Well, the bank does. You own the keys.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 1,
+                "wall": 2,
+                "tv": 1, 
                 "car": 0,
                 "couch": 1,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": 0,
-                "account": -20,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 40,
-        "isMandatory": false,
-        "title": "Rent Goes Up. Again.",
-        "description": "Your landlord calls it a \"tiny adjustment\". Tiny like a meteor.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": -1,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
+                "wife": 1,
+                "kid": 1,
+                "spy": 0
             },
             "savingChange": {
                 "sock": 0,
@@ -337,131 +121,47 @@
     },
     {
         "age": 45,
+        "income": 6000,
+        "psyche": 40,
         "isMandatory": true,
-        "title": "The Car Has Died",
-        "description": "Mechanic: \"I can fix it.\" Also mechanic: \"But I wouldn't.\"",
+        "title": "Midlife Crisis, Fully Financed",
+        "description": "You turned 45. Red convertible seems like a good investment. Your wife disagrees.",
         "effect": {
             "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
+                "wall": 2,
+                "tv": 1, 
                 "car": 1,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -6,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 45,
-        "isMandatory": false,
-        "title": "Aunt's Inheritance",
-        "description": "Aunt Halina left you porcelain elephants and real money. Choose wisely.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
+                "couch": 1,
+                "wife": 1,
+                "kid": 1,
+                "spy": 0
             },
             "savingChange": {
                 "sock": 0,
-                "account": 10,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 45,
-        "isMandatory": false,
-        "title": "Midlife Crisis Convertible",
-        "description": "Red convertible in a country with 3 weeks of summer. Worth it? Your wallet says no.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 2,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -8,
-                "account": 0,
+                "account": -80,
                 "stocks": 0
             }
         }
     },
     {
         "age": 50,
+        "income": 6000,
+        "psyche": 60,
         "isMandatory": true,
-        "title": "Crash + You're Fired",
-        "description": "Stocks −30%, job −100%. The TV experts: \"Nobody saw this coming.\" (They said it every year.)",
+        "title": "Buy High, Cry Low",
+        "description": "The market just crashed. Your portfolio is down 30% and your banking app now opens with a trigger warning. What do you do?",
         "effect": {
             "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
+                "wall": 2,
+                "tv": 1, 
                 "car": 0,
-                "couch": 0,
-                "player": -1
+                "couch": 1,
+                "wife": 1,
+                "kid": 1,
+                "spy": 0
             },
             "savingChange": {
-                "sock": -6,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 50,
-        "isMandatory": false,
-        "title": "Side Hustle: Maths Tutor",
-        "description": "Teenagers pay to hear about logarithms. Easy money, mostly.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": 2,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 50,
-        "isMandatory": false,
-        "title": "Become a Millionaire in 7 Days!",
-        "description": "The guru had a rented Lamborghini. You have a receipt.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -2,
+                "sock": 0,
                 "account": 0,
                 "stocks": 0
             }
@@ -469,65 +169,23 @@
     },
     {
         "age": 55,
+        "income": 6000,
+        "psyche": 50,
         "isMandatory": true,
         "title": "Empty Nest",
         "description": "The kid moved out with half your pots. Costs down! Calls for money: up.",
         "effect": {
             "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -4,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 55,
-        "isMandatory": false,
-        "title": "Trip Around the World",
-        "description": "4,000 sunset photos and zero regrets. Your savings have a few.",
-        "effect": {
-            "roomPropsChange": {
                 "wall": 1,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
+                "tv": 1,
                 "car": 0,
                 "couch": 0,
-                "player": 0
+                "wife": 0,
+                "kid": 0,
+                "spy": 0
             },
             "savingChange": {
-                "sock": -10,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 55,
-        "isMandatory": false,
-        "title": "Dance Classes",
-        "description": "Cha-cha twice a week. You now step on toes rhythmically.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 1
-            },
-            "savingChange": {
-                "sock": -1,
+                "sock": 0,
                 "account": 0,
                 "stocks": 0
             }
@@ -546,7 +204,9 @@
                 "window": 0,
                 "car": 0,
                 "couch": 0,
-                "player": 0
+                "wife": 0,
+                "kid": 0,
+                "spy": 0
             },
             "savingChange": {
                 "sock": 0,
@@ -556,110 +216,24 @@
         }
     },
     {
-        "age": 60,
-        "isMandatory": false,
-        "title": "Mr Krzysztof from LinkedIn",
-        "description": "\"20% a month, zero risk!\" Mr Krzysztof is now on a beach. With your money.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": -1
-            },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": -10
-            }
-        }
-    },
-    {
-        "age": 60,
-        "isMandatory": false,
-        "title": "Boring Bonds",
-        "description": "Less thrill, less return, more sleep. Boring is the new sexy.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": 0,
-                "account": 5,
-                "stocks": -5
-            }
-        }
-    },
-    {
         "age": 65,
+        "income": 6500,
+        "psyche": 70,
         "isMandatory": true,
         "title": "Retirement!",
         "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",
         "effect": {
             "roomPropsChange": {
                 "wall": 0,
-                "floor": 0,
                 "tv": 0,
-                "window": 0,
                 "car": 0,
-                "couch": 1,
-                "player": 1
+                "couch": 0,
+                "wife": 0,
+                "kid": 0,
+                "spy": 0
             },
             "savingChange": {
                 "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 65,
-        "isMandatory": false,
-        "title": "Grandkids Invasion",
-        "description": "\"Just for the weekend.\" Two weeks, three tablets and a lot of ice cream later…",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 1,
-                "tv": 0,
-                "window": 0,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -2,
-                "account": 0,
-                "stocks": 0
-            }
-        }
-    },
-    {
-        "age": 65,
-        "isMandatory": false,
-        "title": "Tomato Tycoon",
-        "description": "You bought a garden. 40 kg of tomatoes. Nobody wants them. Ever.",
-        "effect": {
-            "roomPropsChange": {
-                "wall": 0,
-                "floor": 0,
-                "tv": 0,
-                "window": 1,
-                "car": 0,
-                "couch": 0,
-                "player": 0
-            },
-            "savingChange": {
-                "sock": -1,
                 "account": 0,
                 "stocks": 0
             }
