@@ -1,7 +1,6 @@
 import { useGameStore } from '../../../store';
-import { formatPLN } from './formatPLN';
 import { RetirementProgress } from './components/RetirementProgress';
-import { SavingsDropdown } from './components/SavingsDropdown';
+import { HudStats } from './components/HudStats';
 
 export function TopHud() {
   const age = useGameStore((s) => s.age);
@@ -14,36 +13,12 @@ export function TopHud() {
       <RetirementProgress age={age} retirementAge={retirementAge} />
 
       {/* POZIOM 1: Pigułki z kluczowymi liczbami (Bulma Level) */}
-      <div className="level is-mobile">
-        {/* Lewa strona: Wiek i etap życia */}
-        <div className="level-left">
-          <div className="level-item">
-            <div className="tags has-addons are-medium">
-              <span className="tag is-dark">Wiek</span>
-              <span className="tag is-primary has-text-weight-bold">
-                {age} / {retirementAge} lat
-              </span>
-            </div>
-          </div>
-        </div>
+      <HudStats
+        age={age}
+        retirementAge={retirementAge}
+        monthlyIncome={monthlyIncome}
+      />
 
-        {/* Prawa strona: Wypłata + Klikalne Oszczędności */}
-        <div className="level-right" style={{ gap: '0.75rem' }}>
-          {/* Pigułka z miesięczną wypłatą */}
-          <div className="level-item">
-            <div className="tags has-addons are-medium">
-              <span className="tag is-dark">Wypłata</span>
-              <span className="tag is-light has-text-weight-semibold">
-                {formatPLN(monthlyIncome)} / mies.
-              </span>
-            </div>
-          </div>
-
-          {/* Dropdown Bulmy dla Oszczędności i Strategii */}
-          <SavingsDropdown />
-
-        </div>
-      </div>
     </div>
   );
 }
