@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useGameStore } from '../../../store';
 import { formatPLN } from './formatPLN';
 import { strategyOptions } from './strategyOptions';
+import { RetirementProgress } from './components/RetirementProgress';
 
 export function TopHud() {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
@@ -13,11 +14,6 @@ export function TopHud() {
   const strategy = useGameStore((s) => s.strategy);
   const updateStrategy = useGameStore((s) => s.updateStrategy);
 
-  // Obliczenia pomocnicze
-  const startAge = 20;
-  const careerProgress = Math.max(0, age - startAge);
-  const careerTotal = retirementAge - startAge;
-
   const totalSavings = savings.sock + savings.account + savings.stocks;
   const totalSavedPercent = strategy.sock + strategy.account + strategy.stocks;
   const isOverBudget = totalSavedPercent > 100;
@@ -25,13 +21,7 @@ export function TopHud() {
   return (
     <div style={{ pointerEvents: 'auto', width: '100%', position: 'absolute', top: 0, left: 0, padding: '10px 20px' }}>
       {/* POZIOM 1: Cienki pasek postępu do emerytury na samej górze */}
-      <progress
-        className="progress is-primary is-small mb-2"
-        value={careerProgress}
-        max={careerTotal}
-        style={{ height: '6px', borderRadius: '4px' }}
-        title={`Droga do emerytury: ${age} / ${retirementAge} lat`}
-      />
+      <RetirementProgress age={age} retirementAge={retirementAge} />
 
       {/* POZIOM 1: Pigułki z kluczowymi liczbami (Bulma Level) */}
       <div className="level is-mobile">
