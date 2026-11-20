@@ -43,6 +43,48 @@
     },
     {
         "age": 20,
+        "title": "Dorm Sweet Dorm",
+        "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": -1,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": -2,
+                "account": 0,
+                "stocks": 0
+            }
+        }
+    },
+    {      
+        "age": 20,
+        "title": "Scholarship!",
+        "description": "The university pays YOU. Enjoy it, this never happens again.",
+        "effect": {
+            "roomPropsChange": {
+                "wall": 0,
+                "floor": 0,
+                "tv": 0,
+                "window": 0,
+                "car": 0,
+                "couch": 0,
+                "player": 0
+            },
+            "savingChange": {
+                "sock": 0,
+                "account": 3,
+                "stocks": 0
+            }
+        }
+    },
+    {
+        "age": 20,
         "title": "Viral Finance Meme",
         "description": "Your compound-interest meme went viral. 3 likes, one from your mum. Small prize, big ego.",
         "effect": {
@@ -504,6 +546,7 @@
         }
     },
     {
+        "id": 2,
         "age": 60,
         "title": "The Final Stretch",
         "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",

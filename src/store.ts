@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import EventManager, { type TurnEvent } from './game/events/eventManager';
+import eventLive from './game/events/eventLive.json';
 
 export interface RoomProps {
     wall: number;
@@ -25,6 +25,22 @@ export interface SavingsStrategy {
   stocks: number;  // np. 5 (%)
 }
 
+export interface Event{
+  id: number;
+  age: number;
+  title: string;
+  description: string;
+  effect: {
+    roomPropsChange: RoomProps;
+    savingChange: SavingsBuckets;
+  };
+}
+
+export interface TurnEvents {
+  mandatory: Event; 
+  optional: Event[];
+}
+
 export interface GameState {
   age: number;
   retirementAge: number;
@@ -35,12 +51,14 @@ export interface GameState {
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
   roomProps: RoomProps;
+  eventsMandatory: Event[];
+  eventsOptional: Event[];
+  turnEvents: TurnEvents;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
   updateMonthlyInvestment: (amount: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
   advanceTurn: () => void; 
   isNextTurnAvailable: () => boolean;
-  getEventForTurn: (age: number) => TurnEvent | undefined;
   transferSavings: (
     from: keyof SavingsBuckets,
     to: keyof SavingsBuckets,
@@ -94,6 +112,12 @@ export const useGameStore = create<GameState>()(
         couch: 0,
         player: 0,
       },
+      eventsMandatory: eventLive.map((e:any, i:number)  => ({ ...e, id: i })) as Event[],
+      eventsOptional: eventLive.map((e:any, i:number)  => ({ ...e, id: i })) as Event[],
+      turnEvents: {
+        mandatory: eventLive.map((e:any, i:number)  => ({ ...e, id: i }))[0] as Event,
+        optional: [] as Event[], 
+      },
       incrementProp: (propName, amount = 1) =>
         set((state) => {
           state.roomProps[propName] += amount;
@@ -137,7 +161,6 @@ export const useGameStore = create<GameState>()(
             },
           };
         }),
-      getEventForTurn: (age: number) => EventManager.getEventForTurn(age),
       transferSavings: (from, to, amount): SavingsTransferResult => {
         if (from === to) return 'same-bucket';
         if (!Number.isInteger(amount) || amount <= 0) return 'invalid-amount';

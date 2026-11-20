@@ -41,12 +41,11 @@ interface CardHandProps {
 }
 
 export function CardHand({ cards = MOCK_ROUND_CARDS }: CardHandProps) {
-  const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
+  const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
   const incrementProp = useGameStore((s) => s.incrementProp);
 
-  // Rozdzielamy kartę obowiązkową (jeśli jest w tej rundzie) od reszty ręki
-  const mandatoryCard = cards.find((c) => c.isMandatory);
-  const optionalCards = cards.filter((c) => !c.isMandatory);
+  const mandatoryCard = useGameStore((c) => c.turnEvents.mandatory);
+  const optionalCards = useGameStore((c) => c.turnEvents.optional);
 
   const handlePlayCard = (card: CardData) => {
     incrementProp(card.targetProp);
@@ -64,6 +63,7 @@ export function CardHand({ cards = MOCK_ROUND_CARDS }: CardHandProps) {
           <GameCard
             key={mandatoryCard.id}
             card={mandatoryCard}
+            isMandatory={true}
             isExpanded={selectedCardId === mandatoryCard.id}
             onSelect={setSelectedCardId}
             onClose={() => setSelectedCardId(null)}

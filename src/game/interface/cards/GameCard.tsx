@@ -2,7 +2,8 @@ import { createPortal } from 'react-dom';
 import { CardData } from '../../../types';
 
 interface GameCardProps {
-  card: CardData;
+  card: Event;
+  isMandatory: boolean;
   isExpanded: boolean;
   onSelect: (id: string) => void;
   onClose: () => void;
@@ -11,12 +12,12 @@ interface GameCardProps {
 
 export function GameCard({
   card,
+  isMandatory,
   isExpanded,
   onSelect,
   onClose,
   onPlay,
 }: GameCardProps) {
-  const isMandatory = Boolean(card.isMandatory);
 
   return (
     <>
