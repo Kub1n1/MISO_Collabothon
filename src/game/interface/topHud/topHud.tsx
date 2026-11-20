@@ -3,6 +3,7 @@ import { useGameStore } from '../../../store';
 import { formatPLN } from './formatPLN';
 import { strategyOptions } from './strategyOptions';
 import { RetirementProgress } from './components/RetirementProgress';
+import { StrategyRow } from './components/StrategyRow';
 
 export function TopHud() {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
@@ -99,50 +100,18 @@ export function TopHud() {
                   </div>
 
                   {/* Lista 3 form oszczędzania */}
-                  {strategyOptions.map((row) => {
-                    const currentBalance = savings[row.key];
-                    const percent = strategy[row.key];
-                    const monthlyContribution = Math.round(
-                      monthlyIncome * (percent / 100)
-                    );
-
-                    return (
-                      <div key={row.key} className="mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                        <div className="is-flex is-justify-content-space-between is-align-items-baseline">
-                          <span className="has-text-weight-semibold is-size-7 has-text-white">
-                            {row.label}
-                          </span>
-                          <span className="has-text-weight-bold is-size-7 has-text-success">
-                            {formatPLN(currentBalance)}
-                          </span>
-                        </div>
-
-                        <p className="is-size-7 has-text-grey mb-1">{row.hint}</p>
-
-                        {/* Suwak alokacji procentowej */}
-                        <div className="is-flex is-align-items-center" style={{ gap: '0.6rem' }}>
-                          <input
-                            type="range"
-                            min={0}
-                            max={100}
-                            step={5}
-                            value={percent}
-                            onChange={(e) =>
-                              updateStrategy(row.key, Number(e.target.value))
-                            }
-                            style={{ flexGrow: 1, cursor: 'pointer' }}
-                          />
-                          <span className={`tag ${row.colorClass} is-light`} style={{ minWidth: '48px' }}>
-                            {percent}%
-                          </span>
-                        </div>
-
-                        <div className="has-text-right is-size-7 has-text-grey-light">
-                          Odkładasz: +{formatPLN(monthlyContribution)} / mies.
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {strategyOptions.map((row) => (
+                    <StrategyRow
+                      key={row.key}
+                      label={row.label}
+                      hint={row.hint}
+                      colorClass={row.colorClass}
+                      currentBalance={savings[row.key]}
+                      percent={strategy[row.key]}
+                      monthlyIncome={monthlyIncome}
+                      onPercentChange={(percent) => updateStrategy(row.key, percent)}
+                    />
+                  ))}
 
                   {/* Podsumowanie budżetu domowego */}
                   {isOverBudget ? (
