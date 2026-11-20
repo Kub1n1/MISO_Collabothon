@@ -50,7 +50,7 @@ export function StrategyRow({
       </div>
 
       <div className="has-text-right is-size-7 has-text-grey-light">
-        Odkładasz: +{formatPLN(monthlyContribution)} / mies.
+        Saving: +{formatPLN(monthlyContribution)} / month
       </div>
     </div>
   );

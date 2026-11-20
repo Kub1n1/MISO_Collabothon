@@ -17,9 +17,9 @@ export function HudStats({
       <div className="level-left">
         <div className="level-item">
           <div className="tags has-addons are-medium">
-            <span className="tag is-dark">Wiek</span>
+            <span className="tag is-dark">Age</span>
             <span className="tag is-primary has-text-weight-bold">
-              {age} / {retirementAge} lat
+              {age} / {retirementAge} years
             </span>
           </div>
         </div>
@@ -28,9 +28,9 @@ export function HudStats({
       <div className="level-right" style={{ gap: '0.75rem' }}>
         <div className="level-item">
           <div className="tags has-addons are-medium">
-            <span className="tag is-dark">Wypłata</span>
+            <span className="tag is-dark">Monthly income</span>
             <span className="tag is-light has-text-weight-semibold">
-              {formatPLN(monthlyIncome)} / mies.
+              {formatPLN(monthlyIncome)} / month
             </span>
           </div>
         </div>

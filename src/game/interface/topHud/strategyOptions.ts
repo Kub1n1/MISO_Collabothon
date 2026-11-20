@@ -8,20 +8,20 @@ export const strategyOptions: {
 }[] = [
   {
     key: 'sock',
-    label: 'Skarpeta',
-    hint: '0% zysku • Zawsze pod ręką',
+    label: 'Cash at home',
+    hint: '0% return • Always accessible',
     colorClass: 'is-warning',
   },
   {
     key: 'account',
-    label: 'Konto oszczędnościowe',
-    hint: '~4% rocznie • Bezpieczne',
+    label: 'Savings account',
+    hint: '~4% annual return • Low risk',
     colorClass: 'is-info',
   },
   {
     key: 'stocks',
-    label: 'Akcje i obligacje',
-    hint: '~8% rocznie • Wahania rynku',
+    label: 'Stocks & bonds',
+    hint: '~8% annual return • Market fluctuations',
     colorClass: 'is-success',
   },
 ];

@@ -30,12 +30,12 @@ export function SavingsDropdown() {
               height: '2rem',
             }}
           >
-            <span className="has-text-grey-light mr-2">Oszczędności:</span>
+            <span className="has-text-grey-light mr-2">Savings:</span>
             <span className="has-text-success has-text-weight-bold mr-2">
               {formatPLN(totalSavings)}
             </span>
             <span className="tag is-success is-light is-rounded mr-1">
-              {totalSavedPercent}% dochodu
+              {totalSavedPercent}% of income
             </span>
             <span>{isWalletOpen ? '▴' : '▾'}</span>
           </button>
@@ -56,7 +56,7 @@ export function SavingsDropdown() {
           >
             <div className="is-flex is-justify-content-space-between is-align-items-center mb-3">
               <span className="has-text-weight-bold is-size-6 has-text-white">
-                Portfel i strategia oszczędzania
+               Savings portfolio & strategy
               </span>
               <button
                 className="delete is-small"
@@ -79,11 +79,11 @@ export function SavingsDropdown() {
 
             {isOverBudget ? (
               <div className="notification is-danger is-light is-size-7 p-2 mb-0">
-                Przekroczono 100% wypłaty ({totalSavedPercent}%)! Zmniejsz któryś cel, żeby mieć za co żyć.
+                Over 100% of income allocated ({totalSavedPercent}%)! Reduce a savings goal to leave money for living expenses.
               </div>
             ) : (
               <div className="is-flex is-justify-content-space-between is-size-7 pt-1">
-                <span className="has-text-grey-light">Na bieżące życie zostaje:</span>
+                <span className="has-text-grey-light">Left for living expenses:</span>
                 <span className="has-text-white has-text-weight-bold">
                   {100 - totalSavedPercent}% ({formatPLN(monthlyIncome * ((100 - totalSavedPercent) / 100))})
                 </span>

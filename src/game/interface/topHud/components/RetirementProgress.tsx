@@ -17,7 +17,7 @@ export function RetirementProgress({
       value={careerProgress}
       max={careerTotal}
       style={{ height: '6px', borderRadius: '4px' }}
-      title={`Droga do emerytury: ${age} / ${retirementAge} lat`}
+      title={`Road to retirement: ${age} / ${retirementAge} years`}
     />
   );
 }
