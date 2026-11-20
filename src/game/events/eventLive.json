@@ -2,7 +2,7 @@
     {
         "age": 20,
         "income": 3000,
-        "psyche": 70,
+        "psyche": 10,
         "isMandatory": true,
         "title": "Dorm Sweet Dorm",
         "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
@@ -22,7 +22,7 @@
     {
         "age": 25,
         "income": 3000,
-        "psyche": 80,
+        "psyche": 10,
         "isMandatory": true,
         "title": "Till Debt Do Us Part",
         "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
@@ -42,7 +42,7 @@
     {
         "age": 30,
         "income": 3500,
-        "psyche": 70,
+        "psyche": 10,
         "isMandatory": true,
         "title": "Home Sweet Loan",
         "description": "You found the one. Three bedrooms, a garden, and a 30-year commitment. Now pick how you'd like to suffer:",
@@ -63,7 +63,7 @@
     {
         "age": 35,
         "income": 4000,
-        "psyche": 80,
+        "psyche": 10,
         "isMandatory": true,
         "title": "Surprise, It's a Baby!",
         "description": "A tiny human with a huge budget. Sleep is now a luxury product.",
@@ -83,7 +83,7 @@
     {
         "age": 40,
         "income": 6000,
-        "psyche": 90,
+        "psyche": 15,
         "isMandatory": true,
         "title": "Promotion!",
         "description": "+30% salary. Your lifestyle immediately asks for +31%.",
@@ -104,7 +104,7 @@
     {
         "age": 45,
         "income": 6000,
-        "psyche": 40,
+        "psyche": -20,
         "isMandatory": true,
         "title": "Midlife Crisis, Fully Financed",
         "description": "You turned 45. Red convertible seems like a good investment. Your wife disagrees.",
@@ -125,7 +125,7 @@
     {
         "age": 50,
         "income": 6000,
-        "psyche": 60,
+        "psyche": -15,
         "isMandatory": true,
         "title": "Buy High, Cry Low",
         "description": "The market just crashed. Your portfolio is down 30% and your banking app now opens with a trigger warning. What do you do?",
@@ -145,7 +145,7 @@
     {
         "age": 55,
         "income": 6000,
-        "psyche": 50,
+        "psyche": -5,
         "isMandatory": true,
         "title": "Empty Nest",
         "description": "The kid moved out with half your pots. Costs down! Calls for money: up.",
@@ -164,6 +164,8 @@
     },
     {
         "age": 60,
+        "income": 6000,
+        "psyche": 0,
         "isMandatory": true,
         "title": "The Final Stretch",
         "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",
