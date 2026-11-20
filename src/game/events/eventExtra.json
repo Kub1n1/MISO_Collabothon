@@ -1,5 +1,6 @@
 [
     {
+        "eventId": "r20_1",
         "age": 20,
         "isMandatory": false,
         "title": "Scholarship Unlocked",
@@ -11,6 +12,7 @@
         }
     },
     {
+        "eventId": "r20_2",
         "age": 20,
         "isMandatory": false,
         "title": "Free Pizza Seminar",
@@ -37,6 +39,7 @@
         ]
     },
     {
+        "eventId": "r20_3",
         "age": 20,
         "isMandatory": false,
         "title": "Laptop Down",
@@ -48,6 +51,7 @@
         }
     },
     {
+        "eventId": "r20_4",
         "age": 20,
         "isMandatory": false,
         "title": "Roommate Ghosted",
@@ -59,6 +63,7 @@
         }
     },
     {
+        "eventId": "r20_5",
         "age": 20,
         "isMandatory": false,
         "title": "Summer Job Abroad",
@@ -70,6 +75,7 @@
         }
     },
     {
+        "eventId": "r25_1",
         "age": 25,
         "isMandatory": false,
         "title": "First Real Paycheck",
@@ -96,6 +102,7 @@
         ]
     },
     {
+        "eventId": "r25_2",
         "age": 25,
         "isMandatory": false,
         "title": "Used Car Deal",
@@ -124,6 +131,7 @@
         ]
     },
     {
+        "eventId": "r25_3",
         "age": 25,
         "isMandatory": false,
         "title": "Tax Refund",
@@ -135,6 +143,7 @@
         }
     },
     {
+        "eventId": "r25_4",
         "age": 25,
         "isMandatory": false,
         "title": "Wedding Season",
@@ -146,6 +155,7 @@
         }
     },
     {
+        "eventId": "r25_5",
         "age": 25,
         "isMandatory": false,
         "title": "Parcel Scam",
@@ -157,6 +167,7 @@
         }
     },
     {
+        "eventId": "r30_1",
         "age": 30,
         "isMandatory": false,
         "title": "Burst Pipe",
@@ -168,6 +179,7 @@
         }
     },
     {
+        "eventId": "r30_2",
         "age": 30,
         "isMandatory": false,
         "title": "Interest Rate Hike",
@@ -179,6 +191,7 @@
         }
     },
     {
+        "eventId": "r30_3",
         "age": 30,
         "isMandatory": false,
         "title": "Barbecue Legend",
@@ -190,6 +203,7 @@
         }
     },
     {
+        "eventId": "r30_4",
         "age": 30,
         "isMandatory": false,
         "title": "Side Hustle",
@@ -216,6 +230,7 @@
         ]
     },
     {
+        "eventId": "r30_5",
         "age": 30,
         "isMandatory": false,
         "title": "Distant Aunt's Will",
@@ -227,6 +242,7 @@
         }
     },
     {
+        "eventId": "r35_1",
         "age": 35,
         "isMandatory": false,
         "title": "Daycare Waitlist",
@@ -238,6 +254,7 @@
         }
     },
     {
+        "eventId": "r35_2",
         "age": 35,
         "isMandatory": false,
         "title": "Grandparents to the Rescue",
@@ -249,6 +266,7 @@
         }
     },
     {
+        "eventId": "r35_3",
         "age": 35,
         "isMandatory": false,
         "title": "Baby Shower Haul",
@@ -260,6 +278,7 @@
         }
     },
     {
+        "eventId": "r35_4",
         "age": 35,
         "isMandatory": false,
         "title": "Burnout Alert",
@@ -286,6 +305,7 @@
         ]
     },
     {
+        "eventId": "r35_5",
         "age": 35,
         "isMandatory": false,
         "title": "Surprise Bank Fee",
@@ -297,6 +317,7 @@
         }
     },
     {
+        "eventId": "r40_1",
         "age": 40,
         "isMandatory": false,
         "title": "The Charming Stranger",
@@ -325,6 +346,7 @@
         ]
     },
     {
+        "eventId": "r40_2",
         "age": 40,
         "isMandatory": false,
         "title": "Annual Bonus",
@@ -336,6 +358,7 @@
         }
     },
     {
+        "eventId": "r40_3",
         "age": 40,
         "isMandatory": false,
         "title": "The 75-Inch Temptation",
@@ -362,6 +385,7 @@
         ]
     },
     {
+        "eventId": "r40_4",
         "age": 40,
         "isMandatory": false,
         "title": "School Trip Season",
@@ -373,6 +397,7 @@
         }
     },
     {
+        "eventId": "r40_5",
         "age": 40,
         "isMandatory": false,
         "title": "Hatchback Says Goodbye",
@@ -389,6 +414,7 @@
         }
     },
     {
+        "eventId": "r45_1",
         "age": 45,
         "isMandatory": false,
         "title": "Keyed Convertible",
@@ -403,6 +429,7 @@
         }
     },
     {
+        "eventId": "r45_2",
         "age": 45,
         "isMandatory": false,
         "title": "Doctor Says Move",
@@ -429,6 +456,7 @@
         ]
     },
     {
+        "eventId": "r45_3",
         "age": 45,
         "isMandatory": false,
         "title": "Dividend Day",
@@ -440,6 +468,7 @@
         }
     },
     {
+        "eventId": "r45_4",
         "age": 45,
         "isMandatory": false,
         "title": "Roof Repair",
@@ -451,6 +480,7 @@
         }
     },
     {
+        "eventId": "r45_5",
         "age": 45,
         "isMandatory": false,
         "title": "High School Reunion",
@@ -477,6 +507,7 @@
         ]
     },
     {
+        "eventId": "r50_1",
         "age": 50,
         "isMandatory": false,
         "title": "Panicked Neighbour",
@@ -503,6 +534,7 @@
         ]
     },
     {
+        "eventId": "r50_2",
         "age": 50,
         "isMandatory": false,
         "title": "Grand Theft Convertible",
@@ -519,6 +551,7 @@
         }
     },
     {
+        "eventId": "r50_3",
         "age": 50,
         "isMandatory": false,
         "title": "Braces 2.0",
@@ -530,6 +563,7 @@
         }
     },
     {
+        "eventId": "r50_4",
         "age": 50,
         "isMandatory": false,
         "title": "Lottery Mini Win",
@@ -541,6 +575,7 @@
         }
     },
     {
+        "eventId": "r50_5",
         "age": 50,
         "isMandatory": false,
         "title": "The Rebound",
@@ -552,6 +587,7 @@
         }
     },
     {
+        "eventId": "r55_1",
         "age": 55,
         "isMandatory": false,
         "title": "Boomerang Kid",
@@ -565,6 +601,7 @@
         }
     },
     {
+        "eventId": "r55_2",
         "age": 55,
         "isMandatory": false,
         "title": "Health Check-Up",
@@ -591,6 +628,7 @@
         ]
     },
     {
+        "eventId": "r55_3",
         "age": 55,
         "isMandatory": false,
         "title": "Your Kid's Wedding",
@@ -602,6 +640,7 @@
         }
     },
     {
+        "eventId": "r55_4",
         "age": 55,
         "isMandatory": false,
         "title": "Grandkid Arrives",
@@ -613,6 +652,7 @@
         }
     },
     {
+        "eventId": "r55_5",
         "age": 55,
         "isMandatory": false,
         "title": "Early Retirement Offer",
@@ -639,6 +679,7 @@
         ]
     },
     {
+        "eventId": "r60_1",
         "age": 60,
         "isMandatory": false,
         "title": "Safe Account Scam",
@@ -665,6 +706,7 @@
         ]
     },
     {
+        "eventId": "r60_2",
         "age": 60,
         "isMandatory": false,
         "title": "Mortgage Paid Off",
@@ -676,6 +718,7 @@
         }
     },
     {
+        "eventId": "r60_3",
         "age": 60,
         "isMandatory": false,
         "title": "Bond Coupon",
@@ -687,6 +730,7 @@
         }
     },
     {
+        "eventId": "r60_4",
         "age": 60,
         "isMandatory": false,
         "title": "Retirement Calculator",
@@ -698,6 +742,7 @@
         }
     },
     {
+        "eventId": "r60_5",
         "age": 60,
         "isMandatory": false,
         "title": "One Last Big Trip",
