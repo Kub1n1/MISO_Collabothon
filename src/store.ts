@@ -35,6 +35,10 @@ export type StockTradeResult =
   | 'insufficient-funds'
   | 'insufficient-shares';
 
+export function getAvailableStockFunds(savings: SavingsBuckets) {
+  return Math.max(0, savings.sock) + Math.max(0, savings.account) + Math.max(0, savings.stocks);
+}
+
 export interface StockMarketState {
   prices: Record<StockSymbol, number>;
   history: Record<StockSymbol, number[]>;
@@ -272,12 +276,18 @@ export const useGameStore = create<GameState>()(
 
           if (action === 'buy') {
             const cost = price * quantity;
-            if (state.savings.sock < cost) {
+            if (getAvailableStockFunds(state.savings) < cost) {
               result = 'insufficient-funds';
               return;
             }
 
-            state.savings.sock -= cost;
+            let remainingCost = cost;
+            for (const bucket of ['sock', 'account', 'stocks'] as const) {
+              const withdrawn = Math.min(Math.max(0, state.savings[bucket]), remainingCost);
+              state.savings[bucket] -= withdrawn;
+              remainingCost -= withdrawn;
+              if (remainingCost === 0) break;
+            }
             market.holdings[symbol] += quantity;
             market.costBasis[symbol] += cost;
           } else {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
+  getAvailableStockFunds,
   STOCK_SYMBOLS,
   useGameStore,
 } from '../../../../store';
@@ -17,11 +18,13 @@ const STOCK_INFO: Record<StockSymbol, { name: string; color: string }> = {
   NVIDIA: { name: 'NVIDIA', color: '#a78bfa' },
 };
 
+// Teraz giełda uwzględnia dostępne środki ze wszystkich trzech koszyków i pobiera je kolejno: skarpetka, konto, inwestycje. Kwota „Available funds” w modalu używa tej samej logiki. Przycisk nadal będzie nieaktywny, jeśli łączne dostępne saldo nie pokrywa ceny albo w tym ruchu wykonano już transakcję.
+
 const TRADE_MESSAGES: Record<StockTradeResult, string> = {
   success: 'Trade completed.',
   'already-traded': 'You have already traded this move. Try again after Next move.',
   'invalid-quantity': 'Enter a whole number of shares greater than zero.',
-  'insufficient-funds': 'Not enough cash in your sock to complete this purchase.',
+  'insufficient-funds': 'Not enough available savings to complete this purchase.',
   'insufficient-shares': 'You do not own enough shares to complete this sale.',
 };
 
@@ -102,7 +105,7 @@ export function StockMarketModal({ onClose }: StockMarketModalProps) {
   } | null>(null);
 
   const stockMarket = useGameStore((state) => state.stockMarket);
-  const cash = useGameStore((state) => state.savings.sock);
+  const availableFunds = useGameStore((state) => getAvailableStockFunds(state.savings));
   const age = useGameStore((state) => state.age);
   const tradeStock = useGameStore((state) => state.tradeStock);
 
@@ -117,7 +120,8 @@ export function StockMarketModal({ onClose }: StockMarketModalProps) {
   const isValidQuantity = Number.isInteger(quantity) && quantity > 0;
   const buyTotal = isValidQuantity ? price * quantity : 0;
   const sellTotal = isValidQuantity ? price * quantity : 0;
-  const canBuy = !stockMarket.tradeUsedThisMove && isValidQuantity && cash >= buyTotal;
+  const canBuy =
+    !stockMarket.tradeUsedThisMove && isValidQuantity && availableFunds >= buyTotal;
   const canSell =
     !stockMarket.tradeUsedThisMove && isValidQuantity && ownedShares >= quantity;
   const changePercent = stockMarket.lastChangePercent[selectedStock];
@@ -202,7 +206,7 @@ export function StockMarketModal({ onClose }: StockMarketModalProps) {
               Position value: <strong>{formatPLN(price * ownedShares)}</strong>
             </span>
             <span>
-              Available cash: <strong>{formatPLN(cash)}</strong>
+              Available funds: <strong>{formatPLN(availableFunds)}</strong>
             </span>
           </div>
 
