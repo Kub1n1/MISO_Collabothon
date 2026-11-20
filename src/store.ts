@@ -10,6 +10,7 @@ export interface RoomProps {
     window: number;
     car: number;
     couch: number;
+    player: number;
 }
 
 export interface SavingsBuckets {
@@ -129,6 +130,7 @@ export const useGameStore = create<GameState>()(
         window: 0,
         car: 0,
         couch: 0,
+        player: 0,
       },
       eventsMandatory: eventsMandatory,
       eventsOptional: eventsOptional,

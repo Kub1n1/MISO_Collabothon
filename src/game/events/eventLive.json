@@ -6,17 +6,19 @@
         "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
         "effect": {
             "roomPropsChange": {
-                "wall": -1,
+                "wall": 1,
                 "floor": 0,
-                "tv": 0,
+                "tv": 0, 
                 "window": 0,
                 "car": 0,
                 "couch": 0,
-                "player": 0
+                "psyche": 70,
+                "wife": 0,
+                "kid": 0
             },
             "savingChange": {
-                "sock": -2,
-                "account": 0,
+                "sock": 0,
+                "account": -6,
                 "stocks": 0
             }
         }
@@ -28,17 +30,19 @@
         "description": "The university pays YOU. Enjoy it, this never happens again.",
         "effect": {
             "roomPropsChange": {
-                "wall": 0,
+                "wall": 1,
                 "floor": 0,
-                "tv": 0,
+                "tv": 0, 
                 "window": 0,
                 "car": 0,
                 "couch": 0,
-                "player": 0
+                "psyche": 90,
+                "wife": 0,
+                "kid": 0
             },
             "savingChange": {
                 "sock": 0,
-                "account": 3,
+                "account": -2,
                 "stocks": 0
             }
         }
@@ -48,19 +52,21 @@
         "isMandatory": false,
         "title": "Viral Finance Meme",
         "description": "Your compound-interest meme went viral. 3 likes, one from your mum. Small prize, big ego.",
-        "effect": {
+          "effect": {
             "roomPropsChange": {
-                "wall": 0,
+                "wall": 1,
                 "floor": 0,
-                "tv": 0,
+                "tv": 0, 
                 "window": 0,
                 "car": 0,
                 "couch": 0,
-                "player": 0
+                "psyche": 1,
+                "wife": 0,
+                "kid": 0
             },
             "savingChange": {
-                "sock": 0.5,
-                "account": 0,
+                "sock": 0,
+                "account": -2,
                 "stocks": 0
             }
         }
