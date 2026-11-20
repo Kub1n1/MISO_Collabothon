@@ -24,15 +24,7 @@ export function HudStats({
       </div>
 
       <div className="level-right" style={{ gap: '0.75rem' }}>
-        <div className="level-item">
-          <div className="tags has-addons are-medium">
-            <span className="tag is-dark">Monthly income</span>
-            <span className="tag is-light has-text-weight-semibold">
-              {formatPLN(monthlyIncome)} / month
-            </span>
-          </div>
-        </div>
-
+        <SalaryDropdown />
         <SavingsDropdown />
       </div>
     </div>
