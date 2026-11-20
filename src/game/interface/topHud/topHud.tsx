@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { SavingsStrategy, useGameStore } from '../../../store';
+import { useGameStore } from '../../../store';
 import { formatPLN } from './formatPLN';
-
+import { strategyOptions } from './strategyOptions';
 
 export function TopHud() {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
@@ -21,32 +21,6 @@ export function TopHud() {
   const totalSavings = savings.sock + savings.account + savings.stocks;
   const totalSavedPercent = strategy.sock + strategy.account + strategy.stocks;
   const isOverBudget = totalSavedPercent > 100;
-
-  const strategyRows: {
-    key: keyof SavingsStrategy;
-    label: string;
-    hint: string;
-    colorClass: string;
-  }[] = [
-    {
-      key: 'sock',
-      label: 'Skarpeta',
-      hint: '0% zysku • Zawsze pod ręką',
-      colorClass: 'is-warning',
-    },
-    {
-      key: 'account',
-      label: 'Konto oszczędnościowe',
-      hint: '~4% rocznie • Bezpieczne',
-      colorClass: 'is-info',
-    },
-    {
-      key: 'stocks',
-      label: 'Akcje i obligacje',
-      hint: '~8% rocznie • Wahania rynku',
-      colorClass: 'is-success',
-    },
-  ];
 
   return (
     <div style={{ pointerEvents: 'auto', width: '100%', position: 'absolute', top: 0, left: 0, padding: '10px 20px' }}>
@@ -135,7 +109,7 @@ export function TopHud() {
                   </div>
 
                   {/* Lista 3 form oszczędzania */}
-                  {strategyRows.map((row) => {
+                  {strategyOptions.map((row) => {
                     const currentBalance = savings[row.key];
                     const percent = strategy[row.key];
                     const monthlyContribution = Math.round(
