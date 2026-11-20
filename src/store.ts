@@ -45,6 +45,7 @@ export interface TurnEvents {
 export interface GameState {
   age: number;
   retirementAge: number;
+  psyche: number;
   monthlyIncome: number;
   spouseMonthlyIncome: number;
   monthlyFixedExpenses: number;
@@ -56,6 +57,7 @@ export interface GameState {
   eventsOptional: Event[];
   turnEvents: TurnEvents;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
+  updatePsyche: (value: number) => void;
   updateMonthlyInvestment: (amount: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
   advanceTurn: () => void; 
@@ -96,6 +98,7 @@ export const useGameStore = create<GameState>()(
       return{
       age: 20,
       retirementAge: 65,
+      psyche: 100,
       monthlyIncome: INITIAL_MONTHLY_INCOME,
       spouseMonthlyIncome: INITIAL_SPOUSE_MONTHLY_INCOME,
       monthlyFixedExpenses: randomMonthlyFixedExpenses(
@@ -130,6 +133,10 @@ export const useGameStore = create<GameState>()(
       incrementProp: (propName, amount = 1) =>
         set((state) => {
           state.roomProps[propName] += amount;
+        }),
+      updatePsyche: (value) =>
+        set((state) => {
+          state.psyche = Math.max(0, Math.min(100, value));
         }),
       updateMonthlyInvestment: (amount) =>
         set((state) => {

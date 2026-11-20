@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SalaryDropdown } from './SalaryDropdown';
 import { SavingsDropdown } from './SavingsDropdown';
 import { FinancialSnapshot } from './FinancialSnapshot';
+import { PsycheStat } from './PsycheStat';
 
 interface HudStatsProps {
   age: number;
@@ -28,6 +29,7 @@ export function HudStats({
               {age} / {retirementAge} years
             </span>
           </div>
+          <PsycheStat />
           <FinancialSnapshot />
         </div>
       </div>
