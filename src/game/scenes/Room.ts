@@ -1,6 +1,7 @@
 import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
-import { RoomProps, useGameStore } from '../../store';
+import { useGameStore } from '../../store';
+import { RoomProps } from '../../types';
 
 const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     wall: 2,
@@ -20,6 +21,7 @@ const PLAYER_SCALE = 0.55;
 export class Room extends Scene
 {
     private elements: Partial<Record<keyof RoomProps, GameObjects.Image>> = {}; 
+    private player:GameObjects.Image;
     private unsubscribers: (() => void)[] = [];
 
     constructor(){
@@ -46,16 +48,15 @@ export class Room extends Scene
     create(){
         const initialProps = useGameStore.getState().roomProps;
         const initialAge = useGameStore.getState().age;
-        // this.wall = this.add.image(512, 384, 'wall');
-        // this.floor = this.add.image(512, 384, 'floor');
 
-        const propKeys: (keyof RoomProps)[] = ['wall', 'floor', 'couch'
-            // , 'tv', 'window', 'car'
-        ];
+        const propKeys = ([
+            'wall', 'floor', 'couch', 'tv', 'window', 'car'
+        ] as const satisfies readonly (keyof RoomProps)[]).filter(
+            (key) => ASSET_LEVELS[key] >= 0
+        );
 
         propKeys.forEach((key) => {
             const initialTexture = `${key}_${initialProps[key]}`;
-            console.log(initialTexture);
             const img = this.add.image(512, 384, initialTexture);
             this.elements[key] = img;
 
@@ -73,7 +74,7 @@ export class Room extends Scene
         const player = this.add
             .image(512, 384, this.getPlayerAgeTexture(initialAge))
             .setScale(PLAYER_SCALE);
-        this.elements.player = player;
+        this.player = player;
         this.unsubscribers.push(
             useGameStore.subscribe(
                 (state) => state.age,
@@ -99,7 +100,7 @@ export class Room extends Scene
     }
 
     private updatePlayerAge(age: number) {
-        const sprite = this.elements.player;
+        const sprite = this.player;
         const textureKey = this.getPlayerAgeTexture(age);
 
         if (!sprite) return;

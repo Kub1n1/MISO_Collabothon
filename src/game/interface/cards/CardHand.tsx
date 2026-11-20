@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGameStore } from '../../../store';
 import { GameCard } from './GameCard';
-import type { GameEvent } from '../../../store';
+import type { GameEvent } from '../../../types';
 import './cards.css';
 
 export function CardHand() {
