@@ -9,6 +9,7 @@ interface StrategyRowProps {
   monthlyInvestment: number;
   onPercentChange: (percent: number) => void;
   description: string;
+  maxPercent: number;
 }
 
 export function StrategyRow({
@@ -20,6 +21,7 @@ export function StrategyRow({
   monthlyInvestment,
   onPercentChange,
   description,
+  maxPercent,
 }: StrategyRowProps) {
   const monthlyContribution = Math.round(monthlyInvestment * (percent / 100));
 
@@ -51,7 +53,7 @@ export function StrategyRow({
         <input
           type="range"
           min={0}
-          max={100}
+          max={maxPercent}
           step={5}
           value={percent}
           onChange={(e) => onPercentChange(Number(e.target.value))}

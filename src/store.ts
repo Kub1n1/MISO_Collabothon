@@ -181,12 +181,16 @@ export const useGameStore = create<GameState>()(
           state.monthlyInvestment = Math.max(0, Math.min(availableAfterFixedExpenses, amount));
         }),
       updateStrategy: (bucket, percent) =>
-        set((state) => ({
-          strategy: {
-            ...state.strategy,
-            [bucket]: Math.max(0, Math.min(100, percent)),
-          },
-        })),
+        set((state) => {
+          const otherBucketsTotal = (
+            Object.keys(state.strategy) as (keyof SavingsStrategy)[]
+          )
+            .filter((key) => key !== bucket)
+            .reduce((total, key) => total + state.strategy[key], 0);
+
+          const maxPercent = Math.max(0, 100 - otherBucketsTotal);
+          state.strategy[bucket] = Math.max(0, Math.min(maxPercent, percent));
+        }),
       isNextTurnAvailable: () => {
         const state = useGameStore.getState() as GameState;
         return state.age < state.retirementAge && state.isMandatoryEventResolved;

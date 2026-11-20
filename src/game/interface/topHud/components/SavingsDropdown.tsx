@@ -92,6 +92,7 @@ export function SavingsDropdown({ isOpen, onToggle, onClose }: SavingsDropdownPr
                 monthlyInvestment={monthlyInvestment}
                 onPercentChange={(percent) => updateStrategy(row.key, percent)}
                 description={row.description}
+                maxPercent={Math.max(0, 100 - (totalSavedPercent - strategy[row.key]))}
               />
             ))}
             <SavingsTransferForm />
