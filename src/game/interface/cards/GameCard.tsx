@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import type { GameEvent } from '../../../store';
+import type { GameEvent } from '../../../types';
 
 interface GameCardProps {
   card: GameEvent;
