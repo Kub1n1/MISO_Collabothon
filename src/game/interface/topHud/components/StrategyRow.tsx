@@ -6,7 +6,7 @@ interface StrategyRowProps {
   colorClass: string;
   currentBalance: number;
   percent: number;
-  monthlyIncome: number;
+  monthlyInvestment: number;
   onPercentChange: (percent: number) => void;
 }
 
@@ -16,10 +16,10 @@ export function StrategyRow({
   colorClass,
   currentBalance,
   percent,
-  monthlyIncome,
+  monthlyInvestment,
   onPercentChange,
 }: StrategyRowProps) {
-  const monthlyContribution = Math.round(monthlyIncome * (percent / 100));
+  const monthlyContribution = Math.round(monthlyInvestment * (percent / 100));
 
   return (
     <div className="mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>

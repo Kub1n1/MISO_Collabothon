@@ -28,10 +28,13 @@ export interface GameState {
   age: number;
   retirementAge: number;
   monthlyIncome: number;
+  spouseMonthlyIncome: number;
+  monthlyInvestment: number;
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
   roomProps: RoomProps;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
+  updateMonthlyInvestment: (amount: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
   advanceTurn: () => void; 
   isNextTurnAvailable: () => boolean;
@@ -46,6 +49,8 @@ export const useGameStore = create<GameState>()(
       age: 25,
       retirementAge: 65,
       monthlyIncome: 3000,
+      spouseMonthlyIncome: 3000,
+      monthlyInvestment: 3000,
       savings: {
         sock: 0,
         account: 0,
@@ -69,6 +74,11 @@ export const useGameStore = create<GameState>()(
         set((state) => {
           state.roomProps[propName] += amount;
         }),
+      updateMonthlyInvestment: (amount) =>
+        set((state) => {
+          const householdIncome = state.monthlyIncome + state.spouseMonthlyIncome;
+          state.monthlyInvestment = Math.max(0, Math.min(householdIncome, amount));
+        }),
       updateStrategy: (bucket, percent) =>
         set((state) => ({
           strategy: {
@@ -83,7 +93,7 @@ export const useGameStore = create<GameState>()(
       advanceTurn: () =>
         set((state) => {
           // Przykład naliczenia za 1 rok (12 miesięcy)
-          const yearlyIncome = state.monthlyIncome * 12 * STEP;
+          const yearlyIncome = state.monthlyInvestment * 12 * STEP;
           const addedSock = yearlyIncome * (state.strategy.sock / 100);
           const addedAccount = yearlyIncome * (state.strategy.account / 100);
           const addedStocks = yearlyIncome * (state.strategy.stocks / 100);

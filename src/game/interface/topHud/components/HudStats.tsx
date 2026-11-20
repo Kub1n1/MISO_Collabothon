@@ -1,16 +1,14 @@
-import { formatPLN } from '../formatPLN';
+import { SalaryDropdown } from './SalaryDropdown';
 import { SavingsDropdown } from './SavingsDropdown';
 
 interface HudStatsProps {
   age: number;
   retirementAge: number;
-  monthlyIncome: number;
 }
 
 export function HudStats({
   age,
   retirementAge,
-  monthlyIncome,
 }: HudStatsProps) {
   return (
     <div className="level is-mobile">
