@@ -8,6 +8,7 @@ interface StrategyRowProps {
   percent: number;
   monthlyInvestment: number;
   onPercentChange: (percent: number) => void;
+  description: string;
 }
 
 export function StrategyRow({
@@ -18,15 +19,27 @@ export function StrategyRow({
   percent,
   monthlyInvestment,
   onPercentChange,
+  description,
 }: StrategyRowProps) {
   const monthlyContribution = Math.round(monthlyInvestment * (percent / 100));
 
   return (
     <div className="mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
       <div className="is-flex is-justify-content-space-between is-align-items-baseline">
-        <span className="has-text-weight-semibold is-size-7 has-text-white">
-          {label}
-        </span>
+        <div className="is-flex is-align-items-center" style={{ gap: '0.35rem' }}>
+          <span className="has-text-weight-semibold is-size-7 has-text-white">
+            {label}
+          </span>
+          <button
+            type="button"
+            className="button is-small is-rounded"
+            title={description}
+            aria-label={`${label}: ${description}`}
+            style={{ width: '1.25rem', height: '1.25rem', padding: 0 }}
+          >
+            ?
+          </button>
+        </div>
         <span className="has-text-weight-bold is-size-7 has-text-success">
           {formatPLN(currentBalance)}
         </span>

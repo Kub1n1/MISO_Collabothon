@@ -91,6 +91,7 @@ export function SavingsDropdown({ isOpen, onToggle, onClose }: SavingsDropdownPr
                 percent={strategy[row.key]}
                 monthlyInvestment={monthlyInvestment}
                 onPercentChange={(percent) => updateStrategy(row.key, percent)}
+                description={row.description}
               />
             ))}
             <SavingsTransferForm />
