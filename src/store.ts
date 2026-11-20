@@ -33,8 +33,11 @@ export interface GameState {
   roomProps: RoomProps;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
-  advanceTurn: () => void; // Przykładowa funkcja przeliczająca turę/rok
+  advanceTurn: () => void; 
+  isNextTurnAvailable: () => boolean;
 }
+
+const STEP = 5;
 
 
 export const useGameStore = create<GameState>()(
@@ -62,7 +65,6 @@ export const useGameStore = create<GameState>()(
         couch: 0,
         player: 0,
       },
-
       incrementProp: (propName, amount = 1) =>
         set((state) => {
           state.roomProps[propName] += amount;
@@ -74,16 +76,20 @@ export const useGameStore = create<GameState>()(
             [bucket]: Math.max(0, Math.min(100, percent)),
           },
         })),
+      isNextTurnAvailable: () => {
+        const state = useGameStore.getState() as GameState;
+        return state.age < state.retirementAge;
+      },
       advanceTurn: () =>
         set((state) => {
           // Przykład naliczenia za 1 rok (12 miesięcy)
-          const yearlyIncome = state.monthlyIncome * 12;
+          const yearlyIncome = state.monthlyIncome * 12 * STEP;
           const addedSock = yearlyIncome * (state.strategy.sock / 100);
           const addedAccount = yearlyIncome * (state.strategy.account / 100);
           const addedStocks = yearlyIncome * (state.strategy.stocks / 100);
 
           return {
-            age: Math.min(state.retirementAge, state.age + 1),
+            age: Math.min(state.retirementAge, state.age + STEP),
             savings: {
               sock: Math.round(state.savings.sock + addedSock),
               account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek

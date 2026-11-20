@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGameStore } from '../../../store';
 import { GameCard } from './GameCard';
-import { CardData } from './types';
+import { CardData } from '../../../types';
 import './cards.css';
 
 // Przykładowe dane do testów (docelowo mogą przychodzić ze store'a jako currentHand)
