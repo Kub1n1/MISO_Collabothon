@@ -3,6 +3,7 @@ import { useGameStore } from '../../../../store';
 import { formatPLN } from '../formatPLN';
 import { strategyOptions } from '../strategyOptions';
 import { StrategyRow } from './StrategyRow';
+import { SavingsTransferForm } from './SavingsTransferForm';
 
 export function SavingsDropdown() {
   const [isWalletOpen, setIsWalletOpen] = useState(false);
@@ -76,6 +77,7 @@ export function SavingsDropdown() {
                 onPercentChange={(percent) => updateStrategy(row.key, percent)}
               />
             ))}
+            <SavingsTransferForm />
 
             {isOverBudget ? (
               <div className="notification is-danger is-light is-size-7 p-2 mb-0">
