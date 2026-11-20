@@ -16,11 +16,7 @@
                 "kid": 0,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": -6,
-                "stocks": 0
-            }
+            "eventAmount": -6000
         }
     },
     {
@@ -40,11 +36,7 @@
                 "kid": 0,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": -2,
-                "stocks": 0
-            }
+            "eventAmount": -15000
         }
     },
     {
@@ -64,11 +56,8 @@
                 "kid": 0,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": -30,
-                "stocks": 0
-            }
+            "eventAmount": -30000
+            
         }
     },
     {
@@ -88,11 +77,7 @@
                 "kid": 1,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": -5,
-                "stocks": 0
-            }
+            "eventAmount": -5000
         }
     },
     {
@@ -112,11 +97,8 @@
                 "kid": 1,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
+            "eventAmount": 0
+            
         }
     },
     {
@@ -136,11 +118,8 @@
                 "kid": 1,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": -80,
-                "stocks": 0
-            }
+            "eventAmount": -80000
+            
         }
     },
     {
@@ -160,11 +139,7 @@
                 "kid": 1,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
+            "eventAmount": 0
         }
     },
     {
@@ -184,11 +159,7 @@
                 "kid": 0,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
+            "eventAmount": 0
         }
     },
     {
@@ -208,11 +179,7 @@
                 "kid": 0,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
+            "eventAmount": 0
         }
     },
     {
@@ -232,11 +199,7 @@
                 "kid": 0,
                 "spy": 0
             },
-            "savingChange": {
-                "sock": 0,
-                "account": 0,
-                "stocks": 0
-            }
+            "eventAmount": 20000
         }
     }
 ]
