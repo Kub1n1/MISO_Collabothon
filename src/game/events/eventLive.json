@@ -1,7 +1,7 @@
 [
     {
         "age": 20,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "Dorm Sweet Dorm",
         "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
         "effect": {
@@ -23,7 +23,7 @@
     },
     {
         "age": 20,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Scholarship!",
         "description": "The university pays YOU. Enjoy it, this never happens again.",
         "effect": {
@@ -45,7 +45,7 @@
     },
     {
         "age": 20,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Viral Finance Meme",
         "description": "Your compound-interest meme went viral. 3 likes, one from your mum. Small prize, big ego.",
         "effect": {
@@ -67,7 +67,7 @@
     },
     {
         "age": 25,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "RIP Old TV",
         "description": "First real job! Celebrated by your 1982 TV exploding mid-movie.",
         "effect": {
@@ -89,7 +89,7 @@
     },
     {
         "age": 25,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Uncle's Rust Bucket",
         "description": "\"Only driven to church on Sundays.\" By a rally driver. Paid in cash, no loan.",
         "effect": {
@@ -111,7 +111,7 @@
     },
     {
         "age": 25,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Shiny New Car on Credit",
         "description": "\"Only 999 a month!\" Only. For. Five. Years.",
         "effect": {
@@ -133,7 +133,7 @@
     },
     {
         "age": 30,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "Just Married!",
         "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
         "effect": {
@@ -155,7 +155,7 @@
     },
     {
         "age": 30,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Chocolate Fountain Wedding",
         "description": "Fireworks, chocolate fountain, ice swans. The guests loved it. Your savings didn't.",
         "effect": {
@@ -177,7 +177,7 @@
     },
     {
         "age": 30,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Backyard BBQ Wedding",
         "description": "Sausages, fairy lights, zero debt. Best party ever, and money left over.",
         "effect": {
@@ -199,7 +199,7 @@
     },
     {
         "age": 35,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "Surprise, It's a Baby!",
         "description": "A tiny human with a huge budget. Sleep is now a luxury product.",
         "effect": {
@@ -221,7 +221,7 @@
     },
     {
         "age": 35,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Annual Bonus",
         "description": "Nobody read your report. They called it \"ground-breaking\" anyway. Cha-ching!",
         "effect": {
@@ -243,7 +243,7 @@
     },
     {
         "age": 35,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "DIY Renovation",
         "description": "You watched one YouTube tutorial. The tiles are now modern art.",
         "effect": {
@@ -265,7 +265,7 @@
     },
     {
         "age": 40,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "Promotion!",
         "description": "+30% salary. Your lifestyle immediately asks for +31%.",
         "effect": {
@@ -287,7 +287,7 @@
     },
     {
         "age": 40,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Mortgage Acquired",
         "description": "Congratulations, you own a flat! Well, the bank does. You own the keys.",
         "effect": {
@@ -309,7 +309,7 @@
     },
     {
         "age": 40,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Rent Goes Up. Again.",
         "description": "Your landlord calls it a \"tiny adjustment\". Tiny like a meteor.",
         "effect": {
@@ -331,7 +331,7 @@
     },
     {
         "age": 45,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "The Car Has Died",
         "description": "Mechanic: \"I can fix it.\" Also mechanic: \"But I wouldn't.\"",
         "effect": {
@@ -353,7 +353,7 @@
     },
     {
         "age": 45,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Aunt's Inheritance",
         "description": "Aunt Halina left you porcelain elephants and real money. Choose wisely.",
         "effect": {
@@ -375,7 +375,7 @@
     },
     {
         "age": 45,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Midlife Crisis Convertible",
         "description": "Red convertible in a country with 3 weeks of summer. Worth it? Your wallet says no.",
         "effect": {
@@ -397,7 +397,7 @@
     },
     {
         "age": 50,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "Crash + You're Fired",
         "description": "Stocks −30%, job −100%. The TV experts: \"Nobody saw this coming.\" (They said it every year.)",
         "effect": {
@@ -419,7 +419,7 @@
     },
     {
         "age": 50,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Side Hustle: Maths Tutor",
         "description": "Teenagers pay to hear about logarithms. Easy money, mostly.",
         "effect": {
@@ -441,7 +441,7 @@
     },
     {
         "age": 50,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Become a Millionaire in 7 Days!",
         "description": "The guru had a rented Lamborghini. You have a receipt.",
         "effect": {
@@ -463,7 +463,7 @@
     },
     {
         "age": 55,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "Empty Nest",
         "description": "The kid moved out with half your pots. Costs down! Calls for money: up.",
         "effect": {
@@ -485,7 +485,7 @@
     },
     {
         "age": 55,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Trip Around the World",
         "description": "4,000 sunset photos and zero regrets. Your savings have a few.",
         "effect": {
@@ -507,7 +507,7 @@
     },
     {
         "age": 55,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Dance Classes",
         "description": "Cha-cha twice a week. You now step on toes rhythmically.",
         "effect": {
@@ -529,7 +529,7 @@
     },
     {
         "age": 60,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "The Final Stretch",
         "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",
         "effect": {
@@ -551,7 +551,7 @@
     },
     {
         "age": 60,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Mr Krzysztof from LinkedIn",
         "description": "\"20% a month, zero risk!\" Mr Krzysztof is now on a beach. With your money.",
         "effect": {
@@ -573,7 +573,7 @@
     },
     {
         "age": 60,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Boring Bonds",
         "description": "Less thrill, less return, more sleep. Boring is the new sexy.",
         "effect": {
@@ -595,7 +595,7 @@
     },
     {
         "age": 65,
-        "IsMandatory": true,
+        "isMandatory": true,
         "title": "Retirement!",
         "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",
         "effect": {
@@ -617,7 +617,7 @@
     },
     {
         "age": 65,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Grandkids Invasion",
         "description": "\"Just for the weekend.\" Two weeks, three tablets and a lot of ice cream later…",
         "effect": {
@@ -639,7 +639,7 @@
     },
     {
         "age": 65,
-        "IsMandatory": false,
+        "isMandatory": false,
         "title": "Tomato Tycoon",
         "description": "You bought a garden. 40 kg of tomatoes. Nobody wants them. Ever.",
         "effect": {
