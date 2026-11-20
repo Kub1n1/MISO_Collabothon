@@ -9,8 +9,13 @@ const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     window: -1,
     car: -1,
     couch: 1,
-    player: 1,
+    player: 0,
 };
+
+const PLAYER_AGE_START = 25;
+const PLAYER_AGE_STEP = 5;
+const PLAYER_AGE_TEXTURE_COUNT = 10;
+const PLAYER_SCALE = 0.55;
 
 export class Room extends Scene
 {
@@ -29,14 +34,22 @@ export class Room extends Scene
             this.load.image(textureKey, `assets/${textureKey}.png`);
             }
         });
+
+        for (let ageStage = 0; ageStage < PLAYER_AGE_TEXTURE_COUNT; ageStage++) {
+            this.load.image(
+                `player_age_${ageStage}`,
+                `assets/player_age/player_${ageStage}.png`
+            );
+        }
     }
 
     create(){
         const initialProps = useGameStore.getState().roomProps;
+        const initialAge = useGameStore.getState().age;
         // this.wall = this.add.image(512, 384, 'wall');
         // this.floor = this.add.image(512, 384, 'floor');
 
-        const propKeys: (keyof RoomProps)[] = ['wall', 'floor', 'couch', 'player'
+        const propKeys: (keyof RoomProps)[] = ['wall', 'floor', 'couch'
             // , 'tv', 'window', 'car'
         ];
 
@@ -57,12 +70,45 @@ export class Room extends Scene
             this.unsubscribers.push(unsub);
         });
 
+        const player = this.add
+            .image(512, 384, this.getPlayerAgeTexture(initialAge))
+            .setScale(PLAYER_SCALE);
+        this.elements.player = player;
+        this.unsubscribers.push(
+            useGameStore.subscribe(
+                (state) => state.age,
+                (age) => this.updatePlayerAge(age)
+            )
+        );
+
         this.events.once(Scenes.Events.SHUTDOWN, () => {
             this.unsubscribers.forEach((unsub) => unsub());
             this.unsubscribers = [];
         });
 
         EventBus.emit('current-scene-ready', this);
+    }
+
+    private getPlayerAgeTexture(age: number) {
+        const ageStage = Math.min(
+            PLAYER_AGE_TEXTURE_COUNT - 1,
+            Math.max(0, Math.floor((age - PLAYER_AGE_START) / PLAYER_AGE_STEP))
+        );
+
+        return `player_age_${ageStage}`;
+    }
+
+    private updatePlayerAge(age: number) {
+        const sprite = this.elements.player;
+        const textureKey = this.getPlayerAgeTexture(age);
+
+        if (!sprite) return;
+        if (!this.textures.exists(textureKey)) {
+            console.warn(`Brak tekstury: ${textureKey}`);
+            return;
+        }
+
+        this.updateSpriteTexture(sprite, textureKey);
     }
     
     private updateRoomElement(key: keyof RoomProps, newLevel: number) {
@@ -76,13 +122,17 @@ export class Room extends Scene
         return;
         }
 
+        this.updateSpriteTexture(sprite, newTextureKey);
+    }
+
+    private updateSpriteTexture(sprite: GameObjects.Image, textureKey: string) {
         // Krótka animacja mrugnięcia przy podmianie tekstury
         this.tweens.add({
         targets: sprite,
         alpha: 0.2,
         duration: 120,
         onComplete: () => {
-            sprite.setTexture(newTextureKey);
+            sprite.setTexture(textureKey);
             this.tweens.add({
             targets: sprite,
             alpha: 1,
