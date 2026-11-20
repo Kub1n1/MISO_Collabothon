@@ -1,0 +1,726 @@
+[
+    {
+        "age": 20,
+        "isMandatory": false,
+        "title": "Scholarship Unlocked",
+        "description": "Your grades finally paid off. Literally.",
+        "psyche": 10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 4000
+        }
+    },
+    {
+        "age": 20,
+        "isMandatory": false,
+        "title": "Free Pizza Seminar",
+        "description": "You came for the pizza. A guy in a shiny suit offers a 'guaranteed 300% return'.",
+        "options": [
+            {
+                "name": "Invest",
+                "description": "The guy and your money both disappeared. The pizza was cold.",
+                "psyche": -10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -2000
+                }
+            },
+            {
+                "name": "Just Eat the Pizza",
+                "description": "Free lunch, zero regrets. Financial literacy +1.",
+                "psyche": 5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 20,
+        "isMandatory": false,
+        "title": "Laptop Down",
+        "description": "Coffee meets keyboard two days before the deadline.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -3500
+        }
+    },
+    {
+        "age": 20,
+        "isMandatory": false,
+        "title": "Roommate Ghosted",
+        "description": "Moved out at 3 AM. Took the toaster. Left you the rent.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -1500
+        }
+    },
+    {
+        "age": 20,
+        "isMandatory": false,
+        "title": "Summer Job Abroad",
+        "description": "Three months of picking strawberries. Your back hates you, your account loves you.",
+        "psyche": -5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 8000
+        }
+    },
+    {
+        "age": 25,
+        "isMandatory": false,
+        "title": "First Real Paycheck",
+        "description": "An actual salary hits your account. It's whispering 'treat yourself'.",
+        "options": [
+            {
+                "name": "Treat Yourself",
+                "description": "New shoes, new phone, new you. Same old account balance.",
+                "psyche": 15,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -3000
+                }
+            },
+            {
+                "name": "Save It",
+                "description": "Responsible. Boring. Future-you approves.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 25,
+        "isMandatory": false,
+        "title": "Used Car Deal",
+        "description": "A 2009 hatchback, 'only' 240,000 km, previous owner 'a careful grandma'.",
+        "options": [
+            {
+                "name": "Buy It",
+                "description": "Freedom on four wheels. Mostly four.",
+                "psyche": 10,
+                "effect": {
+                    "roomPropsChange": {
+                        "car": 1
+                    },
+                    "eventAmount": -12000
+                }
+            },
+            {
+                "name": "Walk Away",
+                "description": "Bus pass it is. Your wallet sends a thank-you note.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 25,
+        "isMandatory": false,
+        "title": "Tax Refund",
+        "description": "The tax office owes YOU money. Frame the letter.",
+        "psyche": 10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 1200
+        }
+    },
+    {
+        "age": 25,
+        "isMandatory": false,
+        "title": "Wedding Season",
+        "description": "Five friends, five weddings, five envelopes. Your liver and wallet both file complaints.",
+        "psyche": 5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -4000
+        }
+    },
+    {
+        "age": 25,
+        "isMandatory": false,
+        "title": "Parcel Scam",
+        "description": "'Your parcel is waiting, pay 1.99 to release it.' You paid. So did your whole account.",
+        "psyche": -15,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -5000
+        }
+    },
+    {
+        "age": 30,
+        "isMandatory": false,
+        "title": "Burst Pipe",
+        "description": "The new house came with a free indoor pool. Ground floor only.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -7000
+        }
+    },
+    {
+        "age": 30,
+        "isMandatory": false,
+        "title": "Interest Rate Hike",
+        "description": "The central bank sneezed. Your mortgage caught a cold.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -4000
+        }
+    },
+    {
+        "age": 30,
+        "isMandatory": false,
+        "title": "Barbecue Legend",
+        "description": "Your garden party becomes neighbourhood folklore. Friends unlocked.",
+        "psyche": 15,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -500
+        }
+    },
+    {
+        "age": 30,
+        "isMandatory": false,
+        "title": "Side Hustle",
+        "description": "A friend offers you weekend work. Extra cash, fewer lazy Sundays.",
+        "options": [
+            {
+                "name": "Take It",
+                "description": "Money in, free time out.",
+                "psyche": -10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 6000
+                }
+            },
+            {
+                "name": "Keep Weekends Free",
+                "description": "Your couch and your sanity thank you.",
+                "psyche": 10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 30,
+        "isMandatory": false,
+        "title": "Distant Aunt's Will",
+        "description": "You met her twice. She left you a vase and a surprising amount of money.",
+        "psyche": 5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 10000
+        }
+    },
+    {
+        "age": 35,
+        "isMandatory": false,
+        "title": "Daycare Waitlist",
+        "description": "You're number 147 on the list. Private daycare it is.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -6000
+        }
+    },
+    {
+        "age": 35,
+        "isMandatory": false,
+        "title": "Grandparents to the Rescue",
+        "description": "Free childcare! The kid now eats only sweets.",
+        "psyche": 10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 2000
+        }
+    },
+    {
+        "age": 35,
+        "isMandatory": false,
+        "title": "Baby Shower Haul",
+        "description": "Three strollers, zero sleep, one very generous aunt.",
+        "psyche": 5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 3000
+        }
+    },
+    {
+        "age": 35,
+        "isMandatory": false,
+        "title": "Burnout Alert",
+        "description": "You just tried to log in to the microwave.",
+        "options": [
+            {
+                "name": "Take a Vacation",
+                "description": "Sun, sea, and nobody asking for a report.",
+                "psyche": 20,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -5000
+                }
+            },
+            {
+                "name": "Push Through",
+                "description": "Productivity: high. Soul: missing.",
+                "psyche": -20,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 35,
+        "isMandatory": false,
+        "title": "Surprise Bank Fee",
+        "description": "Your 'free' account now charges a fee for... having an account.",
+        "psyche": -5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -600
+        }
+    },
+    {
+        "age": 40,
+        "isMandatory": false,
+        "title": "The Charming Stranger",
+        "description": "At a conference, a suspiciously charming stranger is very interested in your evening plans. And your work passwords.",
+        "options": [
+            {
+                "name": "Have a Drink With Her",
+                "description": "Great evening. Turns out she was a spy. Your savings and your marriage both need a lawyer.",
+                "psyche": -25,
+                "effect": {
+                    "roomPropsChange": {
+                        "spy": 1
+                    },
+                    "eventAmount": -20000
+                }
+            },
+            {
+                "name": "Go Back to the Hotel",
+                "description": "You call your wife and fall asleep at 9 PM. Unhackable.",
+                "psyche": 10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 40,
+        "isMandatory": false,
+        "title": "Annual Bonus",
+        "description": "One extra month of salary! The kid's braces already have plans for it.",
+        "psyche": 10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 6000
+        }
+    },
+    {
+        "age": 40,
+        "isMandatory": false,
+        "title": "The 75-Inch Temptation",
+        "description": "Black Friday. A TV the size of your wall is on sale.",
+        "options": [
+            {
+                "name": "Buy It",
+                "description": "The football has never looked this good. The account has never looked this bad.",
+                "psyche": 10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -8000
+                }
+            },
+            {
+                "name": "Keep the Old One",
+                "description": "It still works. Mostly.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 40,
+        "isMandatory": false,
+        "title": "School Trip Season",
+        "description": "Ski trip, language camp, and 'everyone else has the new phone'.",
+        "psyche": -5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -4500
+        }
+    },
+    {
+        "age": 40,
+        "isMandatory": false,
+        "title": "Hatchback Says Goodbye",
+        "description": "Your trusty old car died on the motorway. Rest in pieces.",
+        "requires": {
+            "car": 1
+        },
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {
+                "car": 0
+            },
+            "eventAmount": -3000
+        }
+    },
+    {
+        "age": 45,
+        "isMandatory": false,
+        "title": "Keyed Convertible",
+        "description": "Someone scratched the convertible. Insurance calls it 'cosmetic'.",
+        "requires": {
+            "car": 1
+        },
+        "psyche": -15,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -6000
+        }
+    },
+    {
+        "age": 45,
+        "isMandatory": false,
+        "title": "Doctor Says Move",
+        "description": "Your doctor suggests exercise. Your knees suggest otherwise.",
+        "options": [
+            {
+                "name": "Gym Membership",
+                "description": "Expensive, sweaty, surprisingly great.",
+                "psyche": 15,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -2000
+                }
+            },
+            {
+                "name": "Walk More",
+                "description": "Free, slow, and you finally meet your neighbours.",
+                "psyche": 5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 45,
+        "isMandatory": false,
+        "title": "Dividend Day",
+        "description": "Your boring index fund quietly paid out. Boring is beautiful.",
+        "psyche": 10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 5000
+        }
+    },
+    {
+        "age": 45,
+        "isMandatory": false,
+        "title": "Roof Repair",
+        "description": "The roof leaks. The quotes leak even more.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -12000
+        }
+    },
+    {
+        "age": 45,
+        "isMandatory": false,
+        "title": "High School Reunion",
+        "description": "Everyone is either a CEO or 'between projects'.",
+        "options": [
+            {
+                "name": "Pay for the Whole Round",
+                "description": "Legend status for one night.",
+                "psyche": 15,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -3000
+                }
+            },
+            {
+                "name": "Stay Home",
+                "description": "No flexing, no hangover.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 50,
+        "isMandatory": false,
+        "title": "Panicked Neighbour",
+        "description": "Your neighbour sold everything at the bottom. Now he wants to borrow money.",
+        "options": [
+            {
+                "name": "Lend Him Money",
+                "description": "Good neighbour, questionable investor.",
+                "psyche": 5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -5000
+                }
+            },
+            {
+                "name": "Say No",
+                "description": "Awkward at the fence for a few months.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 50,
+        "isMandatory": false,
+        "title": "Grand Theft Convertible",
+        "description": "Your convertible found a new owner. He didn't ask. Insurance covers half.",
+        "requires": {
+            "car": 1
+        },
+        "psyche": -20,
+        "effect": {
+            "roomPropsChange": {
+                "car": 0
+            },
+            "eventAmount": -20000
+        }
+    },
+    {
+        "age": 50,
+        "isMandatory": false,
+        "title": "Braces 2.0",
+        "description": "The kid's teeth need round two. The orthodontist bought a boat.",
+        "psyche": -5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -6000
+        }
+    },
+    {
+        "age": 50,
+        "isMandatory": false,
+        "title": "Lottery Mini Win",
+        "description": "Four numbers! It only took ten years of 'just this once'.",
+        "psyche": 10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 3000
+        }
+    },
+    {
+        "age": 50,
+        "isMandatory": false,
+        "title": "The Rebound",
+        "description": "You held. The market bounced back. Your nerves didn't, but your portfolio did.",
+        "psyche": 15,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 15000
+        }
+    },
+    {
+        "age": 55,
+        "isMandatory": false,
+        "title": "Boomerang Kid",
+        "description": "The kid moved back in. With a partner. And a cat.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {
+                "kid": 1
+            },
+            "eventAmount": -4000
+        }
+    },
+    {
+        "age": 55,
+        "isMandatory": false,
+        "title": "Health Check-Up",
+        "description": "The clinic invites you for a full check-up.",
+        "options": [
+            {
+                "name": "Do All the Tests",
+                "description": "Peace of mind costs a bit, but it's worth it.",
+                "psyche": 10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -1500
+                }
+            },
+            {
+                "name": "Skip It",
+                "description": "'I feel fine' is not a medical test.",
+                "psyche": -10,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 55,
+        "isMandatory": false,
+        "title": "Your Kid's Wedding",
+        "description": "Now YOU pay for the uncle dancing to the same song 7 times.",
+        "psyche": 15,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -20000
+        }
+    },
+    {
+        "age": 55,
+        "isMandatory": false,
+        "title": "Grandkid Arrives",
+        "description": "All the fun, none of the night shifts.",
+        "psyche": 20,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": -1000
+        }
+    },
+    {
+        "age": 55,
+        "isMandatory": false,
+        "title": "Early Retirement Offer",
+        "description": "Your company offers a package to leave early.",
+        "options": [
+            {
+                "name": "Take the Package",
+                "description": "Big cheque now, smaller pension later.",
+                "psyche": 15,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 30000
+                }
+            },
+            {
+                "name": "Stay",
+                "description": "Five more years of meetings that could have been emails.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 60,
+        "isMandatory": false,
+        "title": "Safe Account Scam",
+        "description": "A 'bank advisor' urgently needs to move your savings to a 'safe account'.",
+        "options": [
+            {
+                "name": "Follow Instructions",
+                "description": "Your savings are now very safe. In someone else's account.",
+                "psyche": -20,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -25000
+                }
+            },
+            {
+                "name": "Hang Up and Call Your Bank",
+                "description": "Scam detected. You feel like a cyber-security expert.",
+                "psyche": 5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "age": 60,
+        "isMandatory": false,
+        "title": "Mortgage Paid Off",
+        "description": "The bank finally sent a letter that isn't a threat.",
+        "psyche": 25,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 0
+        }
+    },
+    {
+        "age": 60,
+        "isMandatory": false,
+        "title": "Bond Coupon",
+        "description": "Your safe, boring bonds paid out. Grandpa energy, grandpa money.",
+        "psyche": 5,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 4000
+        }
+    },
+    {
+        "age": 60,
+        "isMandatory": false,
+        "title": "Retirement Calculator",
+        "description": "You finally opened it. It laughed at you.",
+        "psyche": -10,
+        "effect": {
+            "roomPropsChange": {},
+            "eventAmount": 0
+        }
+    },
+    {
+        "age": 60,
+        "isMandatory": false,
+        "title": "One Last Big Trip",
+        "description": "The world is big and your knees still work. For now.",
+        "options": [
+            {
+                "name": "Go Travel",
+                "description": "Memories for life, photos for everyone at Christmas.",
+                "psyche": 25,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -10000
+                }
+            },
+            {
+                "name": "Stay Home",
+                "description": "Saved money, saw the same four walls.",
+                "psyche": -5,
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
+    }
+]
