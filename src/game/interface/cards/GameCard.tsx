@@ -29,7 +29,7 @@ export function GameCard({
           >
             <div className="card-symbol">{isMandatory ? '!' : '?'}</div>
             <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
-              {isMandatory ? 'Obowiązkowa' : 'Szansa'}
+              {isMandatory ? 'Mandatory' : 'Chance'}
             </span>
           </div>
         )}
