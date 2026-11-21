@@ -10,7 +10,7 @@ const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     tv: -1,
     window: -1,
     car: -1,
-    couch: 1,
+    couch: -1,
     player: 0,
 };
 
