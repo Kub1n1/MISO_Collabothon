@@ -9,6 +9,7 @@ export function FinancialSnapshot() {
     (state) => Math.round(state.savings.account * 0.04 + state.savings.stocks * 0.08)
   );
   const monthlyFixedExpenses = useGameStore((state) => state.monthlyFixedExpenses);
+  const monthlyLoanRepayment = useGameStore((state) => state.monthlyLoanRepayment);
   const stockMarket = useGameStore((state) => state.stockMarket);
   const stockValue = STOCK_SYMBOLS.reduce(
     (total, symbol) => total + stockMarket.prices[symbol] * stockMarket.holdings[symbol],
@@ -21,7 +22,9 @@ export function FinancialSnapshot() {
   const stockProfit = stockValue - stockCostBasis + stockMarket.realizedProfit;
   const netWorth = savingsTotal + stockValue;
   const fixedCostRunway =
-    monthlyFixedExpenses > 0 ? netWorth / monthlyFixedExpenses : 0;
+    monthlyFixedExpenses + monthlyLoanRepayment > 0
+      ? netWorth / (monthlyFixedExpenses + monthlyLoanRepayment)
+      : 0;
   const holdingsSummary = `TSLA ${stockMarket.holdings.TESLA} · MSFT ${stockMarket.holdings.MICROSOFT} · NVDA ${stockMarket.holdings.NVIDIA}`;
 
   return (

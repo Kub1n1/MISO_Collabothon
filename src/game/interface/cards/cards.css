@@ -2,6 +2,7 @@
 .card-slot {
   position: relative;
   width: 220px;
+  flex: 0 0 220px;
   height: 150px;
   border-radius: 12px;
   border: 2px dashed rgba(255, 255, 255, 0.25);
@@ -53,7 +54,8 @@
   top: 50%;
   left: 50%;
   width: 380px;
-  height: 440px;
+  height: min(640px, calc(100vh - 40px));
+  overflow-y: auto;
   transform: translate(-50%, -50%);
   cursor: default;
   z-index: 100;

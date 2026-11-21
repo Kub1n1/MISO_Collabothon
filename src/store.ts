@@ -2,28 +2,18 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import eventLive from './game/events/eventLive.json';
+import eventExtra from './game/events/eventExtra.json';
+import type {
+  FamilyState,
+  GameEvent,
+  GameEventEffect,
+  MandatoryEventSettlement,
+  RoomProps,
+  SavingsBuckets,
+  SavingsStrategy,
+} from './types';
 
-export interface RoomProps {
-    wall: number;
-    floor: number;
-    tv: number;
-    window: number;
-    car: number;
-    couch: number;
-    player: number;
-}
-
-export interface SavingsBuckets {
-  sock: number;    
-  account: number; 
-  stocks: number;  
-}
-
-export interface SavingsStrategy {
-  sock: number;    // np. 10 (%)
-  account: number; // np. 15 (%)
-  stocks: number;  // np. 5 (%)
-}
+export type { RoomProps, SavingsBuckets, SavingsStrategy } from './types';
 
 export const STOCK_SYMBOLS = ['TESLA', 'MICROSOFT', 'NVIDIA'] as const;
 export type StockSymbol = (typeof STOCK_SYMBOLS)[number];
@@ -50,18 +40,6 @@ export interface StockMarketState {
   moveCount: number;
 }
 
-export interface GameEvent {
-  id: number;
-  isMandatory: boolean;
-  age: number;
-  title: string;
-  description: string;
-  effect: {
-    roomPropsChange: Partial<RoomProps>;
-    savingChange: Partial<SavingsBuckets>;
-  };
-}
-
 export interface TurnEvents {
   mandatory: GameEvent | null;
   optional: GameEvent[];
@@ -74,17 +52,31 @@ export interface GameState {
   monthlyIncome: number;
   spouseMonthlyIncome: number;
   monthlyFixedExpenses: number;
+  monthlyLoanRepayment: number;
   monthlyInvestment: number;
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
+  family: FamilyState;
   stockMarket: StockMarketState;
   roomProps: RoomProps;
   eventsMandatory: GameEvent[];
   eventsOptional: GameEvent[];
   turnEvents: TurnEvents;
   isMandatoryEventResolved: boolean;
+  isGameOver: boolean;
+  gameOverReason: string | null;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
-  resolveMandatoryEvent: (eventId: number) => boolean;
+  resolveMandatoryEvent: (
+    eventId: number,
+    optionIndex: number | null,
+    settlement: MandatoryEventSettlement
+  ) => boolean;
+  resolveOptionalEvent: (
+    eventId: number,
+    optionIndex: number | null,
+    settlement: MandatoryEventSettlement
+  ) => boolean;
+  dismissOptionalEvent: (eventId: number) => void;
   updatePsyche: (value: number) => void;
   updateMonthlyInvestment: (amount: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
@@ -111,9 +103,23 @@ export type SavingsTransferResult =
 
 const STEP = 5;
 const START_AGE = 20;
-const INITIAL_MONTHLY_INCOME = 3000;
+const INITIAL_MONTHLY_INCOME = 1000;
 const INITIAL_SPOUSE_MONTHLY_INCOME = 3000;
-const SAVING_EVENT_AMOUNT = 1000;
+const LOAN_TERM_MONTHS = 60;
+const ENTERTAINMENT_PSYCHE_BONUS = 10;
+const OPTIONAL_EVENTS_PER_TURN = 3;
+
+export function getMaximumAffordableLoan(
+  householdIncome: number,
+  monthlyFixedExpenses: number,
+  monthlyLoanRepayment: number
+) {
+  const monthlyCapacity = Math.max(
+    0,
+    householdIncome - monthlyFixedExpenses - monthlyLoanRepayment
+  );
+  return Math.floor(monthlyCapacity * LOAN_TERM_MONTHS);
+}
 
 function createInitialStockMarket(): StockMarketState {
   return {
@@ -159,25 +165,169 @@ function getRandomMandatoryEvent(events: GameEvent[], age: number) {
   return eligibleEvents[randomIndex] ?? null;
 }
 
+function getRandomOptionalEvents(events: GameEvent[], age: number) {
+  const eligibleEvents = events.filter((event) => event.age === age);
+  for (let index = 0; index < Math.min(OPTIONAL_EVENTS_PER_TURN, eligibleEvents.length); index++) {
+    const randomIndex =
+      index + Math.floor(Math.random() * (eligibleEvents.length - index));
+    [eligibleEvents[index], eligibleEvents[randomIndex]] = [
+      eligibleEvents[randomIndex],
+      eligibleEvents[index],
+    ];
+  }
+  return eligibleEvents.slice(0, OPTIONAL_EVENTS_PER_TURN);
+}
+
 
 export const useGameStore = create<GameState>()(
   subscribeWithSelector(
     immer((set) => {
       const allEvents: GameEvent[] = eventLive.map((event, id) => ({ ...event, id }));
       const eventsMandatory = allEvents.filter((event) => event.isMandatory);
-      const eventsOptional = allEvents.filter((event) => !event.isMandatory);
+      const eventsOptional: GameEvent[] = eventExtra.map((event, id) => ({
+        ...event,
+        id: eventLive.length + id,
+      }));
       const initialMandatoryEvent = getRandomMandatoryEvent(eventsMandatory, START_AGE);
+      const initialMonthlyFixedExpenses = randomMonthlyFixedExpenses(INITIAL_MONTHLY_INCOME);
+
+      const resolveEvent = (
+        eventId: number,
+        optionIndex: number | null,
+        settlement: MandatoryEventSettlement,
+        mandatory: boolean
+      ) => {
+        let resolved = false;
+
+        set((state) => {
+          const event = mandatory
+            ? state.turnEvents.mandatory
+            : state.turnEvents.optional.find((candidate) => candidate.id === eventId);
+          if (
+            !event ||
+            event.id !== eventId ||
+            (mandatory && state.isMandatoryEventResolved) ||
+            state.isGameOver
+          ) return;
+
+          const option = optionIndex === null ? undefined : event.options?.[optionIndex];
+          if (event.options?.length && !option) return;
+          if (!event.options?.length && optionIndex !== null) return;
+
+          const effect: GameEventEffect | undefined = option?.effect ?? event.effect;
+          if (!effect || !Number.isFinite(effect.eventAmount)) return;
+
+          const amount = effect.eventAmount;
+          const requiredPayment = Math.abs(amount);
+          const householdIncome = state.monthlyIncome + state.spouseMonthlyIncome;
+          const maxLoan = getMaximumAffordableLoan(
+            householdIncome,
+            state.monthlyFixedExpenses,
+            state.monthlyLoanRepayment
+          );
+          const totalAvailableSavings = (
+            Object.keys(state.savings) as (keyof SavingsBuckets)[]
+          ).reduce((total, bucket) => total + Math.max(0, state.savings[bucket]), 0);
+
+          if (amount < 0 && totalAvailableSavings + maxLoan < requiredPayment) {
+            if (mandatory) {
+              state.isGameOver = true;
+              state.gameOverReason =
+                `${event.title}: the cost of ${requiredPayment} PLN exceeds your ` +
+                'available savings and affordable credit.';
+            }
+            return;
+          }
+
+          if (amount < 0) {
+            if (settlement.kind !== 'pay') return;
+
+            const payments = settlement.savings;
+            let savingsPayment = 0;
+            for (const bucket of Object.keys(state.savings) as (keyof SavingsBuckets)[]) {
+              const payment = payments[bucket] ?? 0;
+              if (
+                !Number.isInteger(payment) ||
+                payment < 0 ||
+                payment > Math.max(0, state.savings[bucket])
+              ) return;
+              savingsPayment += payment;
+            }
+
+            if (
+              !Number.isInteger(settlement.loanAmount) ||
+              settlement.loanAmount < 0 ||
+              settlement.loanAmount > maxLoan ||
+              savingsPayment + settlement.loanAmount !== requiredPayment
+            ) return;
+
+            for (const bucket of Object.keys(state.savings) as (keyof SavingsBuckets)[]) {
+              state.savings[bucket] -= payments[bucket] ?? 0;
+            }
+            state.monthlyLoanRepayment += settlement.loanAmount / LOAN_TERM_MONTHS;
+          } else if (amount > 0) {
+            if (settlement.kind === 'save-to-sock') {
+              state.savings.sock += amount;
+            } else if (settlement.kind !== 'entertainment') {
+              return;
+            }
+          } else if (settlement.kind !== 'no-payment') {
+            return;
+          }
+
+          const roomChanges = effect.roomPropsChange;
+          for (const prop of ['wall', 'floor', 'tv', 'window', 'car', 'couch'] as const) {
+            const change = roomChanges[prop] ?? 0;
+            state.roomProps[prop] = Math.max(0, state.roomProps[prop] + change);
+          }
+
+          for (const member of ['wife', 'kid', 'spy'] as const) {
+            const change = roomChanges[member];
+            if (change !== undefined) {
+              state.family[member] = change > 0;
+              if (member === 'wife') {
+                state.spouseMonthlyIncome = change > 0 ? INITIAL_SPOUSE_MONTHLY_INCOME : 0;
+              }
+            }
+          }
+
+          if (event.income !== undefined) {
+            state.monthlyIncome = event.income;
+          }
+
+          const psycheChange =
+            (event.psyche ?? 0) + (option?.psyche ?? 0) +
+            (settlement.kind === 'entertainment' ? ENTERTAINMENT_PSYCHE_BONUS : 0);
+          state.psyche = Math.max(0, Math.min(100, state.psyche + psycheChange));
+
+          const availableAfterExpenses =
+            state.monthlyIncome + state.spouseMonthlyIncome -
+            state.monthlyFixedExpenses - state.monthlyLoanRepayment;
+          state.monthlyInvestment = Math.max(
+            0,
+            Math.min(state.monthlyInvestment, availableAfterExpenses)
+          );
+
+          if (mandatory) {
+            state.isMandatoryEventResolved = true;
+          } else {
+            state.turnEvents.optional = [];
+          }
+          resolved = true;
+        });
+
+        return resolved;
+      };
 
       return{
       age: 20,
       retirementAge: 65,
-      psyche: 100,
+      psyche: 70,
       monthlyIncome: INITIAL_MONTHLY_INCOME,
-      spouseMonthlyIncome: INITIAL_SPOUSE_MONTHLY_INCOME,
-      monthlyFixedExpenses: randomMonthlyFixedExpenses(
-        INITIAL_MONTHLY_INCOME + INITIAL_SPOUSE_MONTHLY_INCOME
-      ),
-      monthlyInvestment: 3000,
+      spouseMonthlyIncome: 0,
+      monthlyFixedExpenses: initialMonthlyFixedExpenses,
+      monthlyLoanRepayment: 0,
+      monthlyInvestment: Math.max(0, INITIAL_MONTHLY_INCOME - initialMonthlyFixedExpenses),
       savings: {
         sock: 0,
         account: 0,
@@ -187,6 +337,11 @@ export const useGameStore = create<GameState>()(
         sock: 10,
         account: 15,
         stocks: 5,
+      },
+      family: {
+        wife: false,
+        kid: false,
+        spy: false,
       },
       stockMarket: createInitialStockMarket(),
       roomProps: {
@@ -201,41 +356,26 @@ export const useGameStore = create<GameState>()(
       eventsMandatory: eventsMandatory,
       eventsOptional: eventsOptional,
       isMandatoryEventResolved: initialMandatoryEvent === null,
+      isGameOver: false,
+      gameOverReason: null,
       turnEvents: {
         mandatory: initialMandatoryEvent,
-        optional: eventsOptional.filter((event) => event.age === START_AGE),
+        optional: getRandomOptionalEvents(eventsOptional, START_AGE),
       },
       incrementProp: (propName, amount = 1) =>
         set((state) => {
           state.roomProps[propName] += amount;
         }),
-      resolveMandatoryEvent: (eventId) => {
-        let resolved = false;
-
+      resolveMandatoryEvent: (eventId, optionIndex, settlement) =>
+        resolveEvent(eventId, optionIndex, settlement, true),
+      resolveOptionalEvent: (eventId, optionIndex, settlement) =>
+        resolveEvent(eventId, optionIndex, settlement, false),
+      dismissOptionalEvent: (eventId) =>
         set((state) => {
-          const event = state.turnEvents.mandatory;
-          if (!event || event.id !== eventId || state.isMandatoryEventResolved) return;
-
-          for (const prop of Object.keys(event.effect.roomPropsChange) as (keyof RoomProps)[]) {
-            state.roomProps[prop] = Math.max(
-              0,
-              state.roomProps[prop] + (event.effect.roomPropsChange[prop] ?? 0)
-            );
-          }
-
-          for (const bucket of Object.keys(event.effect.savingChange) as (keyof SavingsBuckets)[]) {
-            const change = Math.round(
-              (event.effect.savingChange[bucket] ?? 0) * SAVING_EVENT_AMOUNT
-            );
-            state.savings[bucket] += change;
-          }
-
-          state.isMandatoryEventResolved = true;
-          resolved = true;
-        });
-
-        return resolved;
-      },
+          state.turnEvents.optional = state.turnEvents.optional.filter(
+            (event) => event.id !== eventId
+          );
+        }),
       updatePsyche: (value) =>
         set((state) => {
           state.psyche = Math.max(0, Math.min(100, value));
@@ -243,7 +383,8 @@ export const useGameStore = create<GameState>()(
       updateMonthlyInvestment: (amount) =>
         set((state) => {
           const availableAfterFixedExpenses =
-            state.monthlyIncome + state.spouseMonthlyIncome - state.monthlyFixedExpenses;
+            state.monthlyIncome + state.spouseMonthlyIncome -
+            state.monthlyFixedExpenses - state.monthlyLoanRepayment;
           state.monthlyInvestment = Math.max(0, Math.min(availableAfterFixedExpenses, amount));
         }),
       updateStrategy: (bucket, percent) =>
@@ -311,11 +452,17 @@ export const useGameStore = create<GameState>()(
       },
       isNextTurnAvailable: () => {
         const state = useGameStore.getState() as GameState;
-        return state.age < state.retirementAge && state.isMandatoryEventResolved;
+        return state.age < state.retirementAge &&
+          state.isMandatoryEventResolved &&
+          !state.isGameOver;
       },
       advanceTurn: () =>
         set((state) => {
-          if (state.age >= state.retirementAge || !state.isMandatoryEventResolved) return;
+          if (
+            state.age >= state.retirementAge ||
+            !state.isMandatoryEventResolved ||
+            state.isGameOver
+          ) return;
 
           // Przykład naliczenia za 1 rok (12 miesięcy)
           const yearlyIncome = state.monthlyInvestment * 12 * STEP;
@@ -357,6 +504,7 @@ export const useGameStore = create<GameState>()(
           return {
             age,
             monthlyFixedExpenses,
+            monthlyLoanRepayment: 0,
             monthlyInvestment: Math.min(state.monthlyInvestment, availableAfterFixedExpenses),
             savings: {
               sock: Math.round(state.savings.sock + addedSock),
@@ -367,7 +515,7 @@ export const useGameStore = create<GameState>()(
             isMandatoryEventResolved: mandatoryEvent === null,
             turnEvents: {
               mandatory: mandatoryEvent,
-              optional: state.eventsOptional.filter((event) => event.age === age),
+              optional: getRandomOptionalEvents(state.eventsOptional, age),
             },
           };
         }),
@@ -391,7 +539,9 @@ export const useGameStore = create<GameState>()(
       },
       canAdvanceTurn: () => {
         const state = useGameStore.getState() as GameState;
-        return state.age < state.retirementAge && state.isMandatoryEventResolved;
+        return state.age < state.retirementAge &&
+          state.isMandatoryEventResolved &&
+          !state.isGameOver;
       }
     }})
   )

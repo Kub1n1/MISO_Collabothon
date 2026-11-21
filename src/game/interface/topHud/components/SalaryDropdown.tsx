@@ -12,10 +12,12 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
   const monthlyIncome = useGameStore((s) => s.monthlyIncome);
   const spouseMonthlyIncome = useGameStore((s) => s.spouseMonthlyIncome);
   const monthlyFixedExpenses = useGameStore((s) => s.monthlyFixedExpenses);
+  const monthlyLoanRepayment = useGameStore((s) => s.monthlyLoanRepayment);
   const monthlyInvestment = useGameStore((s) => s.monthlyInvestment);
   const updateMonthlyInvestment = useGameStore((s) => s.updateMonthlyInvestment);
   const totalHouseholdIncome = monthlyIncome + spouseMonthlyIncome;
-  const availableAfterFixedExpenses = totalHouseholdIncome - monthlyFixedExpenses;
+  const availableAfterFixedExpenses =
+    totalHouseholdIncome - monthlyFixedExpenses - monthlyLoanRepayment;
   const personalAndHobbyExpenses = availableAfterFixedExpenses - monthlyInvestment;
   const investmentPercentage =
     availableAfterFixedExpenses > 0
@@ -73,14 +75,22 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
                 <span className="has-text-grey-light">Your monthly income</span>
                 <span>{formatPLN(monthlyIncome)} / month</span>
               </div>
-              <div className="is-flex is-justify-content-space-between">
-                <span className="has-text-grey-light">Wife's monthly income</span>
-                <span>{formatPLN(spouseMonthlyIncome)} / month</span>
-              </div>
+              {spouseMonthlyIncome > 0 && (
+                <div className="is-flex is-justify-content-space-between">
+                  <span className="has-text-grey-light">Wife's monthly income</span>
+                  <span>{formatPLN(spouseMonthlyIncome)} / month</span>
+                </div>
+              )}
               <div className="is-flex is-justify-content-space-between mt-2">
                 <span className="has-text-grey-light">Fixed monthly expenses</span>
                 <span>{formatPLN(monthlyFixedExpenses)} / month</span>
               </div>
+              {monthlyLoanRepayment > 0 && (
+                <div className="is-flex is-justify-content-space-between">
+                  <span className="has-text-grey-light">Loan repayment (5 years)</span>
+                  <span>{formatPLN(monthlyLoanRepayment)} / month</span>
+                </div>
+              )}
             </div>
             <p className="is-size-7 has-text-grey-light mb-2">
               Monthly investment amount (max. {formatPLN(availableAfterFixedExpenses)})

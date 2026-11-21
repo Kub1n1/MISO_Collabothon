@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGameStore } from '../../../store';
 import { GameCard } from './GameCard';
-import type { GameEvent } from '../../../types';
+import type { GameEvent, MandatoryEventSettlement } from '../../../types';
 import './cards.css';
 
 export function CardHand() {
@@ -10,16 +10,31 @@ export function CardHand() {
   const optionalCards = useGameStore((c) => c.turnEvents.optional);
   const isMandatoryEventResolved = useGameStore((s) => s.isMandatoryEventResolved);
   const resolveMandatoryEvent = useGameStore((s) => s.resolveMandatoryEvent);
+  const resolveOptionalEvent = useGameStore((s) => s.resolveOptionalEvent);
+  const dismissOptionalEvent = useGameStore((s) => s.dismissOptionalEvent);
 
-  const handlePlayCard = (card: GameEvent) => {
-    if (card.isMandatory) resolveMandatoryEvent(card.id);
-    setSelectedCardId(null);
+  const handlePlayCard = (
+    card: GameEvent,
+    optionIndex: number | null,
+    settlement: MandatoryEventSettlement
+  ) => {
+    const resolved = card.isMandatory
+      ? resolveMandatoryEvent(card.id, optionIndex, settlement)
+      : resolveOptionalEvent(card.id, optionIndex, settlement);
+    if (resolved) setSelectedCardId(null);
+    return resolved;
   };
 
   return (
     <div
       className="is-flex is-justify-content-center is-align-items-end"
-      style={{ gap: '1.25rem', pointerEvents: 'auto' }}
+      style={{
+        gap: '1.25rem',
+        pointerEvents: 'auto',
+        justifyContent: 'flex-start',
+        maxWidth: 'calc(100vw - 180px)',
+        overflowX: 'auto',
+      }}
     >
       {/* Mandatory event */}
       {mandatoryCard && (
@@ -38,7 +53,7 @@ export function CardHand() {
         </>
       )}
 
-      {/* Optional events are displayed but not resolved yet. */}
+      {/* Optional events do not block advancing to the next age. */}
       {optionalCards.map((card) => (
         <GameCard
           key={card.id}
@@ -48,6 +63,10 @@ export function CardHand() {
           onSelect={setSelectedCardId}
           onClose={() => setSelectedCardId(null)}
           onPlay={handlePlayCard}
+          onSkip={() => {
+            dismissOptionalEvent(card.id);
+            setSelectedCardId(null);
+          }}
         />
       ))}
     </div>

@@ -5,12 +5,13 @@ export interface RoomProps {
     window: number;
     car: number;
     couch: number;
+    player: number;
 }
 
 export interface SavingsBuckets {
-  sock: number;    
-  account: number; 
-  stocks: number;  
+  sock: number;
+  account: number;
+  stocks: number;
 }
 
 export interface SavingsStrategy {
@@ -19,16 +20,47 @@ export interface SavingsStrategy {
   stocks: number;  // np. 5 (%)
 }
 
+export interface FamilyState {
+  wife: boolean;
+  kid: boolean;
+  spy: boolean;
+}
+
+export interface EventRoomPropsChange {
+  wall?: number;
+  floor?: number;
+  tv?: number;
+  window?: number;
+  car?: number;
+  couch?: number;
+  wife?: number;
+  kid?: number;
+  spy?: number;
+}
+
+export interface GameEventEffect {
+  roomPropsChange: EventRoomPropsChange;
+  eventAmount: number;
+}
+
+export interface GameEventOption {
+  name: string;
+  description: string;
+  psyche?: number;
+  effect: GameEventEffect;
+}
+
 export interface GameEvent {
   id: number;
-  isMandatory: boolean;
+  eventId: string;
   age: number;
+  income?: number;
+  isMandatory: boolean;
   title: string;
   description: string;
-  effect: {
-    roomPropsChange: Partial<RoomProps>;
-    savingChange: Partial<SavingsBuckets>;
-  };
+  psyche?: number;
+  effect?: GameEventEffect;
+  options?: GameEventOption[];
 }
 
 export interface TurnEvents {
@@ -43,16 +75,30 @@ export interface GameState {
   monthlyIncome: number;
   spouseMonthlyIncome: number;
   monthlyFixedExpenses: number;
+  monthlyLoanRepayment: number;
   monthlyInvestment: number;
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
+  family: FamilyState;
   roomProps: RoomProps;
   eventsMandatory: GameEvent[];
   eventsOptional: GameEvent[];
   turnEvents: TurnEvents;
   isMandatoryEventResolved: boolean;
+  isGameOver: boolean;
+  gameOverReason: string | null;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
-  resolveMandatoryEvent: (eventId: number) => boolean;
+  resolveMandatoryEvent: (
+    eventId: number,
+    optionIndex: number | null,
+    settlement: MandatoryEventSettlement
+  ) => boolean;
+  resolveOptionalEvent: (
+    eventId: number,
+    optionIndex: number | null,
+    settlement: MandatoryEventSettlement
+  ) => boolean;
+  dismissOptionalEvent: (eventId: number) => void;
   updatePsyche: (value: number) => void;
   updateMonthlyInvestment: (amount: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
@@ -71,3 +117,13 @@ export type SavingsTransferResult =
   | 'same-bucket'
   | 'invalid-amount'
   | 'insufficient-funds';
+
+export type MandatoryEventSettlement =
+  | { kind: 'no-payment' }
+  | {
+      kind: 'pay';
+      savings: Partial<SavingsBuckets>;
+      loanAmount: number;
+    }
+  | { kind: 'save-to-sock' }
+  | { kind: 'entertainment' };

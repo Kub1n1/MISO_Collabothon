@@ -15,6 +15,7 @@ export function SavingsDropdown({ isOpen, onToggle, onClose }: SavingsDropdownPr
   const monthlyIncome = useGameStore((s) => s.monthlyIncome);
   const spouseMonthlyIncome = useGameStore((s) => s.spouseMonthlyIncome);
   const monthlyFixedExpenses = useGameStore((s) => s.monthlyFixedExpenses);
+  const monthlyLoanRepayment = useGameStore((s) => s.monthlyLoanRepayment);
   const monthlyInvestment = useGameStore((s) => s.monthlyInvestment);
   const savings = useGameStore((s) => s.savings);
   const strategy = useGameStore((s) => s.strategy);
@@ -22,7 +23,8 @@ export function SavingsDropdown({ isOpen, onToggle, onClose }: SavingsDropdownPr
 
   const totalSavings = savings.sock + savings.account + savings.stocks;
   const totalHouseholdIncome = monthlyIncome + spouseMonthlyIncome;
-  const availableAfterFixedExpenses = totalHouseholdIncome - monthlyFixedExpenses;
+  const availableAfterFixedExpenses =
+    totalHouseholdIncome - monthlyFixedExpenses - monthlyLoanRepayment;
   const totalSavedPercent = strategy.sock + strategy.account + strategy.stocks;
   const totalMonthlyContribution = monthlyInvestment * (totalSavedPercent / 100);
   const isOverBudget = totalMonthlyContribution > availableAfterFixedExpenses;

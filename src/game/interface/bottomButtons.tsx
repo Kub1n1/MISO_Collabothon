@@ -10,7 +10,12 @@ interface Props {
 
 const BottomButtons: React.FC<Props> = ({ phaserRef: _phaserRef }) => {
     const advanceTurn = useGameStore((state) => state.advanceTurn);
-    const canAdvance = useGameStore((state) => state.canAdvanceTurn());
+    const canAdvance = useGameStore(
+        (state) =>
+            state.age < state.retirementAge &&
+            state.isMandatoryEventResolved &&
+            !state.isGameOver
+    );
     // const canAdvance = useGameStore(
     //     (state) => state.age < state.retirementAge && state.isMandatoryEventResolved
     // );
