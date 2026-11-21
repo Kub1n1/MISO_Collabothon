@@ -85,18 +85,49 @@ export function SavingsDropdown({ isOpen, onToggle, onClose }: SavingsDropdownPr
               />
             </div>
 
+            <div className="mb-4">
+              <div
+                role="img"
+                aria-label={`Monthly investment allocation: ${strategy.sock}% cash at home, ${strategy.account}% savings account, ${strategy.stocks}% stocks and bonds`}
+                style={{
+                  display: 'flex',
+                  height: '8px',
+                  overflow: 'hidden',
+                  borderRadius: '999px',
+                  background: 'rgba(255,255,255,0.12)',
+                }}
+              >
+                {strategyOptions.map((row) => (
+                  <div
+                    key={row.key}
+                    style={{
+                      width: `${strategy[row.key]}%`,
+                      backgroundColor: row.accentColor,
+                      transition: 'width 160ms ease-out',
+                    }}
+                  />
+                ))}
+              </div>
+              <div className="is-flex is-justify-content-space-between is-size-7 mt-1">
+                <span className="has-text-grey-light">Monthly investment allocation</span>
+                <span className="has-text-white has-text-weight-semibold">
+                  {totalSavedPercent}% / 100%
+                </span>
+              </div>
+            </div>
+
             {strategyOptions.map((row) => (
               <StrategyRow
                 key={row.key}
                 label={row.label}
                 hint={row.hint}
                 colorClass={row.colorClass}
+                accentColor={row.accentColor}
                 currentBalance={savings[row.key]}
                 percent={strategy[row.key]}
                 monthlyInvestment={monthlyInvestment}
                 onPercentChange={(percent) => updateStrategy(row.key, percent)}
                 description={row.description}
-                maxPercent={Math.max(0, 100 - (totalSavedPercent - strategy[row.key]))}
               />
             ))}
             <SavingsTransferForm />

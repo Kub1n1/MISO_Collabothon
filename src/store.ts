@@ -3,104 +3,20 @@ import { subscribeWithSelector } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import eventLive from './game/events/eventLive.json';
 import eventExtra from './game/events/eventExtra.json';
-import type {
-  FamilyState,
-  GameEvent,
-  GameEventEffect,
-  MandatoryEventSettlement,
-  RoomProps,
-  SavingsBuckets,
-  SavingsStrategy,
+import {
+  SavingsTransferResult,
+  STOCK_SYMBOLS,
+  type GameEvent,
+  type GameEventEffect,
+  type GameState,
+  type MandatoryEventSettlement,
+  type SavingsBuckets,
+  type SavingsStrategy,
+  type StockMarketState,
+  type StockTradeResult,
 } from './types';
 
 export type { RoomProps, SavingsBuckets, SavingsStrategy } from './types';
-
-export const STOCK_SYMBOLS = ['TESLA', 'MICROSOFT', 'NVIDIA'] as const;
-export type StockSymbol = (typeof STOCK_SYMBOLS)[number];
-export type StockTradeAction = 'buy' | 'sell';
-export type StockTradeResult =
-  | 'success'
-  | 'already-traded'
-  | 'invalid-quantity'
-  | 'insufficient-funds'
-  | 'insufficient-shares';
-
-export function getAvailableStockFunds(savings: SavingsBuckets) {
-  return Math.max(0, savings.sock) + Math.max(0, savings.account) + Math.max(0, savings.stocks);
-}
-
-export interface StockMarketState {
-  prices: Record<StockSymbol, number>;
-  history: Record<StockSymbol, number[]>;
-  lastChangePercent: Record<StockSymbol, number>;
-  holdings: Record<StockSymbol, number>;
-  costBasis: Record<StockSymbol, number>;
-  realizedProfit: number;
-  tradeUsedThisMove: boolean;
-  moveCount: number;
-}
-
-export interface TurnEvents {
-  mandatory: GameEvent | null;
-  optional: GameEvent[];
-  resolvedOptionalEventIds: number[];
-}
-
-export interface GameState {
-  age: number;
-  retirementAge: number;
-  psyche: number;
-  monthlyIncome: number;
-  spouseMonthlyIncome: number;
-  monthlyFixedExpenses: number;
-  monthlyLoanRepayment: number;
-  monthlyInvestment: number;
-  savings: SavingsBuckets;
-  strategy: SavingsStrategy;
-  family: FamilyState;
-  stockMarket: StockMarketState;
-  roomProps: RoomProps;
-  eventsMandatory: GameEvent[];
-  eventsOptional: GameEvent[];
-  turnEvents: TurnEvents;
-  isMandatoryEventResolved: boolean;
-  isGameOver: boolean;
-  gameOverReason: string | null;
-  incrementProp: (propName: keyof RoomProps, amount?: number) => void;
-  resolveMandatoryEvent: (
-    eventId: number,
-    optionIndex: number | null,
-    settlement: MandatoryEventSettlement
-  ) => boolean;
-  resolveOptionalEvent: (
-    eventId: number,
-    optionIndex: number | null,
-    settlement: MandatoryEventSettlement
-  ) => boolean;
-  dismissOptionalEvent: (eventId: number) => void;
-  updatePsyche: (value: number) => void;
-  updateMonthlyInvestment: (amount: number) => void;
-  updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
-  tradeStock: (
-    symbol: StockSymbol,
-    action: StockTradeAction,
-    quantity: number
-  ) => StockTradeResult;
-  advanceTurn: () => void; 
-  isNextTurnAvailable: () => boolean;
-  canAdvanceTurn: () => boolean;
-  transferSavings: (
-    from: keyof SavingsBuckets,
-    to: keyof SavingsBuckets,
-    amount: number
-  ) => SavingsTransferResult;
-}
-
-export type SavingsTransferResult =
-  | 'success'
-  | 'same-bucket'
-  | 'invalid-amount'
-  | 'insufficient-funds';
 
 const STEP = 5;
 const START_AGE = 20;
@@ -109,6 +25,10 @@ const INITIAL_SPOUSE_MONTHLY_INCOME = 3000;
 const LOAN_TERM_MONTHS = 60;
 const ENTERTAINMENT_PSYCHE_BONUS = 10;
 const OPTIONAL_EVENTS_PER_TURN = 3;
+
+export function getAvailableStockFunds(savings: SavingsBuckets) {
+  return Math.max(0, savings.sock) + Math.max(0, savings.account) + Math.max(0, savings.stocks);
+}
 
 export function getMaximumAffordableLoan(
   householdIncome: number,
@@ -158,6 +78,59 @@ function createInitialStockMarket(): StockMarketState {
 function randomMonthlyFixedExpenses(householdIncome: number) {
   const percentage = 20 + Math.floor(Math.random() * 26);
   return Math.round(householdIncome * (percentage / 100));
+}
+
+function rebalanceStrategy(
+  strategy: SavingsStrategy,
+  bucket: keyof SavingsStrategy,
+  requestedPercent: number
+): SavingsStrategy {
+  const requestedValue = Number.isFinite(requestedPercent)
+    ? requestedPercent
+    : strategy[bucket];
+  const percent = Math.round(Math.max(0, Math.min(100, requestedValue)));
+  const remainingPercent = 100 - percent;
+  const otherBuckets = (
+    Object.keys(strategy) as (keyof SavingsStrategy)[]
+  ).filter((key) => key !== bucket);
+  const otherTotal = otherBuckets.reduce(
+    (total, key) => total + Math.max(0, strategy[key]),
+    0
+  );
+  const nextStrategy: SavingsStrategy = { ...strategy, [bucket]: percent };
+
+  if (otherTotal === 0) {
+    const evenShare = Math.floor(remainingPercent / otherBuckets.length);
+    otherBuckets.forEach((key, index) => {
+      nextStrategy[key] =
+        evenShare + (index < remainingPercent % otherBuckets.length ? 1 : 0);
+    });
+    return nextStrategy;
+  }
+
+  const allocations = otherBuckets.map((key, index) => {
+    const exactShare = (remainingPercent * Math.max(0, strategy[key])) / otherTotal;
+    return { key, index, value: Math.floor(exactShare), remainder: exactShare % 1 };
+  });
+  let unallocated = remainingPercent - allocations.reduce(
+    (total, allocation) => total + allocation.value,
+    0
+  );
+
+  allocations
+    .slice()
+    .sort((left, right) => right.remainder - left.remainder || left.index - right.index)
+    .forEach((allocation) => {
+      if (unallocated > 0) {
+        allocation.value += 1;
+        unallocated -= 1;
+      }
+    });
+
+  allocations.forEach(({ key, value }) => {
+    nextStrategy[key] = value;
+  });
+  return nextStrategy;
 }
 
 function getRandomMandatoryEvent(events: GameEvent[], age: number) {
@@ -346,9 +319,9 @@ export const useGameStore = create<GameState>()(
         stocks: 0,
       },
       strategy: {
-        sock: 10,
-        account: 15,
-        stocks: 5,
+        sock: 33,
+        account: 50,
+        stocks: 17,
       },
       family: {
         wife: false,
@@ -402,14 +375,7 @@ export const useGameStore = create<GameState>()(
         }),
       updateStrategy: (bucket, percent) =>
         set((state) => {
-          const otherBucketsTotal = (
-            Object.keys(state.strategy) as (keyof SavingsStrategy)[]
-          )
-            .filter((key) => key !== bucket)
-            .reduce((total, key) => total + state.strategy[key], 0);
-
-          const maxPercent = Math.max(0, 100 - otherBucketsTotal);
-          state.strategy[bucket] = Math.max(0, Math.min(maxPercent, percent));
+          state.strategy = rebalanceStrategy(state.strategy, bucket, percent);
         }),
       tradeStock: (symbol, action, quantity) => {
         let result: StockTradeResult = 'success';
