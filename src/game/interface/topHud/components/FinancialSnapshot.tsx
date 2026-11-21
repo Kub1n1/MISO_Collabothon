@@ -1,5 +1,4 @@
 import { useGameStore } from '../../../../store';
-import { STOCK_SYMBOLS } from '../../../../types';
 import { formatPLN } from '../formatPLN';
 
 export function FinancialSnapshot() {
@@ -11,23 +10,11 @@ export function FinancialSnapshot() {
   );
   const monthlyFixedExpenses = useGameStore((state) => state.monthlyFixedExpenses);
   const monthlyLoanRepayment = useGameStore((state) => state.monthlyLoanRepayment);
-  const stockMarket = useGameStore((state) => state.stockMarket);
-  const stockValue = STOCK_SYMBOLS.reduce(
-    (total, symbol) => total + stockMarket.prices[symbol] * stockMarket.holdings[symbol],
-    0
-  );
-  const stockCostBasis = STOCK_SYMBOLS.reduce(
-    (total, symbol) => total + stockMarket.costBasis[symbol],
-    0
-  );
-  const stockProfit = stockValue - stockCostBasis + stockMarket.realizedProfit;
-  const netWorth = savingsTotal + stockValue;
+  const netWorth = savingsTotal;
   const fixedCostRunway =
     monthlyFixedExpenses + monthlyLoanRepayment > 0
       ? netWorth / (monthlyFixedExpenses + monthlyLoanRepayment)
       : 0;
-  const holdingsSummary = `TSLA ${stockMarket.holdings.TESLA} · MSFT ${stockMarket.holdings.MICROSOFT} · NVDA ${stockMarket.holdings.NVIDIA}`;
-
   return (
     <div
       className="box glass-box p-3 has-text-light"
