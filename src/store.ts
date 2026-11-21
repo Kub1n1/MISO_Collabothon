@@ -189,7 +189,7 @@ function getHomeBackground(
   if (homeLevel === 1) {
     return carLevel > 0 ? 'home_modern_v1_car.jpg' : 'home_modern_v1.jpg';
   }
-  if (carLevel > 0) return 'home_car.jpg';
+  if (carLevel > 0 && mandatoryBackground === 2) return 'home_car.jpg';
   return mandatoryBackground === 1 ? 'background_1.jpg' : 'background_2.jpg';
 }
 
