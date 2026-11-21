@@ -1,6 +1,8 @@
 import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
-import { RoomProps, useGameStore } from '../../store';
+import { useGameStore } from '../../store';
+import type { RoomProps } from '../../store';
+import type { EventBackground } from '../../types';
 
 const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     wall: 2,
@@ -20,6 +22,7 @@ const PLAYER_SCALE = 0.55;
 export class Room extends Scene
 {
     private elements: Partial<Record<keyof RoomProps, GameObjects.Image>> = {}; 
+    private eventBackground: GameObjects.Image;
     private player:GameObjects.Image;
     private unsubscribers: (() => void)[] = [];
 
@@ -28,6 +31,9 @@ export class Room extends Scene
     }
 
     preload(){
+        this.load.image('event-background-1', 'assets/backgrounds/background_1.jpg');
+        this.load.image('event-background-2', 'assets/backgrounds/background_2.jpg');
+
         (Object.keys(ASSET_LEVELS) as (keyof RoomProps)[]).forEach((key) => {
             const count = ASSET_LEVELS[key];
             for (let level = 0; level < count; level++) {
@@ -47,6 +53,20 @@ export class Room extends Scene
     create(){
         const initialProps = useGameStore.getState().roomProps;
         const initialAge = useGameStore.getState().age;
+        const initialBackground = useGameStore.getState().activeBackground;
+
+        this.eventBackground = this.add.image(
+            512,
+            384,
+            this.getEventBackgroundTexture(initialBackground)
+        );
+        this.updateEventBackground(initialBackground);
+        this.unsubscribers.push(
+            useGameStore.subscribe(
+                (state) => state.activeBackground,
+                (background) => this.updateEventBackground(background)
+            )
+        );
 
         const propKeys = ([
             'wall', 'floor', 'couch', 'tv', 'window', 'car'
@@ -56,7 +76,8 @@ export class Room extends Scene
 
         propKeys.forEach((key) => {
             const initialTexture = `${key}_${initialProps[key]}`;
-            const img = this.add.image(512, 384, initialTexture);
+            const depth = key === 'wall' || key === 'floor' ? -2 : 0;
+            const img = this.add.image(512, 384, initialTexture).setDepth(depth);
             this.elements[key] = img;
 
             const unsub = useGameStore.subscribe(
@@ -96,6 +117,25 @@ export class Room extends Scene
         );
 
         return `player_age_${ageStage}`;
+    }
+
+    private getEventBackgroundTexture(background: EventBackground) {
+        return `event-background-${background}`;
+    }
+
+    private updateEventBackground(background: EventBackground) {
+        const textureKey = this.getEventBackgroundTexture(background);
+        if (!this.eventBackground || !this.textures.exists(textureKey)) {
+            console.warn(`Brak tekstury tła: ${textureKey}`);
+            return;
+        }
+
+        const source = this.textures.get(textureKey).getSourceImage();
+        const scale = Math.max(1024 / source.width, 768 / source.height);
+        this.eventBackground
+            .setTexture(textureKey)
+            .setScale(scale)
+            .setDepth(-1);
     }
 
     private updatePlayerAge(age: number) {

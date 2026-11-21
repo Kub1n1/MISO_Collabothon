@@ -10,8 +10,6 @@ interface GameCardProps {
   isResolved?: boolean;
   isExpanded: boolean;
   onSelect: (id: number) => void;
-  onClose: () => void;
-  onSkip?: () => void;
   onPlay: (
     card: GameEvent,
     optionIndex: number | null,
@@ -37,8 +35,6 @@ export function GameCard({
   isResolved = false,
   isExpanded,
   onSelect,
-  onClose,
-  onSkip,
   onPlay,
 }: GameCardProps) {
   const savings = useGameStore((state) => state.savings);
@@ -160,11 +156,6 @@ export function GameCard({
               </button>
             ))}
           </div>
-          {!isMandatory && (
-            <button className="button is-dark is-small is-fullwidth" onClick={onSkip}>
-              Put back
-            </button>
-          )}
         </div>
       );
     }
@@ -182,9 +173,6 @@ export function GameCard({
                 You cannot afford this optional event with your current savings and
                 affordable credit.
               </div>
-              <button className="button is-dark is-small is-fullwidth" onClick={onSkip}>
-                Put back
-              </button>
             </div>
           );
         }
@@ -311,11 +299,6 @@ export function GameCard({
             >
               Use savings first
             </button>
-            {!isMandatory && (
-              <button className="button is-dark is-small is-fullwidth" onClick={onSkip}>
-                Put back
-              </button>
-            )}
           </div>
         </div>
       );
@@ -340,11 +323,6 @@ export function GameCard({
             >
               Spend on entertainment (+10 psyche)
             </button>
-            {!isMandatory && (
-              <button className="button is-dark is-small is-fullwidth" onClick={onSkip}>
-                Put back
-              </button>
-            )}
           </div>
         </div>
       );
@@ -358,11 +336,6 @@ export function GameCard({
         >
           Close event
         </button>
-        {!isMandatory && (
-          <button className="button is-dark is-small is-fullwidth" onClick={onSkip}>
-            Put back
-          </button>
-        )}
       </div>
     );
   };
@@ -394,9 +367,6 @@ export function GameCard({
             <div
               className="card-backdrop"
               style={{ pointerEvents: 'auto' }}
-              onClick={() => {
-                if (!isMandatory) onClose();
-              }}
             />
 
             <div
@@ -419,9 +389,6 @@ export function GameCard({
                     <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
                       {isMandatory ? 'Mandatory event' : 'Optional event'}
                     </span>
-                    {!isMandatory && (
-                      <button className="delete" aria-label="close" onClick={onClose} />
-                    )}
                   </div>
 
                   <h3 className="title is-4 has-text-white mb-3">{card.title}</h3>

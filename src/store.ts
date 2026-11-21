@@ -6,6 +6,7 @@ import eventExtra from './game/events/eventExtra.json';
 import {
   SavingsTransferResult,
   STOCK_SYMBOLS,
+  type EventBackground,
   type GameEvent,
   type GameEventEffect,
   type GameState,
@@ -139,6 +140,16 @@ function getRandomMandatoryEvent(events: GameEvent[], age: number) {
   return eligibleEvents[randomIndex] ?? null;
 }
 
+function validateEventBackground(
+  background: number | undefined,
+  eventId: string,
+  isMandatory: boolean
+): EventBackground | undefined {
+  if (background === 1 || background === 2) return background;
+  if (!isMandatory && background === undefined) return undefined;
+  throw new Error(`Mandatory event ${eventId} must define background as 1 or 2`);
+}
+
 function getRandomOptionalEvents(events: GameEvent[], age: number) {
   const eligibleEvents = events.filter((event) => event.age === age);
   for (let index = 0; index < Math.min(OPTIONAL_EVENTS_PER_TURN, eligibleEvents.length); index++) {
@@ -156,7 +167,15 @@ function getRandomOptionalEvents(events: GameEvent[], age: number) {
 export const useGameStore = create<GameState>()(
   subscribeWithSelector(
     immer((set) => {
-      const allEvents: GameEvent[] = eventLive.map((event, id) => ({ ...event, id }));
+      const allEvents: GameEvent[] = eventLive.map((event, id) => ({
+        ...event,
+        id,
+        background: validateEventBackground(
+          event.background,
+          event.eventId,
+          event.isMandatory
+        ),
+      }));
       const eventsMandatory = allEvents.filter((event) => event.isMandatory);
       const eventsOptional: GameEvent[] = eventExtra.map((event, id) => ({
         ...event,
@@ -313,6 +332,7 @@ export const useGameStore = create<GameState>()(
       monthlyFixedExpenses: initialMonthlyFixedExpenses,
       monthlyLoanRepayment: 0,
       monthlyInvestment: Math.max(0, INITIAL_MONTHLY_INCOME - initialMonthlyFixedExpenses),
+      activeBackground: 1,
       savings: {
         sock: 5000,
         account: 0,
@@ -502,6 +522,7 @@ export const useGameStore = create<GameState>()(
 
           return {
             age,
+            activeBackground: mandatoryEvent?.background ?? state.activeBackground,
             monthlyFixedExpenses,
             monthlyLoanRepayment: 0,
             monthlyInvestment: Math.min(state.monthlyInvestment, availableAfterFixedExpenses),

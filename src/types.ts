@@ -66,6 +66,8 @@ export interface GameEventEffect {
   eventAmount: number;
 }
 
+export type EventBackground = 1 | 2;
+
 export interface GameEventOption {
   name: string;
   description: string;
@@ -82,6 +84,7 @@ export interface GameEvent {
   title: string;
   description: string;
   psyche?: number;
+  background?: EventBackground;
   effect?: GameEventEffect;
   options?: GameEventOption[];
 }
@@ -101,6 +104,7 @@ export interface GameState {
   monthlyFixedExpenses: number;
   monthlyLoanRepayment: number;
   monthlyInvestment: number;
+  activeBackground: EventBackground;
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
   family: FamilyState;

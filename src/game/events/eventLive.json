@@ -44,6 +44,7 @@
         "isMandatory": true,
         "title": "Home Sweet Loan",
         "description": "You found the one. Three bedrooms, a garden, and a 30-year commitment. Now pick how you'd like to suffer:",
+        "background": 2,
         "options": [
             {
                 "name": "Fixed Rate",
@@ -114,6 +115,7 @@
         "isMandatory": true,
         "title": "Midlife Crisis, Fully Financed",
         "description": "You turned 45. A red convertible seems like a good investment. Your wife disagrees.",
+        "background": 2,
         "options": [
             {
                 "name": "Buy the Convertible",
@@ -146,11 +148,13 @@
         "isMandatory": true,
         "title": "Buy High, Cry Low",
         "description": "The market just crashed. Your portfolio is down 30% and your banking app now opens with a trigger warning. What do you do?",
+        "background": 2,
         "options": [
             {
                 "name": "Panic Sell",
                 "description": "You lock in the loss. Stress gone, money gone.",
                 "psyche": -5,
+                "background": 2,
                 "effect": {
                     "roomPropsChange": {},
                     "eventAmount": -30000
@@ -160,6 +164,7 @@
                 "name": "Hold",
                 "description": "Delete the app, touch grass, wait it out.",
                 "psyche": -15,
+                "background": 2,
                 "effect": {
                     "roomPropsChange": {},
                     "eventAmount": 0
@@ -169,6 +174,7 @@
                 "name": "Buy the Dip",
                 "description": "Everything is on sale. Very brave, or very early.",
                 "psyche": -10,
+                "background": 2,
                 "effect": {
                     "roomPropsChange": {},
                     "eventAmount": -10000
@@ -184,6 +190,7 @@
         "title": "Empty Nest",
         "description": "The kid moved out with half your pots. Costs down! Calls for money: up.",
         "psyche": -5,
+        "background": 2,
         "effect": {
             "roomPropsChange": {
                 "kid": 0
@@ -199,6 +206,7 @@
         "title": "Unexpected Illness",
         "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",
         "psyche": 0,
+        "background": 2,
         "effect": {
             "roomPropsChange": {},
             "eventAmount": 0
@@ -212,6 +220,7 @@
         "title": "Retirement!",
         "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",
         "psyche": 70,
+        "background": 2,
         "effect": {
             "roomPropsChange": {},
             "eventAmount": 20000
