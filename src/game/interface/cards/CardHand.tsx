@@ -34,6 +34,9 @@ export function CardHand() {
         justifyContent: 'flex-start',
         maxWidth: 'calc(100vw - 180px)',
         overflowX: 'auto',
+        paddingTop: '20px',
+        paddingLeft: '24px',
+        paddingRight: '24px',
       }}
     >
       {/* Mandatory event */}
