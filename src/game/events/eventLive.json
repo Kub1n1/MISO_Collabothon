@@ -53,7 +53,8 @@
                 "background": 2,
                 "effect": {
                     "roomPropsChange": {},
-                    "eventAmount": -32000
+                    "eventAmount": -32000,
+                    "loan": 320000
                 }
             },
             {
@@ -63,7 +64,8 @@
                 "background": 2,
                 "effect": {
                     "roomPropsChange": {},
-                    "eventAmount": -26000
+                    "eventAmount": -26000,
+                    "loan": 260000
                 }
             },
             {
@@ -73,7 +75,8 @@
                 "background": 2,
                 "effect": {
                     "roomPropsChange": {},
-                    "eventAmount": -29000
+                    "eventAmount": -29000,
+                    "loan": 290000
                 }
             }
         ]
@@ -219,7 +222,7 @@
         "isMandatory": true,
         "title": "Retirement!",
         "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",
-        "psyche": 70,
+        "psyche": 0,
         "background": 2,
         "effect": {
             "roomPropsChange": {},

@@ -38,8 +38,11 @@ export function GameSummary({ result }: GameSummaryProps) {
         className="box glass-box has-text-light p-5"
         style={{
           width: 'min(600px, calc(100vw - 32px))',
+          height: 'min(720px, calc(100vh - 40px))',
           maxHeight: 'calc(100vh - 40px)',
-          overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
         }}
       >
         <h1 id="game-summary-title" className="title is-3 has-text-success">
@@ -75,32 +78,41 @@ export function GameSummary({ result }: GameSummaryProps) {
           Psyche adds up to a 10% bonus to your savings score.
         </p>
 
-        <h2 className="title is-5 has-text-white">Previous runs</h2>
-        {results.length === 0 ? (
-          <p className="has-text-grey-light">Saving this result...</p>
-        ) : (
-          <ol>
-            {results.map((savedResult) => (
-              <li
-                key={savedResult.completedAt}
-                className="is-flex is-justify-content-space-between mb-2"
-              >
-                <span className="has-text-grey-light">
-                  {new Date(savedResult.completedAt).toLocaleDateString()}
-                </span>
-                <div className="has-text-right">
-                  <strong>{formatPLN(savedResult.score)}</strong>
-                  <div className="is-size-7 has-text-grey-light">
-                    Psyche {savedResult.psyche} / 100
+        <div
+          style={{
+            flex: '1 1 0',
+            minHeight: 0,
+            overflowY: 'auto',
+          }}
+        >
+          <h2 className="title is-5 has-text-white">Previous runs</h2>
+          {results.length === 0 ? (
+            <p className="has-text-grey-light">Saving this result...</p>
+          ) : (
+            <ol>
+              {results.map((savedResult) => (
+                <li
+                  key={savedResult.completedAt}
+                  className="is-flex is-justify-content-space-between mb-2"
+                >
+                  <span className="has-text-grey-light">
+                    {new Date(savedResult.completedAt).toLocaleDateString()}
+                  </span>
+                  <div className="has-text-right">
+                    <strong>{formatPLN(savedResult.score)}</strong>
+                    <div className="is-size-7 has-text-grey-light">
+                      Psyche {savedResult.psyche} / 100
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ol>
-        )}
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
 
         <button
           className="button is-primary is-fullwidth mt-5"
+          style={{ flexShrink: 0 }}
           onClick={() => window.location.reload()}
         >
           Start a new game
