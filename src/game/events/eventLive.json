@@ -54,7 +54,12 @@
                 "effect": {
                     "roomPropsChange": {},
                     "eventAmount": -32000,
-                    "loan": 320000
+                    "loan": {
+                        "amount": 320000,
+                        "monthlyRepayment": 1000,
+                        "remainingMonths": 360,
+                        "monthlyRate": 0.05
+                    }
                 }
             },
             {
@@ -65,7 +70,12 @@
                 "effect": {
                     "roomPropsChange": {},
                     "eventAmount": -26000,
-                    "loan": 260000
+                    "loan": {
+                        "amount": 260000,
+                        "monthlyRepayment": 1000,
+                        "remainingMonths": 360,
+                        "monthlyRate": 0.05
+                    }
                 }
             },
             {
@@ -76,7 +86,12 @@
                 "effect": {
                     "roomPropsChange": {},
                     "eventAmount": -29000,
-                    "loan": 290000
+                    "loan": {
+                        "amount": 290000,
+                        "monthlyRepayment": 1000,
+                        "remainingMonths": 360,
+                        "monthlyRate": 0.05
+                    }
                 }
             }
         ]
