@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IRefPhaserGame, PhaserGame } from './PhaserGame';
 import BottomButtons from './game/interface/bottomButtons';
 import 'bulma/css/bulma.min.css';
@@ -26,63 +26,83 @@ function App()
     const monthlyExpenses = useGameStore(
         (state) => state.monthlyFixedExpenses + state.monthlyLoanRepayment
     );
+    const [showBankruptcyModal, setShowBankruptcyModal] = useState(false);
+
+    useEffect(() => {
+        if (!isGameOver) {
+            setShowBankruptcyModal(false);
+            return;
+        }
+
+        const timeoutId = window.setTimeout(
+            () => setShowBankruptcyModal(true),
+            700
+        );
+        return () => window.clearTimeout(timeoutId);
+    }, [isGameOver]);
 
     return (
         <div id="app">
             <PhaserGame ref={phaserRef}/>
-            {!bootscreen &&<>
-                <BottomButtons phaserRef={phaserRef}/>
-                <TopHud />
-                {isGameOver && (
-                    <div
-                        className="card-backdrop"
-                        style={{
-                            zIndex: 200,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            background: 'rgba(0, 0, 0, 0.4)',
-                            pointerEvents: 'auto',
-                        }}
-                        role="dialog"
-                        aria-modal="true"
-                        aria-labelledby="game-over-title"
-                    >
-                        <section className="box glass-box has-text-light p-5" style={{ maxWidth: 480 }}>
-                            <h1 id="game-over-title" className="title is-3 has-text-danger">
-                                Bankruptcy
-                            </h1>
-                            <p className="mb-2">
-                              You did your best. Start a new game to try a different path.
-                            </p>
-                            <p className="mb-4">{gameOverReason}</p>
-                            <div className="is-flex is-justify-content-space-between mb-2">
-                                <span className="has-text-grey-light">Age reached</span>
-                                <strong>{age}</strong>
-                            </div>
-                            <div className="is-flex is-justify-content-space-between mb-2">
-                                <span className="has-text-grey-light">Savings left</span>
-                                <strong>{formatPLN(totalSavings)}</strong>
-                            </div>
-                            <div className="is-flex is-justify-content-space-between mb-2">
-                                <span className="has-text-grey-light">Monthly household income</span>
-                                <strong>{formatPLN(householdIncome)}</strong>
-                            </div>
-                            <div className="is-flex is-justify-content-space-between mb-4">
-                                <span className="has-text-grey-light">Monthly expenses</span>
-                                <strong>{formatPLN(monthlyExpenses)}</strong>
-                            </div>
-                            <button
-                                className="button is-primary is-fullwidth"
-                                onClick={() => window.location.reload()}
-                            >
-                                Start a new game
-                            </button>
-                        </section>
-                    </div>
-                )}
-                {isGameFinished && gameResult && <GameSummary result={gameResult} />}
-            </>}
+            {!bootscreen && (
+                <>
+                    {!isGameOver && (
+                        <>
+                            <BottomButtons phaserRef={phaserRef} />
+                            <TopHud />
+                        </>
+                    )}
+                    {isGameOver && showBankruptcyModal && (
+                        <div
+                            className="card-backdrop"
+                            style={{
+                                zIndex: 200,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                background: 'rgba(0, 0, 0, 0.4)',
+                                pointerEvents: 'auto',
+                            }}
+                            role="dialog"
+                            aria-modal="true"
+                            aria-labelledby="game-over-title"
+                        >
+                            <section className="box glass-box has-text-light p-5" style={{ maxWidth: 480 }}>
+                                <h1 id="game-over-title" className="title is-3 has-text-danger">
+                                    Bankruptcy
+                                </h1>
+                                <p className="mb-2">
+                                  You did your best. Start a new game to try a different path.
+                                </p>
+                                <p className="mb-4">{gameOverReason}</p>
+                                <div className="is-flex is-justify-content-space-between mb-2">
+                                    <span className="has-text-grey-light">Age reached</span>
+                                    <strong>{age}</strong>
+                                </div>
+                                <div className="is-flex is-justify-content-space-between mb-2">
+                                    <span className="has-text-grey-light">Savings left</span>
+                                    <strong>{formatPLN(totalSavings)}</strong>
+                                </div>
+                                <div className="is-flex is-justify-content-space-between mb-2">
+                                    <span className="has-text-grey-light">Monthly household income</span>
+                                    <strong>{formatPLN(householdIncome)}</strong>
+                                </div>
+                                <div className="is-flex is-justify-content-space-between mb-4">
+                                    <span className="has-text-grey-light">Monthly expenses</span>
+                                    <strong>{formatPLN(monthlyExpenses)}</strong>
+                                </div>
+                                <button
+                                    className="button is-primary is-fullwidth"
+                                    onClick={() => window.location.reload()}
+                                >
+                                    Start a new game
+                                </button>
+                            </section>
+                        </div>
+                    )}
+                    {isGameFinished && gameResult && <GameSummary result={gameResult} />}
+                </>
+            )}
         </div>
     )
 }

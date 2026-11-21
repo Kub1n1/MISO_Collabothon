@@ -37,6 +37,7 @@ export class Room extends Scene
                 (background) => {
                     this.updateEventBackground(background);
                     this.updateCouchVisibility(background);
+                    this.player?.setVisible(background !== 'bankrupt_man.jpg');
                 }
             )
         );
