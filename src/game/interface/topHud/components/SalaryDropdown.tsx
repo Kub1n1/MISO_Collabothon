@@ -27,7 +27,7 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
     availableAfterFixedExpenses > 0
       ? (monthlyInvestment / availableAfterFixedExpenses) * 100
       : 0;
-console.log(loans);
+
   return (
     <div className="level-item">
       <div className={`dropdown is-right ${isOpen ? 'is-active' : ''}`}>
@@ -89,8 +89,8 @@ console.log(loans);
                 <span className="has-text-grey-light">Fixed monthly expenses</span>
                 <span>{formatPLN(monthlyFixedExpenses)} / month</span>
               </div>
-              {loans.length > 0 && loans.map((loan) => (
-                <div className="is-flex is-justify-content-space-between">
+              {loans.length > 0 && loans.map((loan,i) => (
+                <div key={i} className="is-flex is-justify-content-space-between">
                   <span className="has-text-grey-light">{loan.title} ({loan.remainingMonths/12} years)</span>
                   <span>{formatPLN(loan.monthlyRepayment)} / month</span>
                 </div>

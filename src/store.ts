@@ -340,7 +340,7 @@ export const useGameStore = create<GameState>()(
           } else if (settlement.kind !== 'no-payment') {
             return;
           }
-          
+
           if(option?.effect?.loan) {
             state.loans = [
               ...state.loans,
