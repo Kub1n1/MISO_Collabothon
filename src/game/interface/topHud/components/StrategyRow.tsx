@@ -1,27 +1,28 @@
 import { formatPLN } from '../formatPLN';
+import styles from './strategyRow.module.css';
 
 interface StrategyRowProps {
   label: string;
   hint: string;
   colorClass: string;
+  accentColor: string;
   currentBalance: number;
   percent: number;
   monthlyInvestment: number;
   onPercentChange: (percent: number) => void;
   description: string;
-  maxPercent: number;
 }
 
 export function StrategyRow({
   label,
   hint,
   colorClass,
+  accentColor,
   currentBalance,
   percent,
   monthlyInvestment,
   onPercentChange,
   description,
-  maxPercent,
 }: StrategyRowProps) {
   const monthlyContribution = Math.round(monthlyInvestment * (percent / 100));
 
@@ -51,13 +52,19 @@ export function StrategyRow({
 
       <div className="is-flex is-align-items-center" style={{ gap: '0.6rem' }}>
         <input
+          aria-label={`${label} allocation`}
+          aria-valuetext={`${percent}% of monthly investment`}
           type="range"
           min={0}
-          max={maxPercent}
-          step={5}
+          max={100}
+          step={1}
           value={percent}
           onChange={(e) => onPercentChange(Number(e.target.value))}
-          style={{ flexGrow: 1, cursor: 'pointer' }}
+          className={styles.strategySlider}
+          style={{
+            flexGrow: 1,
+            background: `linear-gradient(to right, ${accentColor} ${percent}%, rgba(255,255,255,0.16) ${percent}%) center / 100% 6px no-repeat`,
+          }}
         />
         <span className={`tag ${colorClass} is-light`} style={{ minWidth: '48px' }}>
           {percent}%

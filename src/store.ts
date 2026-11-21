@@ -160,6 +160,59 @@ function randomMonthlyFixedExpenses(householdIncome: number) {
   return Math.round(householdIncome * (percentage / 100));
 }
 
+function rebalanceStrategy(
+  strategy: SavingsStrategy,
+  bucket: keyof SavingsStrategy,
+  requestedPercent: number
+): SavingsStrategy {
+  const requestedValue = Number.isFinite(requestedPercent)
+    ? requestedPercent
+    : strategy[bucket];
+  const percent = Math.round(Math.max(0, Math.min(100, requestedValue)));
+  const remainingPercent = 100 - percent;
+  const otherBuckets = (
+    Object.keys(strategy) as (keyof SavingsStrategy)[]
+  ).filter((key) => key !== bucket);
+  const otherTotal = otherBuckets.reduce(
+    (total, key) => total + Math.max(0, strategy[key]),
+    0
+  );
+  const nextStrategy: SavingsStrategy = { ...strategy, [bucket]: percent };
+
+  if (otherTotal === 0) {
+    const evenShare = Math.floor(remainingPercent / otherBuckets.length);
+    otherBuckets.forEach((key, index) => {
+      nextStrategy[key] =
+        evenShare + (index < remainingPercent % otherBuckets.length ? 1 : 0);
+    });
+    return nextStrategy;
+  }
+
+  const allocations = otherBuckets.map((key, index) => {
+    const exactShare = (remainingPercent * Math.max(0, strategy[key])) / otherTotal;
+    return { key, index, value: Math.floor(exactShare), remainder: exactShare % 1 };
+  });
+  let unallocated = remainingPercent - allocations.reduce(
+    (total, allocation) => total + allocation.value,
+    0
+  );
+
+  allocations
+    .slice()
+    .sort((left, right) => right.remainder - left.remainder || left.index - right.index)
+    .forEach((allocation) => {
+      if (unallocated > 0) {
+        allocation.value += 1;
+        unallocated -= 1;
+      }
+    });
+
+  allocations.forEach(({ key, value }) => {
+    nextStrategy[key] = value;
+  });
+  return nextStrategy;
+}
+
 function getRandomMandatoryEvent(events: GameEvent[], age: number) {
   const eligibleEvents = events.filter((event) => event.age === age);
   const randomIndex = Math.floor(Math.random() * eligibleEvents.length);
@@ -346,9 +399,9 @@ export const useGameStore = create<GameState>()(
         stocks: 0,
       },
       strategy: {
-        sock: 10,
-        account: 15,
-        stocks: 5,
+        sock: 33,
+        account: 50,
+        stocks: 17,
       },
       family: {
         wife: false,
@@ -402,14 +455,7 @@ export const useGameStore = create<GameState>()(
         }),
       updateStrategy: (bucket, percent) =>
         set((state) => {
-          const otherBucketsTotal = (
-            Object.keys(state.strategy) as (keyof SavingsStrategy)[]
-          )
-            .filter((key) => key !== bucket)
-            .reduce((total, key) => total + state.strategy[key], 0);
-
-          const maxPercent = Math.max(0, 100 - otherBucketsTotal);
-          state.strategy[bucket] = Math.max(0, Math.min(maxPercent, percent));
+          state.strategy = rebalanceStrategy(state.strategy, bucket, percent);
         }),
       tradeStock: (symbol, action, quantity) => {
         let result: StockTradeResult = 'success';
