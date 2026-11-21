@@ -26,7 +26,7 @@
         "income": 500,
         "isMandatory": true,
         "title": "Till Debt Do Us Part",
-        "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
+        "description": "Love is in the air. Money is out the window.",
         "psyche": 10,
         "background": 1,
         "effect": {
@@ -34,7 +34,7 @@
                 "tv": 1,
                 "wife": 1
             },
-            "eventAmount": -15000
+            "eventAmount": -25000
         }
     },
     {
@@ -91,7 +91,7 @@
             "roomPropsChange": {
                 "kid": 1
             },
-            "eventAmount": -5000
+            "eventAmount": -15000
         }
     },
     {
@@ -126,7 +126,7 @@
                     "roomPropsChange": {
                         "car": 1
                     },
-                    "eventAmount": -80000
+                    "eventAmount": -120000
                 }
             },
             {
@@ -204,7 +204,7 @@
         "income": 500,
         "isMandatory": true,
         "title": "Unexpected Illness",
-        "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",
+        "description": "You were diagnosed. Beware, treatment costs may kill you first.",
         "psyche": 0,
         "background": 2,
         "effect": {
