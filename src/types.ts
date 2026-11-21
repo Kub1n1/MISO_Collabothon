@@ -69,6 +69,7 @@ export interface GameEventEffect {
   roomPropsChange: EventRoomPropsChange;
   roomPropsSet?: EventRoomPropsSet;
   eventAmount: number;
+  loan?: Loan | null;
 }
 
 export type EventBackground = 1 | 2;
@@ -122,6 +123,13 @@ export interface TurnEvents {
   resolvedOptionalEventIds: number[];
 }
 
+export interface Loan {
+  amount: number;
+  monthlyRepayment: number;
+  remainingMonths: number;
+  monthlyRate: number;
+}
+
 export interface GameState {
   age: number;
   retirementAge: number;
@@ -135,6 +143,7 @@ export interface GameState {
   mandatoryBackground: EventBackground;
   homeLevel: HomeLevel;
   savings: SavingsBuckets;
+  loans: Loan[];
   strategy: SavingsStrategy;
   family: FamilyState;
   stockMarket: StockMarketState;

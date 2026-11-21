@@ -189,7 +189,7 @@ function getHomeBackground(
   if (homeLevel === 1) {
     return carLevel > 0 ? 'home_modern_v1_car.jpg' : 'home_modern_v1.jpg';
   }
-  if (carLevel > 0) return 'home_car.jpg';
+  if (carLevel > 0 && mandatoryBackground === 2) return 'home_car.jpg';
   return mandatoryBackground === 1 ? 'background_1.jpg' : 'background_2.jpg';
 }
 
@@ -490,6 +490,7 @@ export const useGameStore = create<GameState>()(
         account: 0,
         stocks: 0,
       },
+      loans: [],
       strategy: {
         sock: 33,
         account: 50,
@@ -693,6 +694,7 @@ export const useGameStore = create<GameState>()(
               account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek
               stocks: Math.round((state.savings.stocks + addedStocks) * 1.08),   // +8% zwrotu
             },
+            loans: [...state.loans, ],
             stockMarket,
             isMandatoryEventResolved: mandatoryEvent === null,
             turnEvents: {
