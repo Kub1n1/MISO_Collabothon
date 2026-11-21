@@ -1,4 +1,5 @@
-import { STOCK_SYMBOLS, useGameStore } from '../../../../store';
+import { useGameStore } from '../../../../store';
+import { STOCK_SYMBOLS } from '../../../../types';
 import { formatPLN } from '../formatPLN';
 
 export function FinancialSnapshot() {
