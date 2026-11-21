@@ -55,6 +55,7 @@
                     "roomPropsChange": {},
                     "eventAmount": -32000,
                     "loan": {
+                        "title": "Loan for home",
                         "amount": 320000,
                         "monthlyRepayment": 1000,
                         "remainingMonths": 360,
@@ -71,6 +72,7 @@
                     "roomPropsChange": {},
                     "eventAmount": -26000,
                     "loan": {
+                        "title": "Loan for home",
                         "amount": 260000,
                         "monthlyRepayment": 1000,
                         "remainingMonths": 360,
@@ -87,6 +89,7 @@
                     "roomPropsChange": {},
                     "eventAmount": -29000,
                     "loan": {
+                        "title": "Loan for home",
                         "amount": 290000,
                         "monthlyRepayment": 1000,
                         "remainingMonths": 360,
