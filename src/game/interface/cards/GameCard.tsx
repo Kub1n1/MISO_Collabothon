@@ -293,7 +293,7 @@ export function GameCard({
                 setError(null);
               }}
             >
-              Use full credit
+              Pay with loan
             </button>
             <button
               className="button is-dark is-small is-fullwidth"
