@@ -2,7 +2,7 @@
     {
         "eventId": "m20",
         "age": 20,
-        "income": 1000,
+        "income": 0,
         "isMandatory": true,
         "title": "Dorm Sweet Dorm",
         "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
@@ -23,7 +23,7 @@
     {
         "eventId": "m25",
         "age": 25,
-        "income": 3000,
+        "income": 500,
         "isMandatory": true,
         "title": "Till Debt Do Us Part",
         "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
@@ -40,7 +40,7 @@
     {
         "eventId": "m30",
         "age": 30,
-        "income": 3500,
+        "income": 1000,
         "isMandatory": true,
         "title": "Home Sweet Loan",
         "description": "You found the one. Three bedrooms, a garden, and a 30-year commitment. Now pick how you'd like to suffer:",
@@ -80,7 +80,7 @@
     {
         "eventId": "m35",
         "age": 35,
-        "income": 4000,
+        "income": 500,
         "isMandatory": true,
         "title": "Surprise, It's a Baby!",
         "description": "A tiny human with a huge budget. Sleep is now a luxury product.",
@@ -96,10 +96,10 @@
     {
         "eventId": "m40",
         "age": 40,
-        "income": 6000,
+        "income": 2000,
         "isMandatory": true,
         "title": "Promotion!",
-        "description": "+30% salary. Your lifestyle immediately asks for +31%.",
+        "description": "+2k salary. Your lifestyle immediately asks for it.",
         "psyche": 15,
         "background": 2,
         "effect": {
@@ -110,7 +110,7 @@
     {
         "eventId": "m45",
         "age": 45,
-        "income": 6000,
+        "income": 500,
         "isMandatory": true,
         "title": "Midlife Crisis, Fully Financed",
         "description": "You turned 45. A red convertible seems like a good investment. Your wife disagrees.",
@@ -142,7 +142,7 @@
     {
         "eventId": "m50",
         "age": 50,
-        "income": 6000,
+        "income": 500,
         "isMandatory": true,
         "title": "Buy High, Cry Low",
         "description": "The market just crashed. Your portfolio is down 30% and your banking app now opens with a trigger warning. What do you do?",
@@ -179,7 +179,7 @@
     {
         "eventId": "m55",
         "age": 55,
-        "income": 6000,
+        "income": 500,
         "isMandatory": true,
         "title": "Empty Nest",
         "description": "The kid moved out with half your pots. Costs down! Calls for money: up.",
@@ -194,9 +194,9 @@
     {
         "eventId": "m60",
         "age": 60,
-        "income": 6000,
+        "income": 500,
         "isMandatory": true,
-        "title": "The Final Stretch",
+        "title": "Unexpected Illness",
         "description": "Last raise before retirement. Maybe stop betting everything on stocks now?",
         "psyche": 0,
         "effect": {
@@ -207,7 +207,7 @@
     {
         "eventId": "m65",
         "age": 65,
-        "income": 6500,
+        "income": 500,
         "isMandatory": true,
         "title": "Retirement!",
         "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",

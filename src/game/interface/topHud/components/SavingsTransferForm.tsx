@@ -21,6 +21,7 @@ export function SavingsTransferForm() {
   const [to, setTo] = useState<SavingsBucket>('account');
   const [amount, setAmount] = useState('');
   const [result, setResult] = useState<SavingsTransferResult | null>(null);
+  const [visible, setVisible] = useState<boolean>(false)
 
   const savings = useGameStore((state) => state.savings);
   const transferSavings = useGameStore((state) => state.transferSavings);
@@ -40,95 +41,98 @@ export function SavingsTransferForm() {
       className="mt-4 pt-3"
       style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
     >
-      <h4 className="has-text-weight-semibold is-size-7 has-text-white mb-2">
-        Transfer funds
+      <h4 className="has-text-weight-semibold is-size-7 has-text-white mb-2" onClick={()=>setVisible(v=>!v)}>
+        Transfer funds 
+        <span className='tag' style={{cursor: 'pointer'}}>{visible ? "hide" : "show"}</span>
       </h4>
+      {visible && <>
+        
+        <div className="columns is-mobile">
+          <div className="column">
+            <label className="label is-size-7 has-text-grey-lighter">From</label>
+            <div className="select is-fullwidth">
+              <select
+                value={from}
+                onChange={(event) => {
+                  const option = strategyOptions.find(
+                    (item) => item.key === event.target.value
+                  );
+                  if (option) {
+                    setFrom(option.key);
+                    setResult(null);
+                  }
+                }}
+              >
+                {strategyOptions.map((option) => (
+                  <option key={option.key} value={option.key}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-      <div className="columns is-mobile">
-        <div className="column">
-          <label className="label is-size-7 has-text-grey-lighter">From</label>
-          <div className="select is-fullwidth">
-            <select
-              value={from}
-              onChange={(event) => {
-                const option = strategyOptions.find(
-                  (item) => item.key === event.target.value
-                );
-                if (option) {
-                  setFrom(option.key);
-                  setResult(null);
-                }
-              }}
-            >
-              {strategyOptions.map((option) => (
-                <option key={option.key} value={option.key}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+          <div className="column">
+            <label className="label is-size-7 has-text-grey-lighter">To</label>
+            <div className="select is-fullwidth">
+              <select
+                value={to}
+                onChange={(event) => {
+                  const option = strategyOptions.find(
+                    (item) => item.key === event.target.value
+                  );
+                  if (option) {
+                    setTo(option.key);
+                    setResult(null);
+                  }
+                }}
+              >
+                {strategyOptions.filter(so => so.key!==from).map((option) => (
+                  <option key={option.key} value={option.key}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
-        <div className="column">
-          <label className="label is-size-7 has-text-grey-lighter">To</label>
-          <div className="select is-fullwidth">
-            <select
-              value={to}
-              onChange={(event) => {
-                const option = strategyOptions.find(
-                  (item) => item.key === event.target.value
-                );
-                if (option) {
-                  setTo(option.key);
-                  setResult(null);
-                }
-              }}
-            >
-              {strategyOptions.map((option) => (
-                <option key={option.key} value={option.key}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <label className="label is-size-7 has-text-grey-lighter">
-        Amount (PLN)
-      </label>
-      <input
-        className="input"
-        type="number"
-        min={1}
-        max={sourceBalance}
-        step={1}
-        value={amount}
-        onChange={(event) => {
-          setAmount(event.target.value);
-          setResult(null);
-        }}
-      />
-      <p className="help has-text-grey-light">
-        Available: {formatPLN(sourceBalance)}
-      </p>
-
-      <button
-        type="button"
-        className="button is-primary is-small is-fullwidth mt-2"
-        onClick={handleTransfer}
-      >
-        Transfer
-      </button>
-
-      {result && (
-        <p
-          className={`help ${result === 'success' ? 'is-success' : 'is-danger'}`}
-          role={result === 'success' ? 'status' : 'alert'}
-        >
-          {transferMessages[result]}
+        <label className="label is-size-7 has-text-grey-lighter">
+          Amount (PLN)
+        </label>
+        <input
+          className="input"
+          type="number"
+          min={1}
+          max={sourceBalance}
+          step={1}
+          value={amount}
+          onChange={(event) => {
+            setAmount(event.target.value);
+            setResult(null);
+          }}
+        />
+        <p className="help has-text-grey-light">
+          Available: {formatPLN(sourceBalance)}
         </p>
-      )}
+
+        <button
+          type="button"
+          className="button is-primary is-small is-fullwidth mt-2"
+          onClick={handleTransfer}
+        >
+          Transfer
+        </button>
+
+        {result && (
+          <p
+            className={`help ${result === 'success' ? 'is-success' : 'is-danger'}`}
+            role={result === 'success' ? 'status' : 'alert'}
+          >
+            {transferMessages[result]}
+          </p>
+        )}
+      </>}
     </div>
   );
 }
