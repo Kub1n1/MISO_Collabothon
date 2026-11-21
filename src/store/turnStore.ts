@@ -1,3 +1,4 @@
+import { Draft } from "immer";
 import { GameState } from "../types";
 import { 
     getHomeBackground, 
@@ -5,6 +6,7 @@ import {
     getRandomOptionalEvents, 
     randomMonthlyFixedExpenses 
 } from "./utils";
+import { STEP } from "./const";
 
 export const createAdvanceTurn = (
   set: (fn: (state: Draft<GameState>) => void) => void

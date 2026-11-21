@@ -1,5 +1,5 @@
-import { EventBackground, GameEvent, HomeLevel, SceneBackground } from "../types";
-import {OPTIONAL_EVENTS_PER_TURN, OPTIONAL_EVENTS_PER_TURN} from "./const";
+import { EventBackground, GameEvent, GameEventBackground, GameState, HomeLevel, SceneBackground } from "../types";
+import { LOAN_TERM_MONTHS, OPTIONAL_EVENTS_PER_TURN } from "./const";
 
 export function randomMonthlyFixedExpenses(householdIncome: number) {
   const percentage = 20 + Math.floor(Math.random() * 26);
@@ -58,4 +58,64 @@ export function getRandomOptionalEvents(
     ];
   }
   return eligibleEvents.slice(0, OPTIONAL_EVENTS_PER_TURN);
+}
+
+export function getMaximumAffordableLoan(
+  householdIncome: number,
+  monthlyFixedExpenses: number,
+  monthlyLoanRepayment: number
+) {
+  const monthlyCapacity = Math.max(
+    0,
+    householdIncome - monthlyFixedExpenses - monthlyLoanRepayment
+  );
+  return Math.floor(monthlyCapacity * LOAN_TERM_MONTHS);
+}
+
+export function applyEventBackground(
+  state: GameState,
+  background: GameEventBackground
+) {
+  if (background === 1 || background === 2) {
+    state.activeBackground = getHomeBackground(
+      background,
+      state.homeLevel,
+      state.roomProps.car
+    );
+    return;
+  }
+  if (typeof background === 'number') {
+    throw new Error(`Unsupported event background: ${background}`);
+  }
+
+
+
+// function increaseHomeLevel(current: HomeLevel, requested: HomeLevel): HomeLevel {
+//   if (requested <= current) return current;
+//   return requested;
+// }
+
+  const backgroundHomeLevel = getHomeLevelFromBackground(background);
+  if (backgroundHomeLevel !== null) {
+    state.homeLevel = backgroundHomeLevel <= state.homeLevel ? state.homeLevel : backgroundHomeLevel
+    // state.homeLevel = increaseHomeLevel(state.homeLevel, backgroundHomeLevel);
+    if (background.endsWith('_car.jpg') || background === 'home_car.jpg') {
+      state.roomProps.car = Math.max(1, state.roomProps.car);
+    }
+    state.activeBackground = getHomeBackground(
+      state.mandatoryBackground,
+      state.homeLevel,
+      state.roomProps.car
+    );
+    return;
+  }
+
+  state.activeBackground = background;
+}
+
+function getHomeLevelFromBackground(background: SceneBackground): HomeLevel | null {
+  if (background.startsWith('home_modern_v2')) return 2;
+  if (background.startsWith('home_modern_v1')) return 1;
+  if (background === 'home_car.jpg') return 0;
+  return null;
 }
