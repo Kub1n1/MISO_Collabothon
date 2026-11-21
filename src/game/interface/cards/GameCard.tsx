@@ -52,6 +52,8 @@ export function GameCard({
   );
   const [loanAmount, setLoanAmount] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [imageFailed, setImageFailed] = useState(false);
+  const imagePath = `/assets/eventy/${card.eventId}.png`;
 
   const selectedOption =
     selectedOptionIndex === null ? undefined : card.options?.[selectedOptionIndex];
@@ -397,38 +399,53 @@ export function GameCard({
               }}
             />
 
-            <div className="game-card is-expanded" style={{ pointerEvents: 'auto' }}>
-              <div>
-                <div className="is-flex is-justify-content-space-between is-align-items-center mb-3">
-                  <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
-                    {isMandatory ? 'Mandatory event' : 'Optional event'}
-                  </span>
-                  {!isMandatory && (
-                    <button className="delete" aria-label="close" onClick={onClose} />
+            <div
+              className={`event-modal-layout${imageFailed ? '' : ' has-event-image'}`}
+              style={{ pointerEvents: 'auto' }}
+            >
+              {!imageFailed && (
+                <div className="event-image-window">
+                  <img
+                    src={imagePath}
+                    alt={card.title}
+                    onError={() => setImageFailed(true)}
+                  />
+                </div>
+              )}
+
+              <div className="event-details-window">
+                <div>
+                  <div className="is-flex is-justify-content-space-between is-align-items-center mb-3">
+                    <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
+                      {isMandatory ? 'Mandatory event' : 'Optional event'}
+                    </span>
+                    {!isMandatory && (
+                      <button className="delete" aria-label="close" onClick={onClose} />
+                    )}
+                  </div>
+
+                  <h3 className="title is-4 has-text-white mb-3">{card.title}</h3>
+                  <p className="is-size-6 has-text-grey-lighter">
+                    {selectedOption?.description ?? card.description}
+                  </p>
+                  {selectedOption && (
+                    <button
+                      className="button is-text is-small has-text-grey-light mt-2"
+                      onClick={resetOption}
+                    >
+                      Choose a different option
+                    </button>
                   )}
                 </div>
 
-                <h3 className="title is-4 has-text-white mb-3">{card.title}</h3>
-                <p className="is-size-6 has-text-grey-lighter">
-                  {selectedOption?.description ?? card.description}
-                </p>
-                {selectedOption && (
-                  <button
-                    className="button is-text is-small has-text-grey-light mt-2"
-                    onClick={resetOption}
-                  >
-                    Choose a different option
-                  </button>
+                {renderSettlement()}
+
+                {error && (
+                  <p className="has-text-danger is-size-7 mt-2" role="alert">
+                    {error}
+                  </p>
                 )}
               </div>
-
-              {renderSettlement()}
-
-              {error && (
-                <p className="has-text-danger is-size-7 mt-2" role="alert">
-                  {error}
-                </p>
-              )}
             </div>
           </>,
           document.body

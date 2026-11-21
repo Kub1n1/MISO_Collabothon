@@ -126,3 +126,127 @@
   align-self: center;
   margin: 0 0.5rem;
 }
+
+.game-card.is-expanded.has-event-image {
+  width: min(1000px, calc(100vw - 32px));
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+.event-image-panel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-image-panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.event-details-panel {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.event-modal-layout {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  display: flex;
+  gap: 1.25rem;
+  width: min(380px, calc(100vw - 32px));
+  height: min(640px, calc(100vh - 40px));
+  transform: translate(-50%, -50%);
+}
+
+.event-modal-layout.has-event-image {
+  inset: 16px;
+  width: auto;
+  height: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(320px, 3fr);
+  gap: 1rem;
+  transform: none;
+}
+
+.event-image-window,
+.event-details-window {
+  min-width: 0;
+  min-height: 0;
+  padding: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(20, 22, 30, 0.97);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+}
+
+.event-image-window {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-image-window img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.event-details-window {
+  overflow-y: auto;
+}
+
+@media (max-width: 700px) {
+  .game-card.is-expanded.has-event-image {
+    width: calc(100vw - 24px);
+    height: min(640px, calc(100vh - 24px));
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 200px) minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .event-modal-layout,
+  .event-modal-layout:not(.has-event-image) {
+    width: calc(100vw - 24px);
+    height: min(640px, calc(100vh - 24px));
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .event-image-window {
+    flex: 0 0 180px;
+  }
+
+  .event-details-window {
+    flex: 1;
+  }
+
+  .event-modal-layout.has-event-image {
+    inset: 12px;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 32vh) minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .event-modal-layout:not(.has-event-image) {
+    width: calc(100vw - 24px);
+    height: min(640px, calc(100vh - 24px));
+  }
+
+  .event-image-window,
+  .event-details-window {
+    padding: 1rem;
+  }
+}
