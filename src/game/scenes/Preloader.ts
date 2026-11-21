@@ -32,14 +32,14 @@ export class Preloader extends Scene
         this.add.image(centerX, centerY, 'background');
 
         this.progressBarTrack = this.add.rectangle(centerX, centerY + 420, 468, 32)
-            .setStrokeStyle(1, 0xffffff);
+            .setStrokeStyle(1, 0x000000);
 
         this.progressBar = this.add.rectangle(
             centerX - 230,
             centerY + 420,
             4,
             28,
-            0xffffff
+            0x000000
         ).setOrigin(0, 0.5);
 
         this.load.on('progress', (progress: number) => {
