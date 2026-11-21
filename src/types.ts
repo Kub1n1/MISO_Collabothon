@@ -69,7 +69,7 @@ export interface GameEventEffect {
   roomPropsChange: EventRoomPropsChange;
   roomPropsSet?: EventRoomPropsSet;
   eventAmount: number;
-  loan: Loan | null;
+  loan?: Loan | null;
 }
 
 export type EventBackground = 1 | 2;
@@ -124,6 +124,7 @@ export interface TurnEvents {
 }
 
 export interface Loan {
+  title: string;
   amount: number;
   monthlyRepayment: number;
   remainingMonths: number;

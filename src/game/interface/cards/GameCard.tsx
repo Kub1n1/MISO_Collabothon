@@ -61,6 +61,7 @@ export function GameCard({
     monthlyFixedExpenses,
     monthlyLoanRepayment
   );
+  const loanHelpText = `Maximum loan: ${formatPLN(maxLoan)}. It is based on income left after fixed expenses and existing loan repayments. A new loan is repaid over 5 years and reduces your available monthly budget.`;
   const maxSavings = (Object.keys(savings) as (keyof SavingsBuckets)[]).reduce(
     (total, bucket) => total + Math.max(0, savings[bucket]),
     0
@@ -201,9 +202,9 @@ export function GameCard({
           <p className="has-text-weight-semibold mb-2">
             Pay {formatPLN(requiredPayment)}
           </p>
+
           <p className="is-size-7 has-text-grey-light mb-3">
-            Choose the savings to use. Any remainder is borrowed interest-free over
-            5 years. Maximum affordable loan: {formatPLN(maxLoan)}.
+            Choose the savings to use. Any remainder is borrowed interest-free over 5 years.
           </p>
 
           {(Object.keys(SAVINGS_BUCKET_LABELS) as (keyof SavingsBuckets)[]).map(
@@ -233,9 +234,20 @@ export function GameCard({
           )}
 
           <div className="field is-flex is-justify-content-space-between is-align-items-center">
-            <label className="label has-text-white is-size-7 mb-0" htmlFor={`${card.id}-loan`}>
-              Loan (max {formatPLN(maxLoan)})
-            </label>
+            <div className="is-flex is-align-items-center" style={{ gap: '0.35rem' }}>
+              <label className="label has-text-white is-size-7 mb-0" htmlFor={`${card.id}-loan`}>
+                Loan
+              </label>
+              <button
+                type="button"
+                className="button is-small is-rounded"
+                title={loanHelpText}
+                aria-label={loanHelpText}
+                style={{ width: '1.25rem', height: '1.25rem', padding: 0 }}
+              >
+                ?
+              </button>
+            </div>
             <input
               id={`${card.id}-loan`}
               className="input is-small"
