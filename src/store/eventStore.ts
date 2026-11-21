@@ -1,7 +1,93 @@
 import { Draft } from "immer";
-import { GameEventEffect, GameState, MandatoryEventSettlement, SavingsBuckets } from "../types";
-import { applyEventBackground, getHomeBackground, getMaximumAffordableLoan, isOptionalEventEligible, randomMonthlyFixedExpenses } from "./utils";
-import { ENTERTAINMENT_PSYCHE_BONUS, INITIAL_SPOUSE_MONTHLY_INCOME, LOAN_TERM_MONTHS, MAX_CAR_LEVEL } from "./const";
+import { GameEvent, GameEventBackground, GameEventEffect, GameState, HomeLevel, MandatoryEventSettlement, SavingsBuckets, SCENE_BACKGROUND_ASSETS, SceneBackground } from "../types";
+import { applyEventBackground, getHomeBackground, validateEventBackground } from "./backgroundStore";
+import { ENTERTAINMENT_PSYCHE_BONUS, INITIAL_MONTHLY_INCOME, INITIAL_SPOUSE_MONTHLY_INCOME, LOAN_TERM_MONTHS, MAX_CAR_LEVEL, OPTIONAL_EVENTS_PER_TURN, START_AGE } from "./const";
+
+import eventLive from '../game/events/eventLive.json';
+import eventExtra from '../game/events/eventExtra.json';
+import { getMaximumAffordableLoan, randomMonthlyFixedExpenses } from "./financialStore";
+
+export const allEvents: GameEvent[] = eventLive.map((event, id) => ({
+...event,
+id,
+background: validateEventBackground(
+    event.background,
+    event.eventId,
+    event.isMandatory
+),
+}));
+export const eventsMandatory = allEvents.filter((event) => event.isMandatory);
+export const eventsOptional: GameEvent[] = eventExtra.map((event, id) => ({
+...event,
+background: validateOptionalEventBackground(event.background, event.eventId),
+options: event.options?.map((option) => ({
+    ...option,
+    background: validateOptionalEventBackground(
+    'background' in option ? option.background : undefined,
+    event.eventId
+    ),
+})),
+id: eventLive.length + id,
+}));
+export const initialMandatoryEvent = getRandomMandatoryEvent(eventsMandatory, START_AGE);
+export const initialMonthlyFixedExpenses = randomMonthlyFixedExpenses(INITIAL_MONTHLY_INCOME);
+
+
+
+function validateOptionalEventBackground(
+  background: number | string | undefined,
+  eventId: string
+): GameEventBackground | undefined {
+  if (background === undefined) return undefined;
+  if (background === 1 || background === 2) return background;
+  if (typeof background === 'string' && isSceneBackground(background)) {
+    return background;
+  }
+  throw new Error(`Optional event ${eventId} has an invalid background`);
+}
+
+function isSceneBackground(background: string): background is SceneBackground {
+  return SCENE_BACKGROUND_ASSETS.some((asset) => asset === background);
+}
+
+export function getRandomMandatoryEvent(events: GameEvent[], age: number):GameEvent | null {
+  const eligibleEvents = events.filter((event) => event.age === age);
+  const randomIndex = Math.floor(Math.random() * eligibleEvents.length);
+  return eligibleEvents[randomIndex] ?? null;
+}
+
+export function getRandomOptionalEvents(
+  events: GameEvent[],
+  age: number,
+  homeLevel: HomeLevel,
+  carLevel: number
+) {
+  const eligibleEvents = events.filter(
+    (event) =>
+      event.age === age && isOptionalEventEligible(event, homeLevel, carLevel)
+  );
+  for (let index = 0; index < Math.min(OPTIONAL_EVENTS_PER_TURN, eligibleEvents.length); index++) {
+    const randomIndex =
+      index + Math.floor(Math.random() * (eligibleEvents.length - index));
+    [eligibleEvents[index], eligibleEvents[randomIndex]] = [
+      eligibleEvents[randomIndex],
+      eligibleEvents[index],
+    ];
+  }
+  return eligibleEvents.slice(0, OPTIONAL_EVENTS_PER_TURN);
+}
+
+export function isOptionalEventEligible(
+  event: GameEvent,
+  homeLevel: HomeLevel,
+  carLevel: number
+) {
+  const requirements = event.requires;
+  return !requirements ||
+    (requirements.home === undefined || requirements.home === homeLevel) &&
+    (requirements.car === undefined || requirements.car <= carLevel) &&
+    (requirements.maxCar === undefined || requirements.maxCar >= carLevel);
+}
 
 export const createResolveEvent = (
     set: (fn: (state: Draft<GameState>) => void) => void,

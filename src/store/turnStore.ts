@@ -2,11 +2,29 @@ import { Draft } from "immer";
 import { GameState } from "../types";
 import { 
     getHomeBackground, 
-    getRandomMandatoryEvent, 
-    getRandomOptionalEvents, 
-    randomMonthlyFixedExpenses 
-} from "./utils";
+} from "./backgroundStore";
 import { STEP } from "./const";
+import { useGameStore } from "../store";
+import { getRandomMandatoryEvent, getRandomOptionalEvents } from "./eventStore";
+import { randomMonthlyFixedExpenses } from "./financialStore";
+
+
+export const canAdvanceTurn = () => {
+const state = useGameStore.getState() as GameState;
+return state.age <= state.retirementAge &&
+    state.isMandatoryEventResolved &&
+    !state.isGameOver &&
+    !state.isGameFinished;
+};
+
+
+export const isNextTurnAvailable = () => {
+    const state = useGameStore.getState() as GameState;
+    return state.age <= state.retirementAge &&
+        state.isMandatoryEventResolved &&
+        !state.isGameOver &&
+        !state.isGameFinished;
+};
 
 export const createAdvanceTurn = (
   set: (fn: (state: Draft<GameState>) => void) => void
