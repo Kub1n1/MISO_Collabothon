@@ -65,7 +65,10 @@ export class Room extends Scene
         this.unsubscribers.push(
             useGameStore.subscribe(
                 (state) => state.activeBackground,
-                (background) => this.updateEventBackground(background)
+                (background) => {
+                    this.updateEventBackground(background);
+                    this.updateCouchVisibility(background);
+                }
             )
         );
 
@@ -91,6 +94,7 @@ export class Room extends Scene
 
             this.unsubscribers.push(unsub);
         });
+        this.updateCouchVisibility(initialBackground);
 
         const player = this.add
             .image(512, 384, this.getPlayerAgeTexture(initialAge))
@@ -137,6 +141,12 @@ export class Room extends Scene
             .setTexture(textureKey)
             .setScale(scale)
             .setDepth(-1);
+    }
+
+    private updateCouchVisibility(background: SceneBackground) {
+        this.elements.couch?.setVisible(
+            background !== 'university.jpg' && background !== 'work.jpg'
+        );
     }
 
     private updatePlayerAge(age: number) {

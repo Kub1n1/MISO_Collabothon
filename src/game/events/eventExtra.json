@@ -18,7 +18,6 @@
         "isMandatory": false,
         "title": "Free Pizza Seminar",
         "description": "You came for the pizza. A guy in a shiny suit offers a 'guaranteed 300% return'.",
-        "background": "university.jpg",
         "options": [
             {
                 "name": "Invest",
