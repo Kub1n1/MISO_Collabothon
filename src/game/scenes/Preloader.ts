@@ -1,7 +1,24 @@
 import { Scene } from 'phaser';
+import { RoomProps, SCENE_BACKGROUND_ASSETS } from '../../types';
+import { PLAYER_AGE_TEXTURE_COUNT } from './const';
+import { useGameStore } from '../../store';
+
+const ASSET_LEVELS: Record<keyof RoomProps, number> = {
+    wall: 2,
+    floor: 1,
+    tv: -1,
+    window: -1,
+    car: -1,
+    couch: -1,
+    player: 0,
+};
+
 
 export class Preloader extends Scene
 {
+    private progressBar?: Phaser.GameObjects.Rectangle;
+    private progressBarTrack?: Phaser.GameObjects.Rectangle;
+
     constructor ()
     {
         super('Preloader');
@@ -9,39 +26,81 @@ export class Preloader extends Scene
 
     init ()
     {
-        //  We loaded this image in our Boot Scene, so we can display it here
-        this.add.image(512, 384, 'background');
+        const centerX = this.scale.width / 2;
+        const centerY = this.scale.height / 2;
+        this.cameras.main.setBackgroundColor('#f7f7f7');
+        this.add.image(centerX, centerY, 'background');
 
-        //  A simple progress bar. This is the outline of the bar.
-        this.add.rectangle(512, 384, 468, 32).setStrokeStyle(1, 0xffffff);
+        this.progressBarTrack = this.add.rectangle(centerX, centerY + 420, 468, 32)
+            .setStrokeStyle(1, 0xffffff);
 
-        //  This is the progress bar itself. It will increase in size from the left based on the % of progress.
-        const bar = this.add.rectangle(512-230, 384, 4, 28, 0xffffff);
+        this.progressBar = this.add.rectangle(
+            centerX - 230,
+            centerY + 420,
+            4,
+            28,
+            0xffffff
+        ).setOrigin(0, 0.5);
 
-        //  Use the 'progress' event emitted by the LoaderPlugin to update the loading bar
         this.load.on('progress', (progress: number) => {
-
-            //  Update the progress bar (our bar is 464px wide, so 100% = 464px)
-            bar.width = 4 + (460 * progress);
-
+            if (this.progressBar) {
+                this.progressBar.width = 4 + (460 * progress);
+            }
         });
     }
 
     preload ()
     {
-        //  Load the assets for the game - Replace with your own assets
-        this.load.setPath('assets');
+        SCENE_BACKGROUND_ASSETS.forEach((asset) => {
+            this.load.image(`event-background-${asset}`, `assets/backgrounds/${asset}`);
+        });
 
-        this.load.image('logo', 'logo.png');
-        this.load.image('star', 'star.png');
+        (Object.keys(ASSET_LEVELS) as (keyof RoomProps)[]).forEach((key) => {
+            const count = ASSET_LEVELS[key];
+            for (let level = 0; level < count; level++) {
+            const textureKey = `${key}_${level}`;
+            this.load.image(textureKey, `assets/${textureKey}.png`);
+            }
+        });
+
+        for (let ageStage = 0; ageStage < PLAYER_AGE_TEXTURE_COUNT; ageStage++) {
+            this.load.image(
+                `player_age_${ageStage}`,
+                `assets/player_age/player_${ageStage}.png`
+            );
+        }
     }
 
     create ()
     {
-        //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
-        //  For example, you can define global animations here, so we can use them in other scenes.
+        this.progressBar?.destroy();
+        this.progressBarTrack?.destroy();
 
-        //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-        this.scene.start('Room');
+        const centerX = this.scale.width / 2;
+        const centerY = this.scale.height / 2;
+
+        const startButton = this.add.text(centerX, centerY + 420, 'START', {
+            fontFamily: 'Arial Black',
+            fontSize: 38,
+            color: '#ffffff',
+            backgroundColor: '#000000',
+            stroke: '#000000',
+            strokeThickness: 8,
+            align: 'center',
+            padding: {
+                x: 32,
+                y: 12,
+            },
+        })
+            .setOrigin(0.5)
+            .setDepth(100)
+            .setInteractive({ useHandCursor: true });
+
+        startButton.on('pointerover', () => startButton.setColor('#ffd700'));
+        startButton.on('pointerout', () => startButton.setColor('#ffffff'));
+        startButton.once('pointerup', () => {
+            useGameStore.getState().endLoading();
+            this.scene.start('Room');
+        });
     }
 }

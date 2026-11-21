@@ -1,23 +1,8 @@
 import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
-import { useGameStore } from '../../store';
-import type { RoomProps } from '../../store';
-import { SCENE_BACKGROUND_ASSETS, type SceneBackground } from '../../types';
-
-const ASSET_LEVELS: Record<keyof RoomProps, number> = {
-    wall: 2,
-    floor: 1,
-    tv: -1,
-    window: -1,
-    car: -1,
-    couch: -1,
-    player: 0,
-};
-
-const PLAYER_AGE_START = 25;
-const PLAYER_AGE_STEP = 5;
-const PLAYER_AGE_TEXTURE_COUNT = 10;
-const PLAYER_SCALE = 0.55;
+import { RoomProps, useGameStore } from '../../store';
+import { ASSET_LEVELS, PLAYER_AGE_START, PLAYER_AGE_STEP, PLAYER_AGE_TEXTURE_COUNT, PLAYER_SCALE } from './const';
+import { SceneBackground } from '../../types';
 
 export class Room extends Scene
 {
@@ -31,24 +16,6 @@ export class Room extends Scene
     }
 
     preload(){
-        SCENE_BACKGROUND_ASSETS.forEach((asset) => {
-            this.load.image(`event-background-${asset}`, `assets/backgrounds/${asset}`);
-        });
-
-        (Object.keys(ASSET_LEVELS) as (keyof RoomProps)[]).forEach((key) => {
-            const count = ASSET_LEVELS[key];
-            for (let level = 0; level < count; level++) {
-            const textureKey = `${key}_${level}`;
-            this.load.image(textureKey, `assets/${textureKey}.png`);
-            }
-        });
-
-        for (let ageStage = 0; ageStage < PLAYER_AGE_TEXTURE_COUNT; ageStage++) {
-            this.load.image(
-                `player_age_${ageStage}`,
-                `assets/player_age/player_${ageStage}.png`
-            );
-        }
     }
 
     create(){

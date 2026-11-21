@@ -13,7 +13,7 @@ const config: Phaser.Types.Core.GameConfig = {
     width: 1024,
     height: 576,
     parent: 'game-container',
-    backgroundColor: '#028af8',
+    backgroundColor: '#ffffff',
     scale: {
         mode: Scale.RESIZE,
         autoCenter: Scale.CENTER_BOTH, // Centruje obraz w pionie i poziomie

@@ -230,7 +230,7 @@
         "background": 2,
         "effect": {
             "roomPropsChange": {},
-            "eventAmount": 0
+            "eventAmount": -100000
         }
     },
     {

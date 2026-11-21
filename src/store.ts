@@ -446,6 +446,7 @@ export const useGameStore = create<GameState>()(
       };
 
       return{
+      bootscreen: true,
       age: 20,
       retirementAge: 65,
       psyche: 70,
@@ -494,6 +495,10 @@ export const useGameStore = create<GameState>()(
         optional: getRandomOptionalEvents(eventsOptional, START_AGE, 0, 0),
         resolvedOptionalEventIds: [],
       },
+      endLoading: () =>
+        set((state) => {
+          state.bootscreen = false;
+        }),
       incrementProp: (propName, amount = 1) =>
         set((state) => {
           state.roomProps[propName] += amount;

@@ -109,6 +109,7 @@ export interface Loan {
 }
 
 export interface GameState {
+  bootscreen: boolean;
   age: number;
   retirementAge: number;
   psyche: number;
@@ -133,6 +134,7 @@ export interface GameState {
   gameOverReason: string | null;
   isGameFinished: boolean;
   gameResult: GameResult | null;
+  endLoading: () => void;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
   resolveMandatoryEvent: (
     eventId: number,
