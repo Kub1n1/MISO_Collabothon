@@ -17,17 +17,12 @@ import {
   type SavingsStrategy,
   type SceneBackground,
 } from './types';
+import { createAdvanceTurn } from './store/turnStore';
+import { getHomeBackground, getRandomMandatoryEvent, getRandomOptionalEvents, isOptionalEventEligible, randomMonthlyFixedExpenses } from './store/utils';
+import { ENTERTAINMENT_PSYCHE_BONUS, INITIAL_MONTHLY_INCOME, INITIAL_SPOUSE_MONTHLY_INCOME, LOAN_TERM_MONTHS, MAX_CAR_LEVEL, START_AGE } from "./store/const";
+
 
 export type { RoomProps, SavingsBuckets, SavingsStrategy } from './types';
-
-const STEP = 5;
-const START_AGE = 20;
-const INITIAL_MONTHLY_INCOME = 1000;
-const INITIAL_SPOUSE_MONTHLY_INCOME = 3000;
-const LOAN_TERM_MONTHS = 60;
-const ENTERTAINMENT_PSYCHE_BONUS = 10;
-const OPTIONAL_EVENTS_PER_TURN = 3;
-const MAX_CAR_LEVEL = 2;
 
 export function getMaximumAffordableLoan(
   householdIncome: number,
@@ -39,11 +34,6 @@ export function getMaximumAffordableLoan(
     householdIncome - monthlyFixedExpenses - monthlyLoanRepayment
   );
   return Math.floor(monthlyCapacity * LOAN_TERM_MONTHS);
-}
-
-function randomMonthlyFixedExpenses(householdIncome: number) {
-  const percentage = 20 + Math.floor(Math.random() * 26);
-  return Math.round(householdIncome * (percentage / 100));
 }
 
 function rebalanceStrategy(
@@ -99,12 +89,6 @@ function rebalanceStrategy(
   return nextStrategy;
 }
 
-function getRandomMandatoryEvent(events: GameEvent[], age: number) {
-  const eligibleEvents = events.filter((event) => event.age === age);
-  const randomIndex = Math.floor(Math.random() * eligibleEvents.length);
-  return eligibleEvents[randomIndex] ?? null;
-}
-
 function validateEventBackground(
   background: GameEventBackground | undefined,
   eventId: string,
@@ -138,26 +122,6 @@ function getHomeLevelFromBackground(background: SceneBackground): HomeLevel | nu
   return null;
 }
 
-function getHomeBackground(
-  mandatoryBackground: EventBackground,
-  homeLevel: HomeLevel,
-  carLevel: number
-): SceneBackground {
-  if (homeLevel === 2) {
-    return carLevel > 0 ? 'home_modern_v2_car.jpg' : 'home_modern_v2.jpg';
-  }
-  if (homeLevel === 1) {
-    return carLevel > 0 ? 'home_modern_v1_car.jpg' : 'home_modern_v1.jpg';
-  }
-  if (carLevel > 0 && mandatoryBackground === 2) return 'home_car.jpg';
-  return mandatoryBackground === 1 ? 'background_1.jpg' : 'background_2.jpg';
-}
-
-function increaseHomeLevel(current: HomeLevel, requested: HomeLevel): HomeLevel {
-  if (requested <= current) return current;
-  return requested;
-}
-
 function applyEventBackground(
   state: GameState,
   background: GameEventBackground
@@ -174,9 +138,17 @@ function applyEventBackground(
     throw new Error(`Unsupported event background: ${background}`);
   }
 
+
+
+// function increaseHomeLevel(current: HomeLevel, requested: HomeLevel): HomeLevel {
+//   if (requested <= current) return current;
+//   return requested;
+// }
+
   const backgroundHomeLevel = getHomeLevelFromBackground(background);
   if (backgroundHomeLevel !== null) {
-    state.homeLevel = increaseHomeLevel(state.homeLevel, backgroundHomeLevel);
+    state.homeLevel = backgroundHomeLevel <= state.homeLevel ? state.homeLevel : backgroundHomeLevel
+    // state.homeLevel = increaseHomeLevel(state.homeLevel, backgroundHomeLevel);
     if (background.endsWith('_car.jpg') || background === 'home_car.jpg') {
       state.roomProps.car = Math.max(1, state.roomProps.car);
     }
@@ -190,40 +162,6 @@ function applyEventBackground(
 
   state.activeBackground = background;
 }
-
-function isOptionalEventEligible(
-  event: GameEvent,
-  homeLevel: HomeLevel,
-  carLevel: number
-) {
-  const requirements = event.requires;
-  return !requirements ||
-    (requirements.home === undefined || requirements.home === homeLevel) &&
-    (requirements.car === undefined || requirements.car <= carLevel) &&
-    (requirements.maxCar === undefined || requirements.maxCar >= carLevel);
-}
-
-function getRandomOptionalEvents(
-  events: GameEvent[],
-  age: number,
-  homeLevel: HomeLevel,
-  carLevel: number
-) {
-  const eligibleEvents = events.filter(
-    (event) =>
-      event.age === age && isOptionalEventEligible(event, homeLevel, carLevel)
-  );
-  for (let index = 0; index < Math.min(OPTIONAL_EVENTS_PER_TURN, eligibleEvents.length); index++) {
-    const randomIndex =
-      index + Math.floor(Math.random() * (eligibleEvents.length - index));
-    [eligibleEvents[index], eligibleEvents[randomIndex]] = [
-      eligibleEvents[randomIndex],
-      eligibleEvents[index],
-    ];
-  }
-  return eligibleEvents.slice(0, OPTIONAL_EVENTS_PER_TURN);
-}
-
 
 export const useGameStore = create<GameState>()(
   subscribeWithSelector(
@@ -535,83 +473,7 @@ export const useGameStore = create<GameState>()(
           !state.isGameOver &&
           !state.isGameFinished;
       },
-      advanceTurn: () =>
-        set((state) => {
-          if (
-            !state.isMandatoryEventResolved ||
-            state.isGameOver ||
-            state.isGameFinished
-          ) return;
-
-          if (state.age >= state.retirementAge) {
-            if (state.age === state.retirementAge) {
-              state.isGameFinished = true;
-              const savingsTotal =
-                state.savings.sock + state.savings.account + state.savings.stocks;
-              const psyche = state.psyche;
-
-              state.gameResult = {
-                completedAt: new Date().toISOString(),
-                savingsTotal,
-                psyche,
-                score: Math.round(savingsTotal * (1 + psyche / 1000)),
-              };
-            }
-            return;
-          }
-
-          // Przykład naliczenia za 1 rok (12 miesięcy)
-          const yearlyIncome = state.monthlyInvestment * 12 * STEP;
-          const addedSock = yearlyIncome * (state.strategy.sock / 100);
-          const addedAccount = yearlyIncome * (state.strategy.account / 100);
-          const addedStocks = yearlyIncome * (state.strategy.stocks / 100);
-          const householdIncome = state.monthlyIncome + state.spouseMonthlyIncome;
-          const monthlyFixedExpenses = randomMonthlyFixedExpenses(householdIncome);
-          const availableAfterFixedExpenses = householdIncome - monthlyFixedExpenses;
-          const age = Math.min(state.retirementAge, state.age + STEP)
-          const mandatoryEvent = getRandomMandatoryEvent(state.eventsMandatory, age);
-          const eventBackground = mandatoryEvent?.background;
-          const mandatoryBackground =
-            eventBackground === 1 || eventBackground === 2
-              ? eventBackground
-              : state.mandatoryBackground;
-          const loans = state.loans
-            .map((loan) => {
-              const remainingMonths = loan.remainingMonths - (12*STEP);
-              return { ...loan, remainingMonths };
-            })
-            .filter((loan) => loan.remainingMonths > 0);
-
-          return {
-            age,
-            mandatoryBackground,
-            activeBackground: getHomeBackground(
-              mandatoryBackground,
-              state.homeLevel,
-              state.roomProps.car
-            ),
-            monthlyFixedExpenses,
-            monthlyLoanRepayment: 0,
-            monthlyInvestment: Math.min(state.monthlyInvestment, availableAfterFixedExpenses),
-            savings: {
-              sock: Math.round(state.savings.sock + addedSock),
-              account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek
-              stocks: Math.round((state.savings.stocks + addedStocks) * 1.08),   // +8% zwrotu
-            },
-            loans,
-            isMandatoryEventResolved: mandatoryEvent === null,
-            turnEvents: {
-              mandatory: mandatoryEvent,
-              optional: getRandomOptionalEvents(
-                state.eventsOptional,
-                age,
-                state.homeLevel,
-                state.roomProps.car
-              ),
-              resolvedOptionalEventIds: [],
-            },
-          };
-        }),
+      advanceTurn: createAdvanceTurn(set),
       transferSavings: (from, to, amount): SavingsTransferResult => {
         if (from === to) return 'same-bucket';
         if (!Number.isInteger(amount) || amount <= 0) return 'invalid-amount';
