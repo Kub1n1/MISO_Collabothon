@@ -61,7 +61,7 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
           >
             <div className="is-flex is-justify-content-space-between is-align-items-center mb-3">
               <span className="has-text-weight-bold is-size-6 has-text-white">
-                How much do you want to invest?
+                How much do you want to save?
               </span>
               <button
                 className="delete is-small"
@@ -93,7 +93,7 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
               )}
             </div>
             <p className="is-size-7 has-text-grey-light mb-2">
-              Monthly investment amount (max. {formatPLN(availableAfterFixedExpenses)})
+              Monthly saving amount (max. {formatPLN(availableAfterFixedExpenses)})
             </p>
             <input
               type="range"
@@ -101,7 +101,7 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
               max={availableAfterFixedExpenses}
               step={1}
               value={monthlyInvestment}
-              aria-label="Monthly investment amount"
+              aria-label="Monthly saving amount"
               onChange={(event) => updateMonthlyInvestment(Number(event.target.value))}
               className={styles.investmentBudgetSlider}
               style={{
@@ -112,7 +112,7 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
             />
             <div className="is-flex is-justify-content-space-between is-size-7 mt-2">
               <div>
-                <span className="has-text-info">Monthly investment amount</span>
+                <span className="has-text-info">Monthly saving amount</span>
                 <div className="has-text-weight-bold has-text-info">
                   {formatPLN(monthlyInvestment)} / month
                 </div>
