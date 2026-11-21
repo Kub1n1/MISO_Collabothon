@@ -10,5 +10,13 @@
  {
     "name": "Mortgage",
     "content": "Home loan \nYou lend money from a bank to buy a property, and you pay it back monthly with interest, usually over 20–30 years. \nYou have to put in a deposit (around 10–20%), and the home is the bank's security. \nRates can be fixed or variable, and if you stop paying, the bank can take the property."
+  },
+  {
+    "name": "Bonds",
+    "content": "You lend money to a company or government, and they pay you interest. \nYou can sell the bond before it matures, but the price may be lower than what you paid."
+  },
+  {
+    "name": "Stocks",
+    "content": "You buy a share of a company, and so, you now own a small piece of that company. \nYou can make money if the company does well, but if it fails, you can lose the money. \nYou can sell the stock at any time, but the price may be lower than what you paid."
   }
 ]
