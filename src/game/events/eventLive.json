@@ -219,7 +219,7 @@
         "isMandatory": true,
         "title": "Retirement!",
         "description": "Your pension letter arrives: 20% of your salary. Hope Past You saved something.",
-        "psyche": 70,
+        "psyche": 0,
         "background": 2,
         "effect": {
             "roomPropsChange": {},
