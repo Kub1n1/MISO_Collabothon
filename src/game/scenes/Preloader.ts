@@ -102,5 +102,7 @@ export class Preloader extends Scene
             useGameStore.getState().endLoading();
             this.scene.start('Room');
         });
+        //FIXME: zeby sie nie jebac z ekranem ladujacym
+        this.scene.start('Room');
     }
 }
