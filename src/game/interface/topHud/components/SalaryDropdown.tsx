@@ -14,6 +14,7 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
   const monthlyFixedExpenses = useGameStore((s) => s.monthlyFixedExpenses);
   const monthlyLoanRepayment = useGameStore((s) => s.monthlyLoanRepayment);
   const monthlyInvestment = useGameStore((s) => s.monthlyInvestment);
+  const loans = useGameStore((s) => s.loans);
   const updateMonthlyInvestment = useGameStore((s) => s.updateMonthlyInvestment);
   const totalHouseholdIncome = monthlyIncome + spouseMonthlyIncome;
   const availableAfterFixedExpenses =
@@ -23,7 +24,7 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
     availableAfterFixedExpenses > 0
       ? (monthlyInvestment / availableAfterFixedExpenses) * 100
       : 0;
-
+console.log(loans);
   return (
     <div className="level-item">
       <div className={`dropdown is-right ${isOpen ? 'is-active' : ''}`}>
@@ -85,6 +86,9 @@ export function SalaryDropdown({ isOpen, onToggle, onClose }: SalaryDropdownProp
                 <span className="has-text-grey-light">Fixed monthly expenses</span>
                 <span>{formatPLN(monthlyFixedExpenses)} / month</span>
               </div>
+              {}
+
+
               {monthlyLoanRepayment > 0 && (
                 <div className="is-flex is-justify-content-space-between">
                   <span className="has-text-grey-light">Loan repayment (5 years)</span>
