@@ -296,6 +296,14 @@ export const useGameStore = create<GameState>()(
             state.monthlyIncome = event.income;
           }
 
+          const updatedHouseholdIncome =
+            state.monthlyIncome + state.spouseMonthlyIncome;
+
+          if (updatedHouseholdIncome !== householdIncome) {
+            state.monthlyFixedExpenses =
+              randomMonthlyFixedExpenses(updatedHouseholdIncome);
+          }
+
           const psycheChange =
             (event.psyche ?? 0) + (option?.psyche ?? 0) +
             (settlement.kind === 'entertainment' ? ENTERTAINMENT_PSYCHE_BONUS : 0);
