@@ -266,7 +266,7 @@ export const useGameStore = create<GameState>()(
           }
 
           if (event.income !== undefined) {
-            state.monthlyIncome = event.income;
+            state.monthlyIncome += event.income;
           }
 
           const updatedHouseholdIncome =
