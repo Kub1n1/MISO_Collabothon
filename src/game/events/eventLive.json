@@ -7,9 +7,9 @@
         "title": "Dorm Sweet Dorm",
         "description": "Deposit paid. You now own 50% of a mouldy room and 0% of a sleep schedule.",
         "psyche": 10,
+        "background": 1,
         "effect": {
             "roomPropsChange": {
-                "wall": 1,
                 "tv": 0,
                 "car": 0,
                 "couch": 0,
@@ -28,6 +28,7 @@
         "title": "Till Debt Do Us Part",
         "description": "Uncle danced to the same song 7 times. The envelopes almost covered the bill. Almost.",
         "psyche": 10,
+        "background": 1,
         "effect": {
             "roomPropsChange": {
                 "tv": 1,
@@ -48,11 +49,9 @@
                 "name": "Fixed Rate",
                 "description": "Same instalment for years. Boring, predictable, and you sleep at night.",
                 "psyche": 15,
+                "background": 2,
                 "effect": {
-                    "roomPropsChange": {
-                        "wall": 2,
-                        "couch": 1
-                    },
+                    "roomPropsChange": {},
                     "eventAmount": -32000
                 }
             },
@@ -60,11 +59,9 @@
                 "name": "Variable Rate",
                 "description": "Cheaper today, a mystery tomorrow. Your instalment now follows the central bank's mood swings.",
                 "psyche": -5,
+                "background": 2,
                 "effect": {
-                    "roomPropsChange": {
-                        "wall": 2,
-                        "couch": 1
-                    },
+                    "roomPropsChange": {},
                     "eventAmount": -26000
                 }
             },
@@ -72,11 +69,9 @@
                 "name": "Fixed for 5 Years",
                 "description": "Stability now, a surprise later. Future-you will deal with it.",
                 "psyche": 5,
+                "background": 2,
                 "effect": {
-                    "roomPropsChange": {
-                        "wall": 2,
-                        "couch": 1
-                    },
+                    "roomPropsChange": {},
                     "eventAmount": -29000
                 }
             }
@@ -90,6 +85,7 @@
         "title": "Surprise, It's a Baby!",
         "description": "A tiny human with a huge budget. Sleep is now a luxury product.",
         "psyche": 10,
+        "background":2,
         "effect": {
             "roomPropsChange": {
                 "kid": 1
@@ -105,6 +101,7 @@
         "title": "Promotion!",
         "description": "+30% salary. Your lifestyle immediately asks for +31%.",
         "psyche": 15,
+        "background": 2,
         "effect": {
             "roomPropsChange": {},
             "eventAmount": 0
@@ -122,6 +119,7 @@
                 "name": "Buy the Convertible",
                 "description": "Wind in your (remaining) hair. Your savings are now shaped like a car.",
                 "psyche": 15,
+                "background": 2,
                 "effect": {
                     "roomPropsChange": {
                         "car": 1
@@ -133,6 +131,7 @@
                 "name": "Listen to Your Wife",
                 "description": "You buy a bicycle instead. It's red, at least.",
                 "psyche": -20,
+                "background":2,
                 "effect": {
                     "roomPropsChange": {},
                     "eventAmount": -2000
