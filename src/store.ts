@@ -43,6 +43,7 @@ export interface StockMarketState {
 export interface TurnEvents {
   mandatory: GameEvent | null;
   optional: GameEvent[];
+  resolvedOptionalEventIds: number[];
 }
 
 export interface GameState {
@@ -311,7 +312,10 @@ export const useGameStore = create<GameState>()(
           if (mandatory) {
             state.isMandatoryEventResolved = true;
           } else {
-            state.turnEvents.optional = [];
+            state.turnEvents.optional = state.turnEvents.optional.filter(
+              (candidate) => candidate.id === eventId
+            );
+            state.turnEvents.resolvedOptionalEventIds = [eventId];
           }
           resolved = true;
         });
@@ -361,6 +365,7 @@ export const useGameStore = create<GameState>()(
       turnEvents: {
         mandatory: initialMandatoryEvent,
         optional: getRandomOptionalEvents(eventsOptional, START_AGE),
+        resolvedOptionalEventIds: [],
       },
       incrementProp: (propName, amount = 1) =>
         set((state) => {
@@ -516,6 +521,7 @@ export const useGameStore = create<GameState>()(
             turnEvents: {
               mandatory: mandatoryEvent,
               optional: getRandomOptionalEvents(state.eventsOptional, age),
+              resolvedOptionalEventIds: [],
             },
           };
         }),

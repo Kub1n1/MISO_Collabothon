@@ -66,6 +66,7 @@ export interface GameEvent {
 export interface TurnEvents {
   mandatory: GameEvent | null;
   optional: GameEvent[];
+  resolvedOptionalEventIds: number[];
 }
 
 export interface GameState {

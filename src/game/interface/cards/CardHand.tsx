@@ -11,7 +11,9 @@ export function CardHand() {
   const isMandatoryEventResolved = useGameStore((s) => s.isMandatoryEventResolved);
   const resolveMandatoryEvent = useGameStore((s) => s.resolveMandatoryEvent);
   const resolveOptionalEvent = useGameStore((s) => s.resolveOptionalEvent);
-  const dismissOptionalEvent = useGameStore((s) => s.dismissOptionalEvent);
+  const resolvedOptionalEventIds = useGameStore(
+    (s) => s.turnEvents.resolvedOptionalEventIds
+  );
 
   const handlePlayCard = (
     card: GameEvent,
@@ -62,14 +64,12 @@ export function CardHand() {
           key={card.id}
           card={card}
           isMandatory={false}
+          isResolved={resolvedOptionalEventIds.includes(card.id)}
           isExpanded={selectedCardId === card.id}
           onSelect={setSelectedCardId}
           onClose={() => setSelectedCardId(null)}
           onPlay={handlePlayCard}
-          onSkip={() => {
-            dismissOptionalEvent(card.id);
-            setSelectedCardId(null);
-          }}
+          onSkip={() => setSelectedCardId(null)}
         />
       ))}
     </div>
