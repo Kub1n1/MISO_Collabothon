@@ -47,22 +47,9 @@ export function FinancialSnapshot() {
         </span>
       </div>
       <div className="is-flex is-justify-content-space-between is-size-7">
-        <span className="has-text-grey-light">Fixed-cost runway</span>
+        <span className="has-text-grey-light">Survival without income</span>
         <span className="has-text-info has-text-weight-semibold">
           {fixedCostRunway.toFixed(1)} months
-        </span>
-      </div>
-      <div className="is-flex is-justify-content-space-between is-size-7 mt-1">
-        <span className="has-text-grey-light">Stock portfolio</span>
-        <span className="has-text-white has-text-weight-semibold">
-          {formatPLN(stockValue)}
-        </span>
-      </div>
-      <div className="is-size-7 has-text-grey-light">{holdingsSummary}</div>
-      <div className="is-flex is-justify-content-space-between is-size-7">
-        <span className="has-text-grey-light">Stock P/L</span>
-        <span className={`has-text-weight-semibold ${stockProfit >= 0 ? 'has-text-success' : 'has-text-danger'}`}>
-          {stockProfit > 0 ? '+' : ''}{formatPLN(stockProfit)}
         </span>
       </div>
     </div>
