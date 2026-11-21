@@ -124,6 +124,7 @@ export interface TurnEvents {
 }
 
 export interface Loan {
+  title: string;
   amount: number;
   monthlyRepayment: number;
   remainingMonths: number;
