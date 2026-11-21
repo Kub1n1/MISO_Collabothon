@@ -1,4 +1,3 @@
-
 export const STOCK_SYMBOLS = ['TESLA', 'MICROSOFT', 'NVIDIA'] as const;
 export type StockSymbol = (typeof STOCK_SYMBOLS)[number];
 export type StockTradeAction = 'buy' | 'sell';
@@ -146,6 +145,8 @@ export interface GameState {
   isMandatoryEventResolved: boolean;
   isGameOver: boolean;
   gameOverReason: string | null;
+  isGameFinished: boolean;
+  gameResult: GameResult | null;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
   resolveMandatoryEvent: (
     eventId: number,
@@ -174,6 +175,13 @@ export interface GameState {
     to: keyof SavingsBuckets,
     amount: number
   ) => SavingsTransferResult;
+}
+
+export interface GameResult {
+  completedAt: string;
+  savingsTotal: number;
+  psyche: number;
+  score: number;
 }
 
 export type SavingsTransferResult =

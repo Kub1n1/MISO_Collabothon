@@ -6,12 +6,15 @@ import './App.css';
 import { TopHud } from './game/interface/topHud/topHud';
 import { formatPLN } from './game/interface/topHud/formatPLN';
 import { useGameStore } from './store';
+import { GameSummary } from './game/interface/GameSummary';
 
 function App()
 {
     const phaserRef = useRef<IRefPhaserGame | null>(null);
     const isGameOver = useGameStore((state) => state.isGameOver);
     const gameOverReason = useGameStore((state) => state.gameOverReason);
+    const isGameFinished = useGameStore((state) => state.isGameFinished);
+    const gameResult = useGameStore((state) => state.gameResult);
     const age = useGameStore((state) => state.age);
     const totalSavings = useGameStore(
         (state) => state.savings.sock + state.savings.account + state.savings.stocks
@@ -73,6 +76,7 @@ function App()
                     </section>
                 </div>
             )}
+            {isGameFinished && gameResult && <GameSummary result={gameResult} />}
         </div>
     )
 }

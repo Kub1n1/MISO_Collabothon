@@ -515,6 +515,8 @@ export const useGameStore = create<GameState>()(
       isMandatoryEventResolved: initialMandatoryEvent === null,
       isGameOver: false,
       gameOverReason: null,
+      isGameFinished: false,
+      gameResult: null,
       turnEvents: {
         mandatory: initialMandatoryEvent,
         optional: getRandomOptionalEvents(eventsOptional, START_AGE, 0, 0),
@@ -603,17 +605,35 @@ export const useGameStore = create<GameState>()(
       },
       isNextTurnAvailable: () => {
         const state = useGameStore.getState() as GameState;
-        return state.age < state.retirementAge &&
+        return state.age <= state.retirementAge &&
           state.isMandatoryEventResolved &&
-          !state.isGameOver;
+          !state.isGameOver &&
+          !state.isGameFinished;
       },
       advanceTurn: () =>
         set((state) => {
           if (
-            state.age >= state.retirementAge ||
             !state.isMandatoryEventResolved ||
-            state.isGameOver
+            state.isGameOver ||
+            state.isGameFinished
           ) return;
+
+          if (state.age >= state.retirementAge) {
+            if (state.age === state.retirementAge) {
+              state.isGameFinished = true;
+              const savingsTotal =
+                state.savings.sock + state.savings.account + state.savings.stocks;
+              const psyche = state.psyche;
+
+              state.gameResult = {
+                completedAt: new Date().toISOString(),
+                savingsTotal,
+                psyche,
+                score: Math.round(savingsTotal * (1 + psyche / 1000)),
+              };
+            }
+            return;
+          }
 
           // Przykład naliczenia za 1 rok (12 miesięcy)
           const yearlyIncome = state.monthlyInvestment * 12 * STEP;
@@ -707,9 +727,10 @@ export const useGameStore = create<GameState>()(
       },
       canAdvanceTurn: () => {
         const state = useGameStore.getState() as GameState;
-        return state.age < state.retirementAge &&
+        return state.age <= state.retirementAge &&
           state.isMandatoryEventResolved &&
-          !state.isGameOver;
+          !state.isGameOver &&
+          !state.isGameFinished;
       }
     }})
   )

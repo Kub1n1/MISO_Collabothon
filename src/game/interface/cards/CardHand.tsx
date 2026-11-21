@@ -51,7 +51,6 @@ export function CardHand() {
             isResolved={isMandatoryEventResolved}
             isExpanded={selectedCardId === mandatoryCard.id}
             onSelect={setSelectedCardId}
-            onClose={() => setSelectedCardId(null)}
             onPlay={handlePlayCard}
           />
           {optionalCards.length > 0 && <div className="mandatory-divider" />}
@@ -67,9 +66,7 @@ export function CardHand() {
           isResolved={resolvedOptionalEventIds.includes(card.id)}
           isExpanded={selectedCardId === card.id}
           onSelect={setSelectedCardId}
-          onClose={() => setSelectedCardId(null)}
           onPlay={handlePlayCard}
-          onSkip={() => setSelectedCardId(null)}
         />
       ))}
     </div>
