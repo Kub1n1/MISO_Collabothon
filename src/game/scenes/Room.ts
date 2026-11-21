@@ -10,6 +10,7 @@ export class Room extends Scene
     private eventBackground: GameObjects.Image;
     private player:GameObjects.Image;
     private partner:GameObjects.Image;
+    private child:GameObjects.Image;
     private unsubscribers: (() => void)[] = [];
 
     constructor(){
@@ -82,6 +83,22 @@ export class Room extends Scene
             )
         );
 
+        const child = this.add
+            .image(
+                this.scale.width / 2+150,
+                this.scale.height / 2,
+                this.getChildAgeTexture(initialAge)
+            )
+            .setScale(PARTNER_SCALE)
+        this.child = child;
+        this.child.visible = false; 
+        this.unsubscribers.push(
+            useGameStore.subscribe(
+                (state) => state.age,
+                (age) => this.updateChildAge(age)
+            )
+        );
+
         const player = this.add
             .image(
                 this.scale.width / 2,
@@ -124,6 +141,15 @@ export class Room extends Scene
         );
 
         return `player_age_woman_${ageStage}`;
+    }
+
+    private getChildAgeTexture(age: number) {
+        const ageStage = Math.min(
+            PLAYER_AGE_TEXTURE_COUNT - 1,
+            Math.max(0, Math.floor((age - PLAYER_AGE_START) / PLAYER_AGE_STEP))
+        );
+
+        return `player_age_child_${ageStage}`;
     }
 
     private getEventBackgroundTexture(background: SceneBackground) {
@@ -183,11 +209,32 @@ export class Room extends Scene
             console.warn(`Brak tekstury: ${textureKey}`);
             return;
         }
-        console.log(age);
         if(age >= 25){
             this.partner.visible = true;
         } else {
             this.partner.visible = false;
+        }
+
+        this.updateSpriteTexture(sprite, textureKey);
+    }
+
+    private updateChildAge(age: number) {
+        let ageRecalculated = age - 10;
+        if(ageRecalculated < 0) ageRecalculated = 0;
+        if(ageRecalculated > 55) ageRecalculated = 55;
+        if(age >= 35 && age <= 55){
+            this.child.visible = true;
+        } else {
+            this.child.visible = false;
+        }
+
+        const sprite = this.child;
+        const textureKey = this.getChildAgeTexture(ageRecalculated);
+
+        if (!sprite) return;
+        if (!this.textures.exists(textureKey)) {
+            console.warn(`Brak tekstury: ${textureKey}`);
+            return;
         }
 
         this.updateSpriteTexture(sprite, textureKey);

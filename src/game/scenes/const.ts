@@ -13,5 +13,6 @@ export const ASSET_LEVELS: Record<keyof RoomProps, number> = {
 export const PLAYER_AGE_START = 25;
 export const PLAYER_AGE_STEP = 5;
 export const PLAYER_AGE_TEXTURE_COUNT = 10;
+export const CHILD_AGE_TEXTURE_COUNT = 6;
 export const PLAYER_SCALE = 0.55;
 export const PARTNER_SCALE = 0.5;

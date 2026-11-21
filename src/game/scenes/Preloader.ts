@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { RoomProps, SCENE_BACKGROUND_ASSETS } from '../../types';
-import { PLAYER_AGE_TEXTURE_COUNT } from './const';
+import { CHILD_AGE_TEXTURE_COUNT, PLAYER_AGE_TEXTURE_COUNT } from './const';
 import { useGameStore } from '../../store';
 
 const ASSET_LEVELS: Record<keyof RoomProps, number> = {
@@ -71,6 +71,12 @@ export class Preloader extends Scene
             this.load.image(
                 `player_age_woman_${ageStage}`,
                 `assets/player_age_woman/player_woman_${ageStage}.png`
+            );
+        }
+        for (let ageStage = 0; ageStage < CHILD_AGE_TEXTURE_COUNT; ageStage++) {
+            this.load.image(
+                `player_age_child_${ageStage}`,
+                `assets/player_age_child/player_child_${ageStage}.png`
             );
         }
     }
