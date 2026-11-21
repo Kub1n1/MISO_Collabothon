@@ -14,6 +14,11 @@ export function GameSummary({ result }: GameSummaryProps) {
     setResults(saveGameResult(result));
   }, [result]);
 
+  const personalBestScore = results.reduce(
+    (bestScore, savedResult) => Math.max(bestScore, savedResult.score),
+    result.score
+  );
+
   return (
     <div
       className="card-backdrop"
@@ -40,6 +45,11 @@ export function GameSummary({ result }: GameSummaryProps) {
         <h1 id="game-summary-title" className="title is-3 has-text-success">
           Retirement summary
         </h1>
+
+        <div className="notification is-info is-light mb-4">
+          <p className="is-size-7 mb-1">Personal best</p>
+          <strong className="is-size-4">{formatPLN(personalBestScore)}</strong>
+        </div>
 
         <div className="is-flex is-justify-content-space-between mb-2">
           <span className="has-text-grey-light">Savings total</span>
