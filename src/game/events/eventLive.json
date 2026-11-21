@@ -57,7 +57,7 @@
                     "loan": {
                         "title": "Loan for home",
                         "amount": 320000,
-                        "monthlyRepayment": 1000,
+                        "monthlyRepayment": 2700,
                         "remainingMonths": 360,
                         "monthlyRate": 0.05
                     }
@@ -74,7 +74,7 @@
                     "loan": {
                         "title": "Loan for home",
                         "amount": 260000,
-                        "monthlyRepayment": 1000,
+                        "monthlyRepayment": 2000,
                         "remainingMonths": 360,
                         "monthlyRate": 0.05
                     }
@@ -91,7 +91,7 @@
                     "loan": {
                         "title": "Loan for home",
                         "amount": 290000,
-                        "monthlyRepayment": 1000,
+                        "monthlyRepayment": 2500,
                         "remainingMonths": 360,
                         "monthlyRate": 0.05
                     }

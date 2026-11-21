@@ -570,6 +570,12 @@ export const useGameStore = create<GameState>()(
             eventBackground === 1 || eventBackground === 2
               ? eventBackground
               : state.mandatoryBackground;
+          const loans = state.loans
+            .map((loan) => {
+              const remainingMonths = loan.remainingMonths - (12*STEP);
+              return { ...loan, remainingMonths };
+            })
+            .filter((loan) => loan.remainingMonths > 0);
 
           return {
             age,
@@ -587,7 +593,7 @@ export const useGameStore = create<GameState>()(
               account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek
               stocks: Math.round((state.savings.stocks + addedStocks) * 1.08),   // +8% zwrotu
             },
-            loans: [...state.loans, ],
+            loans,
             isMandatoryEventResolved: mandatoryEvent === null,
             turnEvents: {
               mandatory: mandatoryEvent,
