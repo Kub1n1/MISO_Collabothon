@@ -4,15 +4,19 @@ import { immer } from 'zustand/middleware/immer';
 import eventLive from './game/events/eventLive.json';
 import eventExtra from './game/events/eventExtra.json';
 import {
+  SCENE_BACKGROUND_ASSETS,
   SavingsTransferResult,
   STOCK_SYMBOLS,
   type EventBackground,
   type GameEvent,
+  type GameEventBackground,
   type GameEventEffect,
   type GameState,
+  type HomeLevel,
   type MandatoryEventSettlement,
   type SavingsBuckets,
   type SavingsStrategy,
+  type SceneBackground,
   type StockMarketState,
   type StockTradeResult,
 } from './types';
@@ -26,6 +30,7 @@ const INITIAL_SPOUSE_MONTHLY_INCOME = 3000;
 const LOAN_TERM_MONTHS = 60;
 const ENTERTAINMENT_PSYCHE_BONUS = 10;
 const OPTIONAL_EVENTS_PER_TURN = 3;
+const MAX_CAR_LEVEL = 2;
 
 export function getAvailableStockFunds(savings: SavingsBuckets) {
   return Math.max(0, savings.sock) + Math.max(0, savings.account) + Math.max(0, savings.stocks);
@@ -141,7 +146,7 @@ function getRandomMandatoryEvent(events: GameEvent[], age: number) {
 }
 
 function validateEventBackground(
-  background: number | undefined,
+  background: GameEventBackground | undefined,
   eventId: string,
   isMandatory: boolean
 ): EventBackground | undefined {
@@ -150,8 +155,104 @@ function validateEventBackground(
   throw new Error(`Mandatory event ${eventId} must define background as 1 or 2`);
 }
 
-function getRandomOptionalEvents(events: GameEvent[], age: number) {
-  const eligibleEvents = events.filter((event) => event.age === age);
+function isSceneBackground(background: string): background is SceneBackground {
+  return SCENE_BACKGROUND_ASSETS.some((asset) => asset === background);
+}
+
+function validateOptionalEventBackground(
+  background: number | string | undefined,
+  eventId: string
+): GameEventBackground | undefined {
+  if (background === undefined) return undefined;
+  if (background === 1 || background === 2) return background;
+  if (typeof background === 'string' && isSceneBackground(background)) {
+    return background;
+  }
+  throw new Error(`Optional event ${eventId} has an invalid background`);
+}
+
+function getHomeLevelFromBackground(background: SceneBackground): HomeLevel | null {
+  if (background.startsWith('home_modern_v2')) return 2;
+  if (background.startsWith('home_modern_v1')) return 1;
+  if (background === 'home_car.jpg') return 0;
+  return null;
+}
+
+function getHomeBackground(
+  mandatoryBackground: EventBackground,
+  homeLevel: HomeLevel,
+  carLevel: number
+): SceneBackground {
+  if (homeLevel === 2) {
+    return carLevel > 0 ? 'home_modern_v2_car.jpg' : 'home_modern_v2.jpg';
+  }
+  if (homeLevel === 1) {
+    return carLevel > 0 ? 'home_modern_v1_car.jpg' : 'home_modern_v1.jpg';
+  }
+  if (carLevel > 0) return 'home_car.jpg';
+  return mandatoryBackground === 1 ? 'background_1.jpg' : 'background_2.jpg';
+}
+
+function increaseHomeLevel(current: HomeLevel, requested: HomeLevel): HomeLevel {
+  if (requested <= current) return current;
+  return requested;
+}
+
+function applyEventBackground(
+  state: GameState,
+  background: GameEventBackground
+) {
+  if (background === 1 || background === 2) {
+    state.activeBackground = getHomeBackground(
+      background,
+      state.homeLevel,
+      state.roomProps.car
+    );
+    return;
+  }
+  if (typeof background === 'number') {
+    throw new Error(`Unsupported event background: ${background}`);
+  }
+
+  const backgroundHomeLevel = getHomeLevelFromBackground(background);
+  if (backgroundHomeLevel !== null) {
+    state.homeLevel = increaseHomeLevel(state.homeLevel, backgroundHomeLevel);
+    if (background.endsWith('_car.jpg') || background === 'home_car.jpg') {
+      state.roomProps.car = Math.max(1, state.roomProps.car);
+    }
+    state.activeBackground = getHomeBackground(
+      state.mandatoryBackground,
+      state.homeLevel,
+      state.roomProps.car
+    );
+    return;
+  }
+
+  state.activeBackground = background;
+}
+
+function isOptionalEventEligible(
+  event: GameEvent,
+  homeLevel: HomeLevel,
+  carLevel: number
+) {
+  const requirements = event.requires;
+  return !requirements ||
+    (requirements.home === undefined || requirements.home === homeLevel) &&
+    (requirements.car === undefined || requirements.car <= carLevel) &&
+    (requirements.maxCar === undefined || requirements.maxCar >= carLevel);
+}
+
+function getRandomOptionalEvents(
+  events: GameEvent[],
+  age: number,
+  homeLevel: HomeLevel,
+  carLevel: number
+) {
+  const eligibleEvents = events.filter(
+    (event) =>
+      event.age === age && isOptionalEventEligible(event, homeLevel, carLevel)
+  );
   for (let index = 0; index < Math.min(OPTIONAL_EVENTS_PER_TURN, eligibleEvents.length); index++) {
     const randomIndex =
       index + Math.floor(Math.random() * (eligibleEvents.length - index));
@@ -179,6 +280,14 @@ export const useGameStore = create<GameState>()(
       const eventsMandatory = allEvents.filter((event) => event.isMandatory);
       const eventsOptional: GameEvent[] = eventExtra.map((event, id) => ({
         ...event,
+        background: validateOptionalEventBackground(event.background, event.eventId),
+        options: event.options?.map((option) => ({
+          ...option,
+          background: validateOptionalEventBackground(
+            'background' in option ? option.background : undefined,
+            event.eventId
+          ),
+        })),
         id: eventLive.length + id,
       }));
       const initialMandatoryEvent = getRandomMandatoryEvent(eventsMandatory, START_AGE);
@@ -201,6 +310,10 @@ export const useGameStore = create<GameState>()(
             event.id !== eventId ||
             (mandatory && state.isMandatoryEventResolved) ||
             state.isGameOver
+          ) return;
+          if (
+            !mandatory &&
+            !isOptionalEventEligible(event, state.homeLevel, state.roomProps.car)
           ) return;
 
           const option = optionIndex === null ? undefined : event.options?.[optionIndex];
@@ -271,7 +384,20 @@ export const useGameStore = create<GameState>()(
           const roomChanges = effect.roomPropsChange;
           for (const prop of ['wall', 'floor', 'tv', 'window', 'car', 'couch'] as const) {
             const change = roomChanges[prop] ?? 0;
-            state.roomProps[prop] = Math.max(0, state.roomProps[prop] + change);
+            const maxLevel = prop === 'car' ? MAX_CAR_LEVEL : Number.POSITIVE_INFINITY;
+            state.roomProps[prop] = Math.min(
+              maxLevel,
+              Math.max(0, state.roomProps[prop] + change)
+            );
+          }
+
+          const roomPropsSet = effect.roomPropsSet ?? {};
+          for (const prop of ['wall', 'floor', 'tv', 'window', 'car', 'couch'] as const) {
+            const value = roomPropsSet[prop];
+            if (value !== undefined) {
+              const maxLevel = prop === 'car' ? MAX_CAR_LEVEL : Number.POSITIVE_INFINITY;
+              state.roomProps[prop] = Math.min(maxLevel, Math.max(0, value));
+            }
           }
 
           for (const member of ['wife', 'kid', 'spy'] as const) {
@@ -281,6 +407,30 @@ export const useGameStore = create<GameState>()(
               if (member === 'wife') {
                 state.spouseMonthlyIncome = change > 0 ? INITIAL_SPOUSE_MONTHLY_INCOME : 0;
               }
+            }
+          }
+
+          if (mandatory) {
+            if (roomChanges.car !== undefined || roomPropsSet.car !== undefined) {
+              state.activeBackground = getHomeBackground(
+                state.mandatoryBackground,
+                state.homeLevel,
+                state.roomProps.car
+              );
+            }
+          } else {
+            const background = option?.background ?? event.background;
+            if (background !== undefined) {
+              applyEventBackground(state, background);
+            } else if (
+              roomChanges.car !== undefined ||
+              roomPropsSet.car !== undefined
+            ) {
+              state.activeBackground = getHomeBackground(
+                state.mandatoryBackground,
+                state.homeLevel,
+                state.roomProps.car
+              );
             }
           }
 
@@ -332,7 +482,9 @@ export const useGameStore = create<GameState>()(
       monthlyFixedExpenses: initialMonthlyFixedExpenses,
       monthlyLoanRepayment: 0,
       monthlyInvestment: Math.max(0, INITIAL_MONTHLY_INCOME - initialMonthlyFixedExpenses),
-      activeBackground: 1,
+      activeBackground: 'background_1.jpg',
+      mandatoryBackground: 1,
+      homeLevel: 0,
       savings: {
         sock: 5000,
         account: 0,
@@ -365,7 +517,7 @@ export const useGameStore = create<GameState>()(
       gameOverReason: null,
       turnEvents: {
         mandatory: initialMandatoryEvent,
-        optional: getRandomOptionalEvents(eventsOptional, START_AGE),
+        optional: getRandomOptionalEvents(eventsOptional, START_AGE, 0, 0),
         resolvedOptionalEventIds: [],
       },
       incrementProp: (propName, amount = 1) =>
@@ -473,6 +625,11 @@ export const useGameStore = create<GameState>()(
           const availableAfterFixedExpenses = householdIncome - monthlyFixedExpenses;
           const age = Math.min(state.retirementAge, state.age + STEP)
           const mandatoryEvent = getRandomMandatoryEvent(state.eventsMandatory, age);
+          const eventBackground = mandatoryEvent?.background;
+          const mandatoryBackground =
+            eventBackground === 1 || eventBackground === 2
+              ? eventBackground
+              : state.mandatoryBackground;
           const stockMarket: StockMarketState = {
             ...state.stockMarket,
             prices: { ...state.stockMarket.prices },
@@ -502,7 +659,12 @@ export const useGameStore = create<GameState>()(
 
           return {
             age,
-            activeBackground: mandatoryEvent?.background ?? state.activeBackground,
+            mandatoryBackground,
+            activeBackground: getHomeBackground(
+              mandatoryBackground,
+              state.homeLevel,
+              state.roomProps.car
+            ),
             monthlyFixedExpenses,
             monthlyLoanRepayment: 0,
             monthlyInvestment: Math.min(state.monthlyInvestment, availableAfterFixedExpenses),
@@ -515,7 +677,12 @@ export const useGameStore = create<GameState>()(
             isMandatoryEventResolved: mandatoryEvent === null,
             turnEvents: {
               mandatory: mandatoryEvent,
-              optional: getRandomOptionalEvents(state.eventsOptional, age),
+              optional: getRandomOptionalEvents(
+                state.eventsOptional,
+                age,
+                state.homeLevel,
+                state.roomProps.car
+              ),
               resolvedOptionalEventIds: [],
             },
           };

@@ -2,7 +2,7 @@ import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
 import { useGameStore } from '../../store';
 import type { RoomProps } from '../../store';
-import type { EventBackground } from '../../types';
+import { SCENE_BACKGROUND_ASSETS, type SceneBackground } from '../../types';
 
 const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     wall: 2,
@@ -31,8 +31,9 @@ export class Room extends Scene
     }
 
     preload(){
-        this.load.image('event-background-1', 'assets/backgrounds/background_1.jpg');
-        this.load.image('event-background-2', 'assets/backgrounds/background_2.jpg');
+        SCENE_BACKGROUND_ASSETS.forEach((asset) => {
+            this.load.image(`event-background-${asset}`, `assets/backgrounds/${asset}`);
+        });
 
         (Object.keys(ASSET_LEVELS) as (keyof RoomProps)[]).forEach((key) => {
             const count = ASSET_LEVELS[key];
@@ -119,11 +120,11 @@ export class Room extends Scene
         return `player_age_${ageStage}`;
     }
 
-    private getEventBackgroundTexture(background: EventBackground) {
+    private getEventBackgroundTexture(background: SceneBackground) {
         return `event-background-${background}`;
     }
 
-    private updateEventBackground(background: EventBackground) {
+    private updateEventBackground(background: SceneBackground) {
         const textureKey = this.getEventBackgroundTexture(background);
         if (!this.eventBackground || !this.textures.exists(textureKey)) {
             console.warn(`Brak tekstury tła: ${textureKey}`);

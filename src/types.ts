@@ -62,17 +62,43 @@ export interface EventRoomPropsChange {
   spy?: number;
 }
 
+export type EventRoomPropsSet = Partial<
+  Pick<RoomProps, 'wall' | 'floor' | 'tv' | 'window' | 'car' | 'couch'>
+>;
+
 export interface GameEventEffect {
   roomPropsChange: EventRoomPropsChange;
+  roomPropsSet?: EventRoomPropsSet;
   eventAmount: number;
 }
 
 export type EventBackground = 1 | 2;
+export const SCENE_BACKGROUND_ASSETS = [
+  'background_1.jpg',
+  'background_2.jpg',
+  'university.jpg',
+  'work.jpg',
+  'home_car.jpg',
+  'home_modern_v1.jpg',
+  'home_modern_v1_car.jpg',
+  'home_modern_v2.jpg',
+  'home_modern_v2_car.jpg',
+] as const;
+export type SceneBackground = (typeof SCENE_BACKGROUND_ASSETS)[number];
+export type GameEventBackground = number | SceneBackground;
+export type HomeLevel = 0 | 1 | 2;
+
+export interface GameEventRequirements {
+  car?: number;
+  maxCar?: number;
+  home?: number;
+}
 
 export interface GameEventOption {
   name: string;
   description: string;
   psyche?: number;
+  background?: GameEventBackground;
   effect: GameEventEffect;
 }
 
@@ -85,7 +111,8 @@ export interface GameEvent {
   title: string;
   description: string;
   psyche?: number;
-  background?: EventBackground;
+  background?: GameEventBackground;
+  requires?: GameEventRequirements;
   effect?: GameEventEffect;
   options?: GameEventOption[];
 }
@@ -105,7 +132,9 @@ export interface GameState {
   monthlyFixedExpenses: number;
   monthlyLoanRepayment: number;
   monthlyInvestment: number;
-  activeBackground: EventBackground;
+  activeBackground: SceneBackground;
+  mandatoryBackground: EventBackground;
+  homeLevel: HomeLevel;
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
   family: FamilyState;

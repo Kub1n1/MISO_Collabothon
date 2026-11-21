@@ -5,6 +5,7 @@
         "isMandatory": false,
         "title": "Scholarship Unlocked",
         "description": "Your grades finally paid off. Literally.",
+        "background": "university.jpg",
         "psyche": 10,
         "effect": {
             "roomPropsChange": {},
@@ -17,6 +18,7 @@
         "isMandatory": false,
         "title": "Free Pizza Seminar",
         "description": "You came for the pizza. A guy in a shiny suit offers a 'guaranteed 300% return'.",
+        "background": "university.jpg",
         "options": [
             {
                 "name": "Invest",
@@ -80,6 +82,7 @@
         "isMandatory": false,
         "title": "First Real Paycheck",
         "description": "An actual salary hits your account. It's whispering 'treat yourself'.",
+        "background": "work.jpg",
         "options": [
             {
                 "name": "Treat Yourself",
@@ -111,6 +114,7 @@
             {
                 "name": "Buy It",
                 "description": "Freedom on four wheels. Mostly four.",
+                "background": "home_car.jpg",
                 "psyche": 10,
                 "effect": {
                     "roomPropsChange": {
@@ -172,6 +176,7 @@
         "isMandatory": false,
         "title": "Burst Pipe",
         "description": "The new house came with a free indoor pool. Ground floor only.",
+        "background": "home_modern_v1.jpg",
         "psyche": -10,
         "effect": {
             "roomPropsChange": {},
@@ -208,6 +213,7 @@
         "isMandatory": false,
         "title": "Side Hustle",
         "description": "A friend offers you weekend work. Extra cash, fewer lazy Sundays.",
+        "background": "work.jpg",
         "options": [
             {
                 "name": "Take It",
@@ -351,6 +357,7 @@
         "isMandatory": false,
         "title": "Annual Bonus",
         "description": "One extra month of salary! The kid's braces already have plans for it.",
+        "background": "work.jpg",
         "psyche": 10,
         "effect": {
             "roomPropsChange": {},
@@ -403,15 +410,46 @@
         "title": "Hatchback Says Goodbye",
         "description": "Your trusty old car died on the motorway. Rest in pieces.",
         "requires": {
-            "car": 1
+            "car": 1,
+            "maxCar": 1
         },
         "psyche": -10,
         "effect": {
-            "roomPropsChange": {
+            "roomPropsChange": {},
+            "roomPropsSet": {
                 "car": 0
             },
             "eventAmount": -3000
         }
+    },
+    {
+        "eventId": "r40_6",
+        "age": 40,
+        "isMandatory": false,
+        "title": "The Property Ladder",
+        "description": "A modern home is finally within reach. The mortgage calculator looks less excited than you do.",
+        "requires": {
+            "home": 0
+        },
+        "options": [
+            {
+                "name": "Buy the Modern Home",
+                "description": "More space, more comfort, and a very long relationship with the bank.",
+                "background": "home_modern_v1.jpg",
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -90000
+                }
+            },
+            {
+                "name": "Stay Where You Are",
+                "description": "A bigger house can wait until the numbers make sense.",
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
     },
     {
         "eventId": "r45_1",
@@ -544,7 +582,8 @@
         },
         "psyche": -20,
         "effect": {
-            "roomPropsChange": {
+            "roomPropsChange": {},
+            "roomPropsSet": {
                 "car": 0
             },
             "eventAmount": -20000
@@ -585,6 +624,35 @@
             "roomPropsChange": {},
             "eventAmount": 15000
         }
+    },
+    {
+        "eventId": "r50_6",
+        "age": 50,
+        "isMandatory": false,
+        "title": "A Home for the Next Chapter",
+        "description": "You've built a life in your modern home. An upgrade would be lovely, if the budget agrees.",
+        "requires": {
+            "home": 1
+        },
+        "options": [
+            {
+                "name": "Upgrade to the Modern Home",
+                "description": "A lasting upgrade for the home you've worked toward.",
+                "background": "home_modern_v2.jpg",
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": -160000
+                }
+            },
+            {
+                "name": "Keep Your Current Home",
+                "description": "Your current home still fits your plans.",
+                "effect": {
+                    "roomPropsChange": {},
+                    "eventAmount": 0
+                }
+            }
+        ]
     },
     {
         "eventId": "r55_1",
