@@ -113,6 +113,8 @@ export interface GameState {
   isMandatoryEventResolved: boolean;
   isGameOver: boolean;
   gameOverReason: string | null;
+  isGameFinished: boolean;
+  gameResult: GameResult | null;
   incrementProp: (propName: keyof RoomProps, amount?: number) => void;
   resolveMandatoryEvent: (
     eventId: number,
@@ -141,6 +143,11 @@ export interface GameState {
     to: keyof SavingsBuckets,
     amount: number
   ) => SavingsTransferResult;
+}
+
+export interface GameResult {
+  completedAt: string;
+  score: number;
 }
 
 export type SavingsTransferResult =
