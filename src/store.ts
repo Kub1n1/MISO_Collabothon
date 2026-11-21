@@ -490,6 +490,7 @@ export const useGameStore = create<GameState>()(
         account: 0,
         stocks: 0,
       },
+      loans: [],
       strategy: {
         sock: 33,
         account: 50,
@@ -693,6 +694,7 @@ export const useGameStore = create<GameState>()(
               account: Math.round((state.savings.account + addedAccount) * 1.04), // +4% odsetek
               stocks: Math.round((state.savings.stocks + addedStocks) * 1.08),   // +8% zwrotu
             },
+            loans: [...state.loans, ],
             stockMarket,
             isMandatoryEventResolved: mandatoryEvent === null,
             turnEvents: {
