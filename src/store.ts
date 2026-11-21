@@ -314,7 +314,7 @@ export const useGameStore = create<GameState>()(
       monthlyLoanRepayment: 0,
       monthlyInvestment: Math.max(0, INITIAL_MONTHLY_INCOME - initialMonthlyFixedExpenses),
       savings: {
-        sock: 0,
+        sock: 5000,
         account: 0,
         stocks: 0,
       },
