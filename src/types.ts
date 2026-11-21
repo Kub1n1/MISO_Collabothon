@@ -1,3 +1,27 @@
+
+export const STOCK_SYMBOLS = ['TESLA', 'MICROSOFT', 'NVIDIA'] as const;
+export type StockSymbol = (typeof STOCK_SYMBOLS)[number];
+export type StockTradeAction = 'buy' | 'sell';
+export type StockTradeResult =
+  | 'success'
+  | 'already-traded'
+  | 'invalid-quantity'
+  | 'insufficient-funds'
+  | 'insufficient-shares';
+
+
+
+export interface StockMarketState {
+  prices: Record<StockSymbol, number>;
+  history: Record<StockSymbol, number[]>;
+  lastChangePercent: Record<StockSymbol, number>;
+  holdings: Record<StockSymbol, number>;
+  costBasis: Record<StockSymbol, number>;
+  realizedProfit: number;
+  tradeUsedThisMove: boolean;
+  moveCount: number;
+}
+
 export interface RoomProps {
     wall: number;
     floor: number;
@@ -81,6 +105,7 @@ export interface GameState {
   savings: SavingsBuckets;
   strategy: SavingsStrategy;
   family: FamilyState;
+  stockMarket: StockMarketState;
   roomProps: RoomProps;
   eventsMandatory: GameEvent[];
   eventsOptional: GameEvent[];
@@ -103,14 +128,19 @@ export interface GameState {
   updatePsyche: (value: number) => void;
   updateMonthlyInvestment: (amount: number) => void;
   updateStrategy: (bucket: keyof SavingsStrategy, percent: number) => void;
+  tradeStock: (
+    symbol: StockSymbol,
+    action: StockTradeAction,
+    quantity: number
+  ) => StockTradeResult;
   advanceTurn: () => void; 
   isNextTurnAvailable: () => boolean;
+  canAdvanceTurn: () => boolean;
   transferSavings: (
     from: keyof SavingsBuckets,
     to: keyof SavingsBuckets,
     amount: number
   ) => SavingsTransferResult;
-  canAdvanceTurn: () => boolean;
 }
 
 export type SavingsTransferResult =

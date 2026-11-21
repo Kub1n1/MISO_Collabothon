@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   getAvailableStockFunds,
-  STOCK_SYMBOLS,
   useGameStore,
 } from '../../../../store';
-import type {
+import {
   StockSymbol,
   StockTradeAction,
   StockTradeResult,
-} from '../../../../store';
+  STOCK_SYMBOLS,
+} from '../../../../types';
 import { formatPLN } from '../formatPLN';
 
 const STOCK_INFO: Record<StockSymbol, { name: string; color: string }> = {

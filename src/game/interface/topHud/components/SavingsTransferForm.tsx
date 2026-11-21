@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useGameStore } from '../../../../store';
 import type {
   SavingsBuckets,
-  SavingsTransferResult,
 } from '../../../../store';
 import { formatPLN } from '../formatPLN';
 import { strategyOptions } from '../strategyOptions';
+import { SavingsTransferResult } from '../../../../types';
 
 type SavingsBucket = keyof SavingsBuckets;
 
