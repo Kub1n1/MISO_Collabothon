@@ -1,7 +1,7 @@
 import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
 import { RoomProps, useGameStore } from '../../store';
-import { ASSET_LEVELS, PLAYER_AGE_START, PLAYER_AGE_STEP, PLAYER_AGE_TEXTURE_COUNT, PLAYER_SCALE } from './const';
+import { ASSET_LEVELS, PARTNER_SCALE, PLAYER_AGE_START, PLAYER_AGE_STEP, PLAYER_AGE_TEXTURE_COUNT, PLAYER_SCALE } from './const';
 import { SceneBackground } from '../../types';
 
 export class Room extends Scene
@@ -9,6 +9,7 @@ export class Room extends Scene
     private elements: Partial<Record<keyof RoomProps, GameObjects.Image>> = {}; 
     private eventBackground: GameObjects.Image;
     private player:GameObjects.Image;
+    private partner:GameObjects.Image;
     private unsubscribers: (() => void)[] = [];
 
     constructor(){
@@ -65,6 +66,22 @@ export class Room extends Scene
         });
         this.updateCouchVisibility(initialBackground);
 
+        const partner = this.add
+            .image(
+                this.scale.width / 2-150,
+                this.scale.height / 2,
+                this.getPartnerAgeTexture(initialAge)
+            )
+            .setScale(PARTNER_SCALE)
+        this.partner = partner;
+        this.partner.visible = false; 
+        this.unsubscribers.push(
+            useGameStore.subscribe(
+                (state) => state.age,
+                (age) => this.updatePartnerAge(age)
+            )
+        );
+
         const player = this.add
             .image(
                 this.scale.width / 2,
@@ -79,6 +96,7 @@ export class Room extends Scene
                 (age) => this.updatePlayerAge(age)
             )
         );
+
         this.scale.on('resize', this.handleResize, this);
 
         this.events.once(Scenes.Events.SHUTDOWN, () => {
@@ -97,6 +115,15 @@ export class Room extends Scene
         );
 
         return `player_age_${ageStage}`;
+    }
+
+    private getPartnerAgeTexture(age: number) {
+        const ageStage = Math.min(
+            PLAYER_AGE_TEXTURE_COUNT - 1,
+            Math.max(0, Math.floor((age - PLAYER_AGE_START) / PLAYER_AGE_STEP))
+        );
+
+        return `player_age_woman_${ageStage}`;
     }
 
     private getEventBackgroundTexture(background: SceneBackground) {
@@ -142,6 +169,25 @@ export class Room extends Scene
         if (!this.textures.exists(textureKey)) {
             console.warn(`Brak tekstury: ${textureKey}`);
             return;
+        }
+
+        this.updateSpriteTexture(sprite, textureKey);
+    }
+
+    private updatePartnerAge(age: number) {
+        const sprite = this.partner;
+        const textureKey = this.getPartnerAgeTexture(age);
+
+        if (!sprite) return;
+        if (!this.textures.exists(textureKey)) {
+            console.warn(`Brak tekstury: ${textureKey}`);
+            return;
+        }
+        console.log(age);
+        if(age >= 25){
+            this.partner.visible = true;
+        } else {
+            this.partner.visible = false;
         }
 
         this.updateSpriteTexture(sprite, textureKey);

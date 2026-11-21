@@ -68,6 +68,10 @@ export class Preloader extends Scene
                 `player_age_${ageStage}`,
                 `assets/player_age/player_${ageStage}.png`
             );
+            this.load.image(
+                `player_age_woman_${ageStage}`,
+                `assets/player_age_woman/player_woman_${ageStage}.png`
+            );
         }
     }
 

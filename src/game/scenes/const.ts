@@ -14,3 +14,4 @@ export const PLAYER_AGE_START = 25;
 export const PLAYER_AGE_STEP = 5;
 export const PLAYER_AGE_TEXTURE_COUNT = 10;
 export const PLAYER_SCALE = 0.55;
+export const PARTNER_SCALE = 0.5;
