@@ -3,7 +3,6 @@ import { SalaryDropdown } from './SalaryDropdown';
 import { SavingsDropdown } from './SavingsDropdown';
 import { FinancialSnapshot } from './FinancialSnapshot';
 import { PsycheStat } from './PsycheStat';
-import { StockMarketButton } from './StockMarketButton';
 import { useGameStore } from '../../../../store';
 
 interface HudStatsProps {
@@ -63,7 +62,6 @@ export function HudStats({
           onToggle={() => toggleDropdown('savings')}
           onClose={() => setOpenDropdown(null)}
         />
-        <StockMarketButton />
       </div>
     </div>
   );
