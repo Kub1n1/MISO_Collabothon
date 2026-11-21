@@ -96,7 +96,10 @@ export function GameSummary({ result }: GameSummaryProps) {
                   className="is-flex is-justify-content-space-between mb-2"
                 >
                   <span className="has-text-grey-light">
-                    {new Date(savedResult.completedAt).toLocaleDateString()}
+                    {new Date(savedResult.completedAt).toLocaleString(undefined, {
+                      dateStyle: 'short',
+                      timeStyle: 'short',
+                    })}
                   </span>
                   <div className="has-text-right">
                     <strong>{formatPLN(savedResult.score)}</strong>

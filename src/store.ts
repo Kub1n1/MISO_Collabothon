@@ -481,7 +481,7 @@ export const useGameStore = create<GameState>()(
       spouseMonthlyIncome: 0,
       monthlyFixedExpenses: initialMonthlyFixedExpenses,
       monthlyLoanRepayment: 0,
-      monthlyInvestment: Math.max(0, INITIAL_MONTHLY_INCOME - initialMonthlyFixedExpenses),
+      monthlyInvestment: 0,
       activeBackground: 'background_1.jpg',
       mandatoryBackground: 1,
       homeLevel: 0,
