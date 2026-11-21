@@ -1,3 +1,5 @@
+![Opis obrazka](public/assets/bg.png)
+
 # MISO
 
 ## One-Line Summary
