@@ -60,6 +60,7 @@ export const SCENE_BACKGROUND_ASSETS = [
   'home_modern_v1_car.jpg',
   'home_modern_v2.jpg',
   'home_modern_v2_car.jpg',
+  'bankrupt_man.jpg',
 ] as const;
 export type SceneBackground = (typeof SCENE_BACKGROUND_ASSETS)[number];
 export type GameEventBackground = number | SceneBackground;

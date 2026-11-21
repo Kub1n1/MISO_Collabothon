@@ -181,9 +181,7 @@ export function GameCard({
         return (
           <div className="mt-4">
             <div className="notification is-danger is-light is-size-7 p-3">
-              You need {formatPLN(requiredPayment)}, but can access only{' '}
-              {formatPLN(maxAvailable)} from savings and affordable credit. The game
-              cannot continue.
+              You did your best, but this required expense exceeds your available savings and affordable credit.
             </div>
             <button
               className="button is-danger is-fullwidth"
@@ -191,7 +189,7 @@ export function GameCard({
                 submit({ kind: 'pay', savings: EMPTY_SAVINGS_PAYMENT, loanAmount: 0 })
               }
             >
-              End game
+              Declare bankruptcy
             </button>
           </div>
         );

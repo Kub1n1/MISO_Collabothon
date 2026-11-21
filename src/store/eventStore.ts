@@ -138,6 +138,7 @@ export const createResolveEvent = (
             state.gameOverReason =
             `${event.title}: the cost of ${requiredPayment} PLN exceeds your ` +
             'available savings and affordable credit.';
+            state.activeBackground = 'bankrupt_man.jpg';
         }
         return;
         }

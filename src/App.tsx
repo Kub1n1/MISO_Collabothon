@@ -41,7 +41,7 @@ function App()
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            background: 'rgba(0, 0, 0, 0.8)',
+                            background: 'rgba(0, 0, 0, 0.4)',
                             pointerEvents: 'auto',
                         }}
                         role="dialog"
@@ -50,8 +50,11 @@ function App()
                     >
                         <section className="box glass-box has-text-light p-5" style={{ maxWidth: 480 }}>
                             <h1 id="game-over-title" className="title is-3 has-text-danger">
-                                Game Over
+                                Bankruptcy
                             </h1>
+                            <p className="mb-2">
+                              You did your best. Start a new game to try a different path.
+                            </p>
                             <p className="mb-4">{gameOverReason}</p>
                             <div className="is-flex is-justify-content-space-between mb-2">
                                 <span className="has-text-grey-light">Age reached</span>
