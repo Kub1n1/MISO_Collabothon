@@ -11,11 +11,11 @@ import { Preloader } from './scenes/Preloader';
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
     width: 1024,
-    height: 768,
+    height: 576,
     parent: 'game-container',
     backgroundColor: '#028af8',
     scale: {
-        mode: Scale.FIT, // Skaluje canvas tak, by w całości zmieścił się w kontenerze z zachowaniem proporcji
+        mode: Scale.RESIZE,
         autoCenter: Scale.CENTER_BOTH, // Centruje obraz w pionie i poziomie
     },
     scene: [

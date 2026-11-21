@@ -57,8 +57,8 @@ export class Room extends Scene
         const initialBackground = useGameStore.getState().activeBackground;
 
         this.eventBackground = this.add.image(
-            512,
-            384,
+            this.scale.width / 2,
+            this.scale.height / 2,
             this.getEventBackgroundTexture(initialBackground)
         );
         this.updateEventBackground(initialBackground);
@@ -81,7 +81,9 @@ export class Room extends Scene
         propKeys.forEach((key) => {
             const initialTexture = `${key}_${initialProps[key]}`;
             const depth = key === 'wall' || key === 'floor' ? -2 : 0;
-            const img = this.add.image(512, 384, initialTexture).setDepth(depth);
+            const img = this.add
+                .image(this.scale.width / 2, this.scale.height / 2, initialTexture)
+                .setDepth(depth);
             this.elements[key] = img;
 
             const unsub = useGameStore.subscribe(
@@ -97,7 +99,11 @@ export class Room extends Scene
         this.updateCouchVisibility(initialBackground);
 
         const player = this.add
-            .image(512, 384, this.getPlayerAgeTexture(initialAge))
+            .image(
+                this.scale.width / 2,
+                this.scale.height / 2,
+                this.getPlayerAgeTexture(initialAge)
+            )
             .setScale(PLAYER_SCALE);
         this.player = player;
         this.unsubscribers.push(
@@ -106,8 +112,10 @@ export class Room extends Scene
                 (age) => this.updatePlayerAge(age)
             )
         );
+        this.scale.on('resize', this.handleResize, this);
 
         this.events.once(Scenes.Events.SHUTDOWN, () => {
+            this.scale.off('resize', this.handleResize, this);
             this.unsubscribers.forEach((unsub) => unsub());
             this.unsubscribers = [];
         });
@@ -135,11 +143,10 @@ export class Room extends Scene
             return;
         }
 
-        const source = this.textures.get(textureKey).getSourceImage();
-        const scale = Math.max(1024 / source.width, 768 / source.height);
         this.eventBackground
             .setTexture(textureKey)
-            .setScale(scale)
+            .setPosition(this.scale.width / 2, this.scale.height / 2)
+            .setDisplaySize(this.scale.width, this.scale.height)
             .setDepth(-1);
     }
 
@@ -147,6 +154,17 @@ export class Room extends Scene
         this.elements.couch?.setVisible(
             background !== 'university.jpg' && background !== 'work.jpg'
         );
+    }
+
+    private handleResize() {
+        const centerX = this.scale.width / 2;
+        const centerY = this.scale.height / 2;
+
+        Object.values(this.elements).forEach((element) => {
+            element?.setPosition(centerX, centerY);
+        });
+        this.player?.setPosition(centerX, centerY);
+        this.updateEventBackground(useGameStore.getState().activeBackground);
     }
 
     private updatePlayerAge(age: number) {
