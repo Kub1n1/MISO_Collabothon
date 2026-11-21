@@ -1,4 +1,3 @@
-
 export const STOCK_SYMBOLS = ['TESLA', 'MICROSOFT', 'NVIDIA'] as const;
 export type StockSymbol = (typeof STOCK_SYMBOLS)[number];
 export type StockTradeAction = 'buy' | 'sell';
@@ -147,6 +146,8 @@ export interface GameState {
 
 export interface GameResult {
   completedAt: string;
+  savingsTotal: number;
+  psyche: number;
   score: number;
 }
 

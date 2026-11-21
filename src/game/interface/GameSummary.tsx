@@ -41,10 +41,28 @@ export function GameSummary({ result }: GameSummaryProps) {
           Retirement summary
         </h1>
 
-        <p className="has-text-grey-light mb-1">Final savings score</p>
-        <p className="title is-2 has-text-white">{formatPLN(result.score)}</p>
+        <div className="is-flex is-justify-content-space-between mb-2">
+          <span className="has-text-grey-light">Savings total</span>
+          <strong>{formatPLN(result.savingsTotal)}</strong>
+        </div>
+        <div className="is-flex is-justify-content-space-between mb-2">
+          <span className="has-text-grey-light">Psyche</span>
+          <strong>{result.psyche} / 100</strong>
+        </div>
+        <div className="is-flex is-justify-content-space-between mb-2">
+          <span className="has-text-grey-light">Psyche bonus</span>
+          <strong className="has-text-success">
+            +{(result.psyche / 10).toFixed(1)}%
+          </strong>
+        </div>
+        <div className="is-flex is-justify-content-space-between mb-2">
+          <span className="has-text-grey-light">Final score</span>
+          <strong className="title is-4 has-text-white">
+            {formatPLN(result.score)}
+          </strong>
+        </div>
         <p className="has-text-grey-light mb-5">
-          Score is the total of your three savings buckets.
+          Psyche adds up to a 10% bonus to your savings score.
         </p>
 
         <h2 className="title is-5 has-text-white">Previous runs</h2>
@@ -60,7 +78,12 @@ export function GameSummary({ result }: GameSummaryProps) {
                 <span className="has-text-grey-light">
                   {new Date(savedResult.completedAt).toLocaleDateString()}
                 </span>
-                <strong>{formatPLN(savedResult.score)}</strong>
+                <div className="has-text-right">
+                  <strong>{formatPLN(savedResult.score)}</strong>
+                  <div className="is-size-7 has-text-grey-light">
+                    Psyche {savedResult.psyche} / 100
+                  </div>
+                </div>
               </li>
             ))}
           </ol>

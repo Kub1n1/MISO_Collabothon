@@ -449,9 +449,15 @@ export const useGameStore = create<GameState>()(
           if (state.age >= state.retirementAge) {
             if (state.age === state.retirementAge) {
               state.isGameFinished = true;
+              const savingsTotal =
+                state.savings.sock + state.savings.account + state.savings.stocks;
+              const psyche = state.psyche;
+
               state.gameResult = {
                 completedAt: new Date().toISOString(),
-                score: state.savings.sock + state.savings.account + state.savings.stocks,
+                savingsTotal,
+                psyche,
+                score: Math.round(savingsTotal * (1 + psyche / 1000)),
               };
             }
             return;
