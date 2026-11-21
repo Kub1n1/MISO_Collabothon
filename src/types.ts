@@ -69,7 +69,7 @@ export interface GameEventEffect {
   roomPropsChange: EventRoomPropsChange;
   roomPropsSet?: EventRoomPropsSet;
   eventAmount: number;
-  loan: Loan | null;
+  loan?: Loan | null;
 }
 
 export type EventBackground = 1 | 2;
