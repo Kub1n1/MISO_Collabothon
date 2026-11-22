@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { GameResult } from '../../types';
+import type { GameResult } from '../../store/types';
 import { saveGameResult } from '../gameResultsStorage';
 import { formatPLN } from './topHud/formatPLN';
 

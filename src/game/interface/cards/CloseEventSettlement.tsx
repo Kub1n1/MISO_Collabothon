@@ -1,4 +1,4 @@
-import type { MandatoryEventSettlement } from '../../../types';
+import type { MandatoryEventSettlement } from '../../../store/types';
 
 interface Props {
   onSubmit: (settlement: MandatoryEventSettlement) => void;

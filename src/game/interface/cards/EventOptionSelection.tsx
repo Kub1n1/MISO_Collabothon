@@ -1,4 +1,4 @@
-import type { GameEvent } from '../../../types';
+import type { GameEvent } from '../../../store/types';
 
 interface Props {
   card: GameEvent;

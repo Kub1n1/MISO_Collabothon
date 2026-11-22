@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGameStore } from '../../store';
+import { useGameStore } from '../../store/store';
 import type { IRefPhaserGame } from '../../PhaserGame';
 import styles from './bottomButtons.module.css';
 import { CardHand } from './cards/CardHand';

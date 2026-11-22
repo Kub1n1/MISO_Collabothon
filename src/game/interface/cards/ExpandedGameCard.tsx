@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { getMaximumAffordableLoan, useGameStore } from '../../../store';
-import type { MandatoryEventSettlement, SavingsBuckets } from '../../../types';
+import type { MandatoryEventSettlement, SavingsBuckets } from '../../../store/types';
 import type { GameCardProps } from './GameCard.types';
 import { EventSettlement } from './EventSettlement';
+import { useGameStore } from '../../../store/store';
+import { getMaximumAffordableLoan } from '../../../store/financialStore';
 
 const EMPTY_SAVINGS_PAYMENT: SavingsBuckets = {
   sock: 0,

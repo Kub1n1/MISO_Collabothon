@@ -3,7 +3,7 @@ import { SalaryDropdown } from './SalaryDropdown';
 import { SavingsDropdown } from './SavingsDropdown';
 import { FinancialSnapshot } from './FinancialSnapshot';
 import { PsycheStat } from './PsycheStat';
-import { useGameStore } from '../../../../store';
+import { useGameStore } from '../../../../store/store';
 
 interface HudStatsProps {
   age: number;

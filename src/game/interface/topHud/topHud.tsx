@@ -1,4 +1,4 @@
-import { useGameStore } from '../../../store';
+import { useGameStore } from '../../../store/store';
 import { RetirementProgress } from './components/RetirementProgress';
 import { HudStats } from './components/HudStats';
 

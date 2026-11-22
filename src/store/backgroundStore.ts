@@ -1,4 +1,4 @@
-import { EventBackground, GameEventBackground, GameState, HomeLevel, SceneBackground } from "../types";
+import { EventBackground, GameEventBackground, GameState, HomeLevel, SceneBackground } from "./types";
 
 export function validateEventBackground(
   background: GameEventBackground | undefined,

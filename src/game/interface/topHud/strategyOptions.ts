@@ -1,4 +1,4 @@
-import type { SavingsStrategy } from '../../../store';
+import { SavingsStrategy } from "../../../store/types";
 
 export const strategyOptions: {
   key: keyof SavingsStrategy;

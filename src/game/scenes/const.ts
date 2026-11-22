@@ -1,4 +1,4 @@
-import { RoomProps } from "../../types";
+import { RoomProps } from "../../store/types";
 
 export const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     wall: 2,

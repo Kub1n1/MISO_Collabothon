@@ -5,14 +5,10 @@ import {
   SavingsTransferResult,
   type GameState,
 } from './types';
-import { canAdvanceTurn, createAdvanceTurn, isNextTurnAvailable } from './store/turnStore';
-import { INITIAL_MONTHLY_INCOME, START_AGE } from "./store/const";
-import { createResolveEvent, eventsMandatory, eventsOptional, getRandomOptionalEvents, initialMandatoryEvent, initialMonthlyFixedExpenses } from './store/eventStore';
-import { rebalanceStrategy } from './store/financialStore';
-
-
-export type { RoomProps, SavingsBuckets, SavingsStrategy } from './types';
-export { getMaximumAffordableLoan } from './store/financialStore';
+import { canAdvanceTurn, createAdvanceTurn, isNextTurnAvailable } from './turnStore';
+import { INITIAL_MONTHLY_INCOME, START_AGE } from "./const";
+import { createResolveEvent, eventsMandatory, eventsOptional, getRandomOptionalEvents, initialMandatoryEvent, initialMonthlyFixedExpenses } from './eventStore';
+import { rebalanceStrategy } from './financialStore';
 
 export const useGameStore = create<GameState>()(
   subscribeWithSelector(

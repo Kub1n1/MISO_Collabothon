@@ -1,4 +1,4 @@
-import type { GameResult } from '../types';
+import type { GameResult } from '../store/types';
 
 const STORAGE_KEY = 'miso.gameResults';
 

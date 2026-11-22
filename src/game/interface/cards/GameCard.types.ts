@@ -1,4 +1,4 @@
-import type { GameEvent, MandatoryEventSettlement } from '../../../types';
+import type { GameEvent, MandatoryEventSettlement } from '../../../store/types';
 
 export interface GameCardProps {
   card: GameEvent;

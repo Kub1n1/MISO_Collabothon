@@ -1,4 +1,4 @@
-import type { GameEvent, MandatoryEventSettlement, SavingsBuckets } from '../../../types';
+import type { GameEvent, MandatoryEventSettlement, SavingsBuckets } from '../../../store/types';
 import { EventOptionSelection } from './EventOptionSelection';
 import { NoEffectSettlement } from './NoEffectSettlement';
 import { UnaffordableOptionalSettlement } from './UnaffordableOptionalSettlement';

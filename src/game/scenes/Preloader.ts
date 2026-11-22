@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
-import { RoomProps, SCENE_BACKGROUND_ASSETS } from '../../types';
+import { RoomProps, SCENE_BACKGROUND_ASSETS } from '../../store/types';
 import { CHILD_AGE_TEXTURE_COUNT, PLAYER_AGE_TEXTURE_COUNT } from './const';
-import { useGameStore } from '../../store';
+import { useGameStore } from '../../store/store';
 
 const ASSET_LEVELS: Record<keyof RoomProps, number> = {
     wall: 2,

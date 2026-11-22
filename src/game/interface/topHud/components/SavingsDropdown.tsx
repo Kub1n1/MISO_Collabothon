@@ -1,4 +1,4 @@
-import { useGameStore } from '../../../../store';
+import { useGameStore } from '../../../../store/store';
 import { formatPLN } from '../formatPLN';
 import { strategyOptions } from '../strategyOptions';
 import { StrategyRow } from './StrategyRow';

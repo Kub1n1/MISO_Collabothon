@@ -1,5 +1,5 @@
 import { Draft } from "immer";
-import { GameEvent, GameEventBackground, GameEventEffect, GameState, HomeLevel, MandatoryEventSettlement, SavingsBuckets, SCENE_BACKGROUND_ASSETS, SceneBackground } from "../types";
+import { GameEvent, GameEventBackground, GameEventEffect, GameState, HomeLevel, MandatoryEventSettlement, SavingsBuckets, SCENE_BACKGROUND_ASSETS, SceneBackground } from "./types";
 import { applyEventBackground, getHomeBackground, validateEventBackground } from "./backgroundStore";
 import { ENTERTAINMENT_PSYCHE_BONUS, INITIAL_MONTHLY_INCOME, INITIAL_SPOUSE_MONTHLY_INCOME, LOAN_TERM_MONTHS, MAX_CAR_LEVEL, OPTIONAL_EVENTS_PER_TURN, START_AGE } from "./const";
 

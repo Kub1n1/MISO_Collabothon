@@ -1,8 +1,8 @@
 import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
-import { RoomProps, useGameStore } from '../../store';
+import { useGameStore } from '../../store/store';
 import { ASSET_LEVELS, PARTNER_SCALE, PLAYER_AGE_START, PLAYER_AGE_STEP, PLAYER_AGE_TEXTURE_COUNT, PLAYER_SCALE } from './const';
-import { SceneBackground } from '../../types';
+import { RoomProps, SceneBackground } from '../../store/types';
 
 export class Room extends Scene
 {

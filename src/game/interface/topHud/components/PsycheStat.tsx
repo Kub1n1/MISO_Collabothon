@@ -1,4 +1,4 @@
-import { useGameStore } from '../../../../store';
+import { useGameStore } from '../../../../store/store';
 
 export function PsycheStat() {
   const psyche = useGameStore((state) => state.psyche);

@@ -1,4 +1,4 @@
-import { useGameStore } from '../../../../store';
+import { useGameStore } from '../../../../store/store';
 import { formatPLN } from '../formatPLN';
 
 export function FinancialSnapshot() {

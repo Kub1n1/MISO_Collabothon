@@ -1,4 +1,4 @@
-import type { MandatoryEventSettlement } from '../../../types';
+import type { MandatoryEventSettlement } from '../../../store/types';
 import { formatPLN } from '../topHud/formatPLN';
 
 interface Props {

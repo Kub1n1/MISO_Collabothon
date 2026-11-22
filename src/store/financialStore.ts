@@ -1,4 +1,4 @@
-import { SavingsStrategy } from "../types";
+import { SavingsStrategy } from "./types";
 import { LOAN_TERM_MONTHS } from "./const";
 
 export function rebalanceStrategy(

@@ -5,7 +5,7 @@ import 'bulma/css/bulma.min.css';
 import './App.css';
 import { TopHud } from './game/interface/topHud/topHud';
 import { formatPLN } from './game/interface/topHud/formatPLN';
-import { useGameStore } from './store';
+import { useGameStore } from './store/store';
 import { GameSummary } from './game/interface/GameSummary';
 
 function App()

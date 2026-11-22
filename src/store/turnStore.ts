@@ -1,10 +1,10 @@
 import { Draft } from "immer";
-import { GameState } from "../types";
+import { GameState } from "./types";
 import { 
     getHomeBackground, 
 } from "./backgroundStore";
 import { STEP } from "./const";
-import { useGameStore } from "../store";
+import { useGameStore } from "./store";
 import { getRandomMandatoryEvent, getRandomOptionalEvents } from "./eventStore";
 import { randomMonthlyFixedExpenses } from "./financialStore";
 

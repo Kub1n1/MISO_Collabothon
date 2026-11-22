@@ -1,4 +1,4 @@
-import type { MandatoryEventSettlement, SavingsBuckets } from '../../../types';
+import type { MandatoryEventSettlement, SavingsBuckets } from '../../../store/types';
 import { formatPLN } from '../topHud/formatPLN';
 
 const SAVINGS_BUCKET_LABELS: Record<keyof SavingsBuckets, string> = {
