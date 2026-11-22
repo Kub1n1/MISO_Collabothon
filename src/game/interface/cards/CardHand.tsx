@@ -26,23 +26,25 @@ export function CardHand() {
     if (resolved) setSelectedCardId(null);
     return resolved;
   };
-
   return (
     <div
       className="is-flex is-justify-content-center is-align-items-end"
       style={{
-        gap: '1.25rem',
         pointerEvents: 'auto',
         justifyContent: 'flex-start',
-        maxWidth: 'calc(100vw - 180px)',
         overflowX: 'auto',
+        marginTop: '130px',
+        marginLeft: '-50px',
+        marginRight: '-20px',
         paddingTop: '20px',
-        paddingLeft: '24px',
-        paddingRight: '24px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+        paddingBottom: '20px',
+        overflow: 'hidden',
+        scale: '0.7',
       }}
     >
-      {/* Mandatory event */}
-      {mandatoryCard && (
+      {!isMandatoryEventResolved && mandatoryCard && (
         <>
           <GameCard
             key={mandatoryCard.id}
@@ -53,12 +55,10 @@ export function CardHand() {
             onSelect={setSelectedCardId}
             onPlay={handlePlayCard}
           />
-          {optionalCards.length > 0 && <div className="mandatory-divider" />}
         </>
       )}
 
-      {/* Optional events do not block advancing to the next age. */}
-      {optionalCards.map((card) => (
+      {!resolvedOptionalEventIds.length && optionalCards.map((card) => (
         <GameCard
           key={card.id}
           card={card}

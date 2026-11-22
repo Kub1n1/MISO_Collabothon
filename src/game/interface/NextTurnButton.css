@@ -1,0 +1,69 @@
+.game-btn-red {
+  /* Kolory dopasowane do karty MUST-DO */
+  background-color: #ef5338;
+  color: #14110f;
+  
+  /* Kształt i obramowanie jak na kartach */
+  border: 4px solid #14110f;
+  border-radius: 16px;
+  padding: 18px 36px;
+  
+  /* Twardy cień (bez rozmycia) przesunięty w prawo i w dół */
+  box-shadow: 7px 7px 0px #14110f;
+  
+  /* Typografia */
+  font-family: inherit; /* użyj swojego zaokrąglonego fontu z kart */
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+
+  /* Płynna animacja wciśnięcia */
+  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.12s cubic-bezier(0.2, 0.8, 0.2, 1),
+              background-color 0.12s ease;
+}
+
+/* Lekkie wciśnięcie przy najechaniu myszką (hover) */
+.game-btn-red:hover:not(:disabled) {
+  background-color: #f45d43;
+  transform: translate(4px, 4px);
+  box-shadow: 3px 3px 0px #14110f;
+}
+
+/* Pełne dociśnięcie do "podłoża" przy kliknięciu (active) */
+.game-btn-red:active:not(:disabled) {
+  transform: translate(7px, 7px);
+  box-shadow: 0px 0px 0px #14110f;
+}
+
+/* Stan nieaktywny (gdy np. nie rozwiązano karty MUST-DO) */
+.game-btn-red:disabled {
+  background-color: #a89f9b;
+  color: #e0dcd9;
+  cursor: not-allowed;
+  transform: translate(4px, 4px);
+  box-shadow: 3px 3px 0px #14110f;
+  filter: saturate(40%) brightness(85%);
+}
+
+.game-btn-icon {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(2px 2px 0px #14110f);
+  transition: transform 0.15s ease;
+}
+
+.game-btn-red:hover:not(:disabled) .game-btn-icon {
+  transform: translateX(3px);
+}

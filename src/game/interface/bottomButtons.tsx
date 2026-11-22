@@ -3,6 +3,7 @@ import { useGameStore } from '../../store';
 import type { IRefPhaserGame } from '../../PhaserGame';
 import styles from './bottomButtons.module.css';
 import { CardHand } from './cards/CardHand';
+import { NextTurnButton } from './NextTurnButton';
 
 interface Props {
     phaserRef: React.RefObject<IRefPhaserGame | null>;
@@ -22,21 +23,15 @@ const BottomButtons: React.FC<Props> = ({ phaserRef: _phaserRef }) => {
     }
 
     return(
-        <div className={styles.BottomButtons}>
-            <div className='box glass-box'>
-                <div className='columns is-centered'>
-                    <div className='column is-flex is-justify-content-center'>
-                        <CardHand />
-                    </div>
-                    <div className='column is-narrow'>
-                        <button 
-                            className="button is-primary"
-                            onClick={nextStep}
-                            disabled={!canAdvance}
-                            >Next move</button>
-                    </div>
-                </div>
-            </div>
+        <div className={`${styles.BottomButtons} ${styles.BottomButtonsCards}`}>
+            <CardHand />
+            {canAdvance && (
+                <NextTurnButton
+                    className={styles.NextMoveButton}
+                    label="NEXT MOVE"
+                    onClick={nextStep}
+                />
+            )}
         </div>
     )
 }

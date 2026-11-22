@@ -1,7 +1,39 @@
 .BottomButtons{
-    position: absolute;
-    width: 100%;
-    left: 0px;
+    position: fixed;
+    width: 600px;
+    height: 425px;
+    right: 0px;
     bottom: 0px;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
+    rotate: -5deg;
+    margin: 15px;
+}
+
+.BottomButtonsCards{
+    background-image: url("assets/ui/tlo.png");
+    background-repeat: no-repeat, repeat;
+}
+
+.BottomButtonsNextMove{
+    background-image: url("assets/ui/nextmove.png");
+    background-repeat: no-repeat, repeat;
+}
+
+.NextMoveButton {
+    position: absolute;
+    left: 50%;
+    bottom: 260px;
+    z-index: 50;
+    min-width: 210px;
+    height: 72px;
+    border-radius: 100px;
+    transform: translateX(-50%);
+}
+
+.NextMoveButton:global(.game-btn-red):hover:not(:disabled) {
+    transform: translate(calc(-50% + 4px), 4px);
+}
+
+.NextMoveButton:global(.game-btn-red):active:not(:disabled) {
+    transform: translate(calc(-50% + 7px), 7px);
 }

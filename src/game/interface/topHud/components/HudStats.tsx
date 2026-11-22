@@ -15,12 +15,12 @@ export function HudStats({
   retirementAge,
 }: HudStatsProps) {
   const [openDropdown, setOpenDropdown] = useState<'salary' | 'savings' | null>(null);
-  const family = useGameStore((state) => state.family);
-  const familyMembers = [
-    family.wife ? 'Wife' : null,
-    family.kid ? 'Child' : null,
-    family.spy ? 'Spy' : null,
-  ].filter((member): member is string => member !== null);
+  // const family = useGameStore((state) => state.family);
+  // const familyMembers = [
+  //   family.wife ? 'Wife' : null,
+  //   family.kid ? 'Child' : null,
+  //   family.spy ? 'Spy' : null,
+  // ].filter((member): member is string => member !== null);
 
   const toggleDropdown = (dropdown: 'salary' | 'savings') => {
     setOpenDropdown((current) => (current === dropdown ? null : dropdown));
@@ -36,7 +36,7 @@ export function HudStats({
               {age} / {retirementAge} years
             </span>
           </div>
-          {familyMembers.length > 0 && (
+          {/* {familyMembers.length > 0 && (
             <div className="tags" aria-label="Family members">
               <span className="tag is-dark">Family</span>
               {familyMembers.map((member) => (
@@ -45,7 +45,7 @@ export function HudStats({
                 </span>
               ))}
             </div>
-          )}
+          )} */}
           <PsycheStat />
           <FinancialSnapshot />
         </div>

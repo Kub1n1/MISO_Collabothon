@@ -354,20 +354,12 @@ export function GameCard({
     <>
       <div className="card-slot">
         {!isExpanded && (
-          <div
-            className={`game-card is-facedown ${isMandatory ? 'is-mandatory' : ''} ${isResolved ? 'is-resolved' : ''}`}
-            aria-disabled={isResolved}
+          <div 
+            style={{ pointerEvents: isResolved ? 'none' : 'auto', rotate: (Math.random() * 10 - 5).toFixed(2)+"deg" }}
+            className={`game-card ${isMandatory ? 'mandatoryCard' : 'optionalCard'} ${isResolved ? 'is-resolved' : ''}`}
             onClick={() => {
               if (!isResolved) onSelect(card.id);
-            }}
-          >
-            <div className="card-symbol">
-              {isResolved ? '✓' : isMandatory ? '!' : '?'}
-            </div>
-            <span className={`tag ${isMandatory ? 'is-danger' : 'is-info'} is-light`}>
-              {isResolved ? 'Completed' : isMandatory ? 'Mandatory' : 'Chance'}
-            </span>
-          </div>
+            }}/>
         )}
       </div>
 
