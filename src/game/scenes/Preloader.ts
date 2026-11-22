@@ -87,9 +87,8 @@ export class Preloader extends Scene
         this.progressBarTrack?.destroy();
 
         const centerX = this.scale.width / 2;
-        const centerY = this.scale.height / 2;
 
-        const startButton = this.add.text(centerX, centerY + 420, 'START', {
+        const startButton = this.add.text(centerX, this.scale.height - 70, 'START', {
             fontFamily: 'Arial Black',
             fontSize: 38,
             color: '#ffffff',
