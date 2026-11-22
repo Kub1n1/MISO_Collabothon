@@ -1,7 +1,7 @@
 import { GameObjects, Scene, Scenes } from 'phaser';
 import { EventBus } from '../EventBus';
 import { useGameStore } from '../../store/store';
-import { ASSET_LEVELS, PARTNER_SCALE, PLAYER_AGE_START, PLAYER_AGE_STEP, PLAYER_AGE_TEXTURE_COUNT, PLAYER_SCALE } from './const';
+import { ASSET_LEVELS, PARTNER_SCALE, PLAYER_AGE_START, PLAYER_AGE_STEP, PLAYER_AGE_TEXTURE_COUNT, PLAYER_POSITION_Y, PLAYER_SCALE } from './const';
 import { RoomProps, SceneBackground } from '../../store/types';
 
 export class Room extends Scene
@@ -71,7 +71,7 @@ export class Room extends Scene
         const partner = this.add
             .image(
                 this.scale.width / 2-150,
-                this.scale.height / 2,
+                this.scale.height / 2 + PLAYER_POSITION_Y,
                 this.getPartnerAgeTexture(initialAge)
             )
             .setScale(PARTNER_SCALE)
@@ -87,7 +87,7 @@ export class Room extends Scene
         const child = this.add
             .image(
                 this.scale.width / 2+150,
-                this.scale.height / 2,
+                this.scale.height / 2 + PLAYER_POSITION_Y,
                 this.getChildAgeTexture(initialAge)
             )
             .setScale(PARTNER_SCALE)
@@ -103,7 +103,7 @@ export class Room extends Scene
         const player = this.add
             .image(
                 this.scale.width / 2,
-                this.scale.height / 2,
+                this.scale.height / 2 + PLAYER_POSITION_Y,
                 this.getPlayerAgeTexture(initialAge)
             )
             .setScale(PLAYER_SCALE);
