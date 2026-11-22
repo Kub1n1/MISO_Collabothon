@@ -1,47 +1,44 @@
 ![Opis obrazka](public/assets/bg.png)
 
-# MISO
+# L.I.F.E.
 
 ## One-Line Summary
 
-MISO is a life-finance simulation that helps users explore saving, investing, budgeting and major life decisions from age 20 to retirement.
+L.I.F.E. is a life simulation focused on financial decisions. It helps users learn about budgeting, saving, investing and how to handle major life decisions from age 20 to retirement.
 
 ## Technology Stack
 
 React 19, TypeScript, Phaser 4, Vite 6, Zustand 5, Immer, Bulma 1, HTML5 Canvas and CSS.
 
 # AI Technology
-Nano Banana 2.1 (claude for business), Copilot,
+Nano Banana 2.1 (graphics design), Copilot (Coding), Gemini (Coding), Claude (Business and game logic)
 
 # THE PROBLEM
 
-Many people find personal finance difficult to understand because its consequences appear over years rather than immediately. Young adults and future workers must make decisions about spending, savings, debt, investments and unexpected life events without a safe place to experience their long-term effects.
+One of the reasons why, many young people find personal finance boring or difficult is the lack of immidiate reward. What if you could take a look into the future? There is a social need for young adults to be financially responsible, live within their means and plan for their retirement early.
 
-MISO makes these decisions visible by turning an abstract financial plan into a sequence of understandable, interactive life events.
+L.I.F.E. makes the consequences of these decisions visible by turning an abstract financial plan into a sequence of understandable, interactive life events.
 
 # YOUR SOLUTION
 
-MISO is a browser-based financial life simulation in which users guide a character from age 20 to 65. Each five-year move combines income, expenses, savings, investments and mandatory or optional life events.
+L.I.F.E. is a browser-based financial life simulator in which users guide a character from age 20 to 65. Each five-year move combines income, expenses, savings, investments a milestone and random life events.
 
-The core idea is to show that financial choices interact. Users can adjust their monthly investment budget, divide savings between cash, an account and investments, transfer funds, trade stocks and observe changes in the character, room and financial snapshot.
-
-The game combines a visual Phaser world with React-based finance controls. This makes financial outcomes more concrete than a traditional calculator while keeping the experience interactive and accessible.
+The core idea is to show that financial choices influence your financial possibilities as well as your wellbeing. Users can adjust their monthly saving budget, divide savings between cash, a savings account and investments, transfer funds, trade stocks and observe changes in the character, room and financial snapshot.
 
 # THE WORKING PROTOTYPE
 
 Users can currently:
 
-- Progress through life in five-year moves, from age 20 to 65.
-- Set a monthly investment amount based on household income and fixed expenses.
+- Progress through life in five-year jumps, from age 20 to 65.
+- Set a monthly savings amount based on household income and fixed expenses.
 - Allocate investments between cash at home, a savings account and stocks.
 - Transfer funds between savings categories.
-- Open a stock market, view price history and buy or sell TESLA, MICROSOFT or NVIDIA shares.
-- Review net worth, projected annual growth, fixed-cost runway and stock profit or loss.
-- Resolve mandatory life-event cards and advance only after the required event is completed.
-- View three optional cards per turn and inspect their descriptions.
+- Review net worth, projected annual growth, emergency fund and stock profit or loss.
+- Resolve mandatory life-event cards (milestones) and advance only after the required event is completed.
+- View three optional, random cards per turn and inspect their descriptions.
 - See the character and room assets react to selected state changes.
 
-Each move applies income allocations, updates savings, changes stock prices and draws a new set of life events. The available game data includes more than 40 life events.
+Each move applies income allocations, updates savings and draws a new set of life events. The available game data includes more than 40 life events.
 
 # BEHIND THE BUILD
 
