@@ -10,6 +10,9 @@ MISO is a life-finance simulation that helps users explore saving, investing, bu
 
 React 19, TypeScript, Phaser 4, Vite 6, Zustand 5, Immer, Bulma 1, HTML5 Canvas and CSS.
 
+# AI Technology
+Nano Banana 2.1 (claude for business), Copilot,
+
 # THE PROBLEM
 
 Many people find personal finance difficult to understand because its consequences appear over years rather than immediately. Young adults and future workers must make decisions about spending, savings, debt, investments and unexpected life events without a safe place to experience their long-term effects.
